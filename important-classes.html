@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>মোস্ট ইমপর্ট্যান্ট ক্লাস | Shikho</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="data/user.js"></script>
+  <script>
+    // Paid (enrolled) or free homepage, decided before first paint. ?paid / ?free preview either.
+    (function () {
+      var q = new URLSearchParams(location.search);
+      var user = q.has('guest') ? null : window.SHIKHO_USER;
+      var paid = q.has('paid') || (!q.has('free') && !!(user && user.enrolled));
+      document.documentElement.dataset.plan = paid ? 'paid' : 'free';
+      if (q.has('embed')) document.documentElement.classList.add('is-embedded'); // inside compare.html
+    })();
+  </script>
+</head>
+<body>
+  <div class="page">
+
+    <header class="page-nav page-nav--sub">
+<div class="subpage-bar">
+      <a href="index.html" class="subpage-back" data-back aria-label="ফিরে যাও">
+        <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      </a>
+      <h1 class="subpage-title">মোস্ট ইমপর্ট্যান্ট ক্লাস</h1>
+    </div>
+    </header>
+
+<main class="subpage-main">
+      <div class="chip-row h-scroll" role="group" aria-label="বিষয় অনুযায়ী ফিল্টার">
+        <button type="button" class="chip is-active" data-filter="" aria-pressed="true">সব</button>
+        <button type="button" class="chip" data-filter="পদার্থবিজ্ঞান" aria-pressed="false"><img src="assets/p05-image-physics.png" alt="" width="14" height="20">পদার্থবিজ্ঞান</button>
+        <button type="button" class="chip" data-filter="বাংলা ১ম পত্র" aria-pressed="false"><img src="assets/p05-image-bangla1st.png" alt="" width="14" height="20">বাংলা ১ম পত্র</button>
+        <button type="button" class="chip" data-filter="সাধারণ গণিত" aria-pressed="false"><img src="assets/p05-image-general-maths.png" alt="" width="14" height="20">সাধারণ গণিত</button>
+        <button type="button" class="chip" data-filter="জীববিজ্ঞান" aria-pressed="false"><img src="assets/p05-image-biology.png" alt="" width="14" height="20">জীববিজ্ঞান</button>
+        <button type="button" class="chip" data-filter="ইংরেজী ১ম পত্র" aria-pressed="false"><img src="assets/p05-image-english1st-paper.png" alt="" width="14" height="20">ইংরেজী ১ম পত্র</button>
+        <button type="button" class="chip" data-filter="রসায়ন" aria-pressed="false"><img src="assets/p05-image-chemistry.png" alt="" width="14" height="20">রসায়ন</button>
+        <button type="button" class="chip" data-filter="English B" aria-pressed="false"><img src="assets/p05-image-english-new1.png" alt="" width="14" height="20">English B</button>
+        <button type="button" class="chip" data-filter="উচ্চতর গণিত" aria-pressed="false"><img src="assets/p05-image-higher-math.png" alt="" width="14" height="20">উচ্চতর গণিত</button>
+      </div>
+      <div class="video-list" data-filter-list>
+        <a href="#" class="video-card" data-route="video" data-subject="সাধারণ গণিত">
+          <span class="video-thumb">
+            <img src="assets/live/vid-bksurya6vxjnrzimvp0l.jpg" alt="" width="640" height="360" loading="lazy">
+            <span class="video-duration">03:45</span>
+            <span class="video-play"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M4 2.5v9a.6.6 0 0 0 .9.5l7.2-4.5a.6.6 0 0 0 0-1L4.9 2a.6.6 0 0 0-.9.5Z"/></svg></span>
+          </span>
+          <span class="video-body">
+            <span class="video-title">&quot; বীজগাণিতিক রাশি পর্ব-৫&quot;</span>
+            <span class="video-meta">
+              <span class="video-teacher"><img src="assets/live/ava-gkiachb74kbc6cdh4toq.jpg" alt="" width="24" height="24" loading="lazy">Shikho Farhana</span>
+              <span class="tag-pill">সাধারণ গণিত</span>
+            </span>
+          </span>
+        </a>
+        <a href="#" class="video-card" data-route="video" data-subject="সাধারণ গণিত">
+          <span class="video-thumb">
+            <img src="assets/live/vid-fsbkpolsnedm59ipz7sc.jpg" alt="" width="640" height="360" loading="lazy">
+            <span class="video-duration">03:45</span>
+            <span class="video-play"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M4 2.5v9a.6.6 0 0 0 .9.5l7.2-4.5a.6.6 0 0 0 0-1L4.9 2a.6.6 0 0 0-.9.5Z"/></svg></span>
+          </span>
+          <span class="video-body">
+            <span class="video-title">বল পর্ব-৫</span>
+            <span class="video-meta">
+              <span class="video-teacher"><img src="assets/live/ava-gkiachb74kbc6cdh4toq.jpg" alt="" width="24" height="24" loading="lazy">Shikho Farhana</span>
+              <span class="tag-pill">সাধারণ গণিত</span>
+            </span>
+          </span>
+        </a>
+        <a href="#" class="video-card" data-route="video" data-subject="পদার্থবিজ্ঞান">
+          <span class="video-thumb">
+            <img src="assets/live/vid-rcu6qtwyjyehyuxhjem1.jpg" alt="" width="640" height="360" loading="lazy">
+            <span class="video-duration">03:45</span>
+            <span class="video-play"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M4 2.5v9a.6.6 0 0 0 .9.5l7.2-4.5a.6.6 0 0 0 0-1L4.9 2a.6.6 0 0 0-.9.5Z"/></svg></span>
+          </span>
+          <span class="video-body">
+            <span class="video-title">বল পর্ব-৪</span>
+            <span class="video-meta">
+              <span class="video-teacher"><img src="assets/live/ava-gkiachb74kbc6cdh4toq.jpg" alt="" width="24" height="24" loading="lazy">Shikho Farhana</span>
+              <span class="tag-pill">পদার্থবিজ্ঞান</span>
+            </span>
+          </span>
+        </a>
+        <a href="#" class="video-card" data-route="video" data-subject="রসায়ন">
+          <span class="video-thumb">
+            <img src="assets/live/vid-bob5gi3zbaad9ryrmp9e.jpg" alt="" width="640" height="360" loading="lazy">
+            <span class="video-duration">03:45</span>
+            <span class="video-play"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M4 2.5v9a.6.6 0 0 0 .9.5l7.2-4.5a.6.6 0 0 0 0-1L4.9 2a.6.6 0 0 0-.9.5Z"/></svg></span>
+          </span>
+          <span class="video-body">
+            <span class="video-title">পর্যায় সারণি পর্ব-১</span>
+            <span class="video-meta">
+              <span class="video-teacher"><img src="assets/live/ava-gkiachb74kbc6cdh4toq.jpg" alt="" width="24" height="24" loading="lazy">Shikho Farhana</span>
+              <span class="tag-pill">রসায়ন</span>
+            </span>
+          </span>
+        </a>
+        <a href="#" class="video-card" data-route="video" data-subject="রসায়ন">
+          <span class="video-thumb">
+            <img src="assets/live/vid-i2tmzc643ic5r5azaa8k.jpg" alt="" width="640" height="360" loading="lazy">
+            <span class="video-duration">03:45</span>
+            <span class="video-play"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M4 2.5v9a.6.6 0 0 0 .9.5l7.2-4.5a.6.6 0 0 0 0-1L4.9 2a.6.6 0 0 0-.9.5Z"/></svg></span>
+          </span>
+          <span class="video-body">
+            <span class="video-title">পর্যায় সারণি পর্ব-২</span>
+            <span class="video-meta">
+              <span class="video-teacher"><img src="assets/live/ava-gkiachb74kbc6cdh4toq.jpg" alt="" width="24" height="24" loading="lazy">Shikho Farhana</span>
+              <span class="tag-pill">রসায়ন</span>
+            </span>
+          </span>
+        </a>
+        <a href="#" class="video-card" data-route="video" data-subject="জীববিজ্ঞান">
+          <span class="video-thumb">
+            <img src="assets/live/vid-duafurmppolz6twcl9of.jpg" alt="" width="640" height="360" loading="lazy">
+            <span class="video-duration">58:18</span>
+            <span class="video-play"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M4 2.5v9a.6.6 0 0 0 .9.5l7.2-4.5a.6.6 0 0 0 0-1L4.9 2a.6.6 0 0 0-.9.5Z"/></svg></span>
+          </span>
+          <span class="video-body">
+            <span class="video-title">কোষ বিভাজন পর্ব-২</span>
+            <span class="video-meta">
+              <span class="video-teacher"><img src="assets/live/ava-uuk7ymvcdml2tkyynl7u.jpg" alt="" width="24" height="24" loading="lazy">Mohammad Bin Touhid</span>
+              <span class="tag-pill">জীববিজ্ঞান</span>
+            </span>
+          </span>
+        </a>
+        <a href="#" class="video-card" data-route="video" data-subject="জীববিজ্ঞান">
+          <span class="video-thumb">
+            <img src="assets/live/vid-k5kaummqq7g1hgyigsjg.jpg" alt="" width="640" height="360" loading="lazy">
+            <span class="video-duration">1:39:30</span>
+            <span class="video-play"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M4 2.5v9a.6.6 0 0 0 .9.5l7.2-4.5a.6.6 0 0 0 0-1L4.9 2a.6.6 0 0 0-.9.5Z"/></svg></span>
+          </span>
+          <span class="video-body">
+            <span class="video-title">জীবকোষ ও টিস্যু পর্ব-২</span>
+            <span class="video-meta">
+              <span class="video-teacher"><img src="assets/live/ava-bicy3snl9vsfdgb8er60.jpg" alt="" width="24" height="24" loading="lazy">Mahbir Ahmed Maheen</span>
+              <span class="tag-pill">জীববিজ্ঞান</span>
+            </span>
+          </span>
+        </a>
+        <a href="#" class="video-card" data-route="video" data-subject="বাংলাদেশ ও বিশ্ব পরিচয় - SSC&#x27;25">
+          <span class="video-thumb">
+            <img src="assets/live/vid-tjuonparpdgfpsak78jq.jpg" alt="" width="640" height="360" loading="lazy">
+            <span class="video-duration">1:12:24</span>
+            <span class="video-play"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M4 2.5v9a.6.6 0 0 0 .9.5l7.2-4.5a.6.6 0 0 0 0-1L4.9 2a.6.6 0 0 0-.9.5Z"/></svg></span>
+          </span>
+          <span class="video-body">
+            <span class="video-title">সৌরজগৎ ও ভূমন্ডল পর্ব-২</span>
+            <span class="video-meta">
+              <span class="video-teacher"><img src="assets/live/ava-oozud4annb9ak9xjah5x.jpg" alt="" width="24" height="24" loading="lazy">Kamrul Hasan Shahedin</span>
+              <span class="tag-pill">বাংলাদেশ ও বিশ্ব পরিচয় - SSC&#x27;25</span>
+            </span>
+          </span>
+        </a>
+        <a href="#" class="video-card" data-route="video" data-subject="বাংলাদেশ ও বিশ্ব পরিচয় - SSC&#x27;25">
+          <span class="video-thumb">
+            <img src="assets/live/vid-c0qlrh7zbsobeyfwjf4c.jpg" alt="" width="640" height="360" loading="lazy">
+            <span class="video-duration">1:15:46</span>
+            <span class="video-play"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M4 2.5v9a.6.6 0 0 0 .9.5l7.2-4.5a.6.6 0 0 0 0-1L4.9 2a.6.6 0 0 0-.9.5Z"/></svg></span>
+          </span>
+          <span class="video-body">
+            <span class="video-title">সৌরজগৎ ও ভূমন্ডল পর্ব-৩</span>
+            <span class="video-meta">
+              <span class="video-teacher"><img src="assets/live/ava-oozud4annb9ak9xjah5x.jpg" alt="" width="24" height="24" loading="lazy">Kamrul Hasan Shahedin</span>
+              <span class="tag-pill">বাংলাদেশ ও বিশ্ব পরিচয় - SSC&#x27;25</span>
+            </span>
+          </span>
+        </a>
+        <a href="#" class="video-card" data-route="video" data-subject="বাংলা ১ম পত্র">
+          <span class="video-thumb">
+            <img src="assets/live/vid-cauyclmrwwqjupnaj4w3.jpg" alt="" width="640" height="360" loading="lazy">
+            <span class="video-duration">49:16</span>
+            <span class="video-play"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M4 2.5v9a.6.6 0 0 0 .9.5l7.2-4.5a.6.6 0 0 0 0-1L4.9 2a.6.6 0 0 0-.9.5Z"/></svg></span>
+          </span>
+          <span class="video-body">
+            <span class="video-title">সুভা</span>
+            <span class="video-meta">
+              <span class="video-teacher"><img src="assets/live/ava-tiqdjc6xme5mmfaixjw6.jpg" alt="" width="24" height="24" loading="lazy">Abdullah Al Mehedi</span>
+              <span class="tag-pill">বাংলা ১ম পত্র</span>
+            </span>
+          </span>
+        </a>
+        <a href="#" class="video-card" data-route="video" data-subject="বাংলা ১ম পত্র">
+          <span class="video-thumb">
+            <img src="assets/live/vid-pllavowypulwx5oazvyn.jpg" alt="" width="640" height="360" loading="lazy">
+            <span class="video-duration">1:00:12</span>
+            <span class="video-play"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M4 2.5v9a.6.6 0 0 0 .9.5l7.2-4.5a.6.6 0 0 0 0-1L4.9 2a.6.6 0 0 0-.9.5Z"/></svg></span>
+          </span>
+          <span class="video-body">
+            <span class="video-title">নিমগাছ + সেইদিন এই মাঠ</span>
+            <span class="video-meta">
+              <span class="video-teacher"><img src="assets/live/ava-tiqdjc6xme5mmfaixjw6.jpg" alt="" width="24" height="24" loading="lazy">Abdullah Al Mehedi</span>
+              <span class="tag-pill">বাংলা ১ম পত্র</span>
+            </span>
+          </span>
+        </a>
+        <a href="#" class="video-card" data-route="video" data-subject="বাংলা ২য় পত্র">
+          <span class="video-thumb">
+            <img src="assets/live/vid-hnc1b2ntmhtwydkomhr2.jpg" alt="" width="640" height="360" loading="lazy">
+            <span class="video-duration">1:12:14</span>
+            <span class="video-play"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M4 2.5v9a.6.6 0 0 0 .9.5l7.2-4.5a.6.6 0 0 0 0-1L4.9 2a.6.6 0 0 0-.9.5Z"/></svg></span>
+          </span>
+          <span class="video-body">
+            <span class="video-title">ব্যাকরণ, ধ্বনি ও ভাষারীতি ১</span>
+            <span class="video-meta">
+              <span class="video-teacher"><img src="assets/live/ava-lwo7bknbxy1tzv73dqry.jpg" alt="" width="24" height="24" loading="lazy">Hironmoy Bowali</span>
+              <span class="tag-pill">বাংলা ২য় পত্র</span>
+            </span>
+          </span>
+        </a>
+        <a href="#" class="video-card" data-route="video" data-subject="বাংলা ২য় পত্র">
+          <span class="video-thumb">
+            <img src="assets/live/vid-ygmcw5ie2imaz0filbp2.jpg" alt="" width="640" height="360" loading="lazy">
+            <span class="video-duration">1:15:30</span>
+            <span class="video-play"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M4 2.5v9a.6.6 0 0 0 .9.5l7.2-4.5a.6.6 0 0 0 0-1L4.9 2a.6.6 0 0 0-.9.5Z"/></svg></span>
+          </span>
+          <span class="video-body">
+            <span class="video-title">সমাস-১</span>
+            <span class="video-meta">
+              <span class="video-teacher"><img src="assets/live/ava-tiqdjc6xme5mmfaixjw6.jpg" alt="" width="24" height="24" loading="lazy">Abdullah Al Mehedi</span>
+              <span class="tag-pill">বাংলা ২য় পত্র</span>
+            </span>
+          </span>
+        </a>
+        <a href="#" class="video-card" data-route="video" data-subject="ইংরেজি ১ম পত্র">
+          <span class="video-thumb">
+            <img src="assets/live/vid-hojtskhaw0jci1jz0awl.jpg" alt="" width="640" height="360" loading="lazy">
+            <span class="video-duration">1:11:02</span>
+            <span class="video-play"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M4 2.5v9a.6.6 0 0 0 .9.5l7.2-4.5a.6.6 0 0 0 0-1L4.9 2a.6.6 0 0 0-.9.5Z"/></svg></span>
+          </span>
+          <span class="video-body">
+            <span class="video-title">Unit-2: Lesson 3, 4 &amp; 5</span>
+            <span class="video-meta">
+              <span class="video-teacher"><img src="assets/live/ava-hwzyhlotxjmpbt98ms40.jpg" alt="" width="24" height="24" loading="lazy">Diba Chowdhury</span>
+              <span class="tag-pill">ইংরেজি ১ম পত্র</span>
+            </span>
+          </span>
+        </a>
+        <a href="#" class="video-card" data-route="video" data-subject="ইংরেজি ১ম পত্র">
+          <span class="video-thumb">
+            <img src="assets/live/vid-mndjmvvga4o3ewivoftf.jpg" alt="" width="640" height="360" loading="lazy">
+            <span class="video-duration">1:00:54</span>
+            <span class="video-play"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M4 2.5v9a.6.6 0 0 0 .9.5l7.2-4.5a.6.6 0 0 0 0-1L4.9 2a.6.6 0 0 0-.9.5Z"/></svg></span>
+          </span>
+          <span class="video-body">
+            <span class="video-title">Writing Part Class</span>
+            <span class="video-meta">
+              <span class="video-teacher"><img src="assets/live/ava-trbr6ctqrukajut0th5z.jpg" alt="" width="24" height="24" loading="lazy">Tashfikal Sami</span>
+              <span class="tag-pill">ইংরেজি ১ম পত্র</span>
+            </span>
+          </span>
+        </a>
+        <a href="#" class="video-card" data-route="video" data-subject="ইংরেজি ২য় পত্র">
+          <span class="video-thumb">
+            <img src="assets/live/vid-g2otv8jfbk8ftihfnksz.jpg" alt="" width="640" height="360" loading="lazy">
+            <span class="video-duration">1:15:24</span>
+            <span class="video-play"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="#fff"><path d="M4 2.5v9a.6.6 0 0 0 .9.5l7.2-4.5a.6.6 0 0 0 0-1L4.9 2a.6.6 0 0 0-.9.5Z"/></svg></span>
+          </span>
+          <span class="video-body">
+            <span class="video-title">Changing Sentences-03</span>
+            <span class="video-meta">
+              <span class="video-teacher"><img src="assets/live/ava-mlu9yu69ieoylyg7cpej.jpg" alt="" width="24" height="24" loading="lazy">Abdullah Sadman Zamee</span>
+              <span class="tag-pill">ইংরেজি ২য় পত্র</span>
+            </span>
+          </span>
+        </a>
+      </div>
+      <p class="filter-empty" hidden>এই বিষয়ের কোনো ক্লাস এখন নেই</p>
+    </main>
+  </div>
+<!-- Primary mobile navigation (app bottom bar design, Figma 145:15724) -->
+<nav class="bottom-nav" aria-label="প্রধান নেভিগেশন">
+  <a href="index.html" class="bottom-nav-item is-active" aria-current="page" data-route="home">
+    <span class="bottom-nav-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="19.43" height="20" viewBox="0 0 19.4287 19.999" fill="currentColor"><path d="M17.4053 9.10938C18.5209 9.10955 19.4285 10.0281 19.4287 11.1572C19.4287 11.9867 18.9399 12.7301 18.1826 13.0488C17.956 13.1451 17.8097 13.3671 17.8096 13.6152L17.4053 15.2539C17.4053 16.7244 16.3046 17.9388 14.8945 18.1016C15.2268 18.2622 15.458 18.6037 15.458 19.001C15.4578 19.552 15.0162 19.9988 14.4717 19.999C13.927 19.999 13.4846 19.5522 13.4844 19.001C13.4844 18.618 13.6993 18.2887 14.0117 18.1211H5.41797C5.73045 18.289 5.94531 18.6184 5.94531 19.001C5.94512 19.5521 5.50359 19.9989 4.95898 19.999C4.41429 19.999 3.97187 19.5522 3.97168 19.001C3.97168 18.6036 4.20382 18.2621 4.53613 18.1016C3.12471 17.9389 2.02344 16.7245 2.02344 15.2539L1.61914 13.6152C1.61906 13.3675 1.4727 13.1451 1.24609 13.0488C0.488881 12.7297 0 11.9867 0 11.1572C0.000194613 10.0281 0.907797 9.10959 2.02344 9.10938C3.80886 9.10938 5.26172 10.5798 5.26172 12.3867V12.9854C5.97896 12.726 7.36599 12.3867 9.71484 12.3867C12.0634 12.3868 13.4502 12.7261 14.167 12.9854V12.3867C14.167 10.5798 15.6198 9.10938 17.4053 9.10938ZM9.71191 0C13.0654 0 15.7841 2.7511 15.7842 6.14453V8.33105C14.4132 8.87465 13.3699 10.0855 13.0518 11.5684C12.2094 11.4127 11.1124 11.2969 9.71191 11.2969C8.31161 11.2969 7.2153 11.4127 6.37305 11.5684C6.05491 10.0859 5.01152 8.87565 3.64062 8.33203V6.14453C3.64068 2.75117 6.35896 0.000111759 9.71191 0Z"/></svg></span>
+    <span class="bottom-nav-label">হোম</span>
+  </a>
+  <a href="#" class="bottom-nav-item" data-route="courses">
+    <span class="bottom-nav-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M17.5007 3.33333H16.6673V0.833333C16.6673 0.373333 16.294 0 15.834 0H3.33398C1.95565 0 0.834818 1.12083 0.833984 2.49917V2.5V17.5C0.833984 18.8783 1.95565 20 3.33398 20H17.5007C17.9607 20 18.334 19.6267 18.334 19.1667V4.16667C18.334 3.70667 17.9607 3.33333 17.5007 3.33333ZM12.5007 11.875C12.5007 12.4467 11.7965 12.7142 11.4148 12.2975L9.58398 10.3L7.75315 12.2975C7.37148 12.7158 6.66732 12.4458 6.66732 11.875V5.83333C6.66732 5.37333 7.04065 5 7.50065 5H11.6673C12.1273 5 12.5007 5.37333 12.5007 5.83333V11.875ZM15.0007 3.33333H3.33398C2.87482 3.33333 2.50065 2.95917 2.50065 2.5C2.50065 2.04083 2.87482 1.66667 3.33398 1.66667H15.0007V3.33333Z"/></svg></span>
+    <span class="bottom-nav-label">কোর্স</span>
+  </a>
+  <a href="#" class="bottom-nav-item" data-route="ai">
+    <span class="bottom-nav-icon"><img src="assets/nav-ai.svg" width="22" height="22" alt=""></span>
+    <span class="bottom-nav-label">Shikho AI</span>
+  </a>
+  <a href="profile.html" class="bottom-nav-item" data-route="profile">
+    <span class="bottom-nav-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="2.5 2.5 19 19" fill="currentColor"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-4.42 0-8 2.24-8 5v1.5c0 .55.45 1 1 1h14c.55 0 1-.45 1-1V19c0-2.76-3.58-5-8-5Z"/></svg></span>
+    <span class="bottom-nav-label">প্রোফাইল</span>
+  </a>
+</nav>
+<div id="proto-toast" class="proto-toast" role="status" aria-live="polite"></div>
+
+  <script src="main.js"></script>
+</body>
+</html>

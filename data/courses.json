@@ -1,0 +1,86 @@
+{
+ "title": "চমৎকার প্রস্তুতির জন্য আমাদের কোর্স সমূহ",
+ "source": "app.shikho.dev/student/courses (dev server; test courses without images left out)",
+ "courses": [
+  {
+   "thumb": "assets/live/course-xsji8yhath6uh3wnwtpx.jpg",
+   "title": "Class 10 - SSC '26 Science QA testing",
+   "days": "৮২১",
+   "price": "০",
+   "old": null,
+   "detail": false
+  },
+  {
+   "thumb": "assets/live/course-ffmzf0twxsnohlvcrapd.jpg",
+   "title": "Class 10 - SSC' 27 QA testing",
+   "days": "৩৯৪",
+   "price": "০",
+   "old": null,
+   "detail": false
+  },
+  {
+   "thumb": "assets/live/course-k8k25d25wwphrekip1ly.jpg",
+   "title": "লক্ষ্য GPA - 5 SSC '24 QA",
+   "days": "৩৯৪",
+   "price": "০",
+   "old": null,
+   "detail": false
+  },
+  {
+   "thumb": "assets/live/course-qfvswxzi2a7tvg5apjau.jpg",
+   "title": "Science Ten Course",
+   "days": "৭২৯",
+   "price": "০",
+   "old": null,
+   "detail": false
+  },
+  {
+   "thumb": "assets/live/course-zyynu22v1eeutnv7teiz.jpg",
+   "title": "class 10 annual preparation",
+   "days": "৫৪৮",
+   "price": "০",
+   "old": null,
+   "detail": false
+  },
+  {
+   "thumb": "assets/live/course-ovfgoqjz71kytap8vqnv.jpg",
+   "title": "AI Free Course",
+   "days": "৪২৫",
+   "price": "০",
+   "old": null,
+   "detail": false
+  },
+  {
+   "thumb": "assets/live/course-gjbksncmyt9yscmdd4nn.jpg",
+   "title": "Animated General Math",
+   "days": "১০০",
+   "price": "১,০০০",
+   "old": "১,২০০",
+   "detail": true
+  },
+  {
+   "thumb": "assets/live/course-gqeu2jhw4wg6upgk1seq.jpg",
+   "title": "Animated Bundle",
+   "days": "১০০",
+   "price": "১,০০০",
+   "old": "১,২০০",
+   "detail": false
+  },
+  {
+   "thumb": "assets/live/course-nw89i72ki69evhfc4pim.jpg",
+   "title": "Genaral math Test paper",
+   "days": "৩৬৫",
+   "price": "৫,০০০",
+   "old": "৬,০০০",
+   "detail": false
+  },
+  {
+   "thumb": "assets/live/course-a9lahex5el2n8rsuz603.jpg",
+   "title": "Text Paper and Animated",
+   "days": "৩৬৫",
+   "price": "৪,০০০",
+   "old": "৬,০০০",
+   "detail": false
+  }
+ ]
+}

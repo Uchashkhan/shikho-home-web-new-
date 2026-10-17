@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>কোর্স | Shikho</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="data/user.js"></script>
+  <script>
+    // Paid (enrolled) or free homepage, decided before first paint. ?paid / ?free preview either.
+    (function () {
+      var q = new URLSearchParams(location.search);
+      var user = q.has('guest') ? null : window.SHIKHO_USER;
+      var paid = q.has('paid') || (!q.has('free') && !!(user && user.enrolled));
+      document.documentElement.dataset.plan = paid ? 'paid' : 'free';
+      if (q.has('embed')) document.documentElement.classList.add('is-embedded'); // inside compare.html
+    })();
+  </script>
+</head>
+<body>
+  <div class="page">
+
+    <header class="page-nav page-nav--sub">
+<div class="subpage-bar">
+      <a href="index.html" class="subpage-back" data-back aria-label="ফিরে যাও">
+        <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      </a>
+      <h1 class="subpage-title">কোর্স</h1>
+    </div>
+    </header>
+
+<main class="subpage-main">
+      <p class="page-lead">চমৎকার প্রস্তুতির জন্য আমাদের কোর্স সমূহ</p>
+      <div class="course-list">
+        <article class="course-card">
+          <img class="course-thumb" src="assets/live/course-xsji8yhath6uh3wnwtpx.jpg" alt="" width="720" height="405" loading="lazy">
+          <div class="course-body">
+            <h2 class="course-title">Class 10 - SSC &#x27;26 Science QA testing</h2>
+            <p class="course-days">কোর্সের মেয়াদ ৮২১ দিন</p>
+          </div>
+          <div class="course-foot">
+            <span class="course-price-wrap"><span class="course-price">মাত্র ৳ ০</span><span class="course-from">থেকে শুরু</span></span>
+            <a href="#" data-route="courseOther" class="btn-primary">বিস্তারিত</a>
+          </div>
+        </article>
+        <article class="course-card">
+          <img class="course-thumb" src="assets/live/course-ffmzf0twxsnohlvcrapd.jpg" alt="" width="720" height="405" loading="lazy">
+          <div class="course-body">
+            <h2 class="course-title">Class 10 - SSC&#x27; 27 QA testing</h2>
+            <p class="course-days">কোর্সের মেয়াদ ৩৯৪ দিন</p>
+          </div>
+          <div class="course-foot">
+            <span class="course-price-wrap"><span class="course-price">মাত্র ৳ ০</span><span class="course-from">থেকে শুরু</span></span>
+            <a href="#" data-route="courseOther" class="btn-primary">বিস্তারিত</a>
+          </div>
+        </article>
+        <article class="course-card">
+          <img class="course-thumb" src="assets/live/course-k8k25d25wwphrekip1ly.jpg" alt="" width="720" height="405" loading="lazy">
+          <div class="course-body">
+            <h2 class="course-title">লক্ষ্য GPA - 5 SSC &#x27;24 QA</h2>
+            <p class="course-days">কোর্সের মেয়াদ ৩৯৪ দিন</p>
+          </div>
+          <div class="course-foot">
+            <span class="course-price-wrap"><span class="course-price">মাত্র ৳ ০</span><span class="course-from">থেকে শুরু</span></span>
+            <a href="#" data-route="courseOther" class="btn-primary">বিস্তারিত</a>
+          </div>
+        </article>
+        <article class="course-card">
+          <img class="course-thumb" src="assets/live/course-qfvswxzi2a7tvg5apjau.jpg" alt="" width="720" height="405" loading="lazy">
+          <div class="course-body">
+            <h2 class="course-title">Science Ten Course</h2>
+            <p class="course-days">কোর্সের মেয়াদ ৭২৯ দিন</p>
+          </div>
+          <div class="course-foot">
+            <span class="course-price-wrap"><span class="course-price">মাত্র ৳ ০</span><span class="course-from">থেকে শুরু</span></span>
+            <a href="#" data-route="courseOther" class="btn-primary">বিস্তারিত</a>
+          </div>
+        </article>
+        <article class="course-card">
+          <img class="course-thumb" src="assets/live/course-zyynu22v1eeutnv7teiz.jpg" alt="" width="720" height="405" loading="lazy">
+          <div class="course-body">
+            <h2 class="course-title">class 10 annual preparation</h2>
+            <p class="course-days">কোর্সের মেয়াদ ৫৪৮ দিন</p>
+          </div>
+          <div class="course-foot">
+            <span class="course-price-wrap"><span class="course-price">মাত্র ৳ ০</span><span class="course-from">থেকে শুরু</span></span>
+            <a href="#" data-route="courseOther" class="btn-primary">বিস্তারিত</a>
+          </div>
+        </article>
+        <article class="course-card">
+          <img class="course-thumb" src="assets/live/course-ovfgoqjz71kytap8vqnv.jpg" alt="" width="720" height="405" loading="lazy">
+          <div class="course-body">
+            <h2 class="course-title">AI Free Course</h2>
+            <p class="course-days">কোর্সের মেয়াদ ৪২৫ দিন</p>
+          </div>
+          <div class="course-foot">
+            <span class="course-price-wrap"><span class="course-price">মাত্র ৳ ০</span><span class="course-from">থেকে শুরু</span></span>
+            <a href="#" data-route="courseOther" class="btn-primary">বিস্তারিত</a>
+          </div>
+        </article>
+        <article class="course-card">
+          <img class="course-thumb" src="assets/live/course-gjbksncmyt9yscmdd4nn.jpg" alt="" width="720" height="405" loading="lazy">
+          <div class="course-body">
+            <h2 class="course-title">Animated General Math</h2>
+            <p class="course-days">কোর্সের মেয়াদ ১০০ দিন</p>
+          </div>
+          <div class="course-foot">
+            <span class="course-price-wrap"><span class="course-price">মাত্র ৳ ১,০০০</span><s class="course-old">৳ ১,২০০</s></span>
+            <a href="course.html" data-route="course" class="btn-primary">বিস্তারিত</a>
+          </div>
+        </article>
+        <article class="course-card">
+          <img class="course-thumb" src="assets/live/course-gqeu2jhw4wg6upgk1seq.jpg" alt="" width="720" height="405" loading="lazy">
+          <div class="course-body">
+            <h2 class="course-title">Animated Bundle</h2>
+            <p class="course-days">কোর্সের মেয়াদ ১০০ দিন</p>
+          </div>
+          <div class="course-foot">
+            <span class="course-price-wrap"><span class="course-price">মাত্র ৳ ১,০০০</span><s class="course-old">৳ ১,২০০</s></span>
+            <a href="#" data-route="courseOther" class="btn-primary">বিস্তারিত</a>
+          </div>
+        </article>
+        <article class="course-card">
+          <img class="course-thumb" src="assets/live/course-nw89i72ki69evhfc4pim.jpg" alt="" width="720" height="405" loading="lazy">
+          <div class="course-body">
+            <h2 class="course-title">Genaral math Test paper</h2>
+            <p class="course-days">কোর্সের মেয়াদ ৩৬৫ দিন</p>
+          </div>
+          <div class="course-foot">
+            <span class="course-price-wrap"><span class="course-price">মাত্র ৳ ৫,০০০</span><s class="course-old">৳ ৬,০০০</s></span>
+            <a href="#" data-route="courseOther" class="btn-primary">বিস্তারিত</a>
+          </div>
+        </article>
+        <article class="course-card">
+          <img class="course-thumb" src="assets/live/course-a9lahex5el2n8rsuz603.jpg" alt="" width="720" height="405" loading="lazy">
+          <div class="course-body">
+            <h2 class="course-title">Text Paper and Animated</h2>
+            <p class="course-days">কোর্সের মেয়াদ ৩৬৫ দিন</p>
+          </div>
+          <div class="course-foot">
+            <span class="course-price-wrap"><span class="course-price">মাত্র ৳ ৪,০০০</span><s class="course-old">৳ ৬,০০০</s></span>
+            <a href="#" data-route="courseOther" class="btn-primary">বিস্তারিত</a>
+          </div>
+        </article>
+      </div>
+    </main>
+  </div>
+<!-- Primary mobile navigation (app bottom bar design, Figma 145:15724) -->
+<nav class="bottom-nav" aria-label="প্রধান নেভিগেশন">
+  <a href="index.html" class="bottom-nav-item" data-route="home">
+    <span class="bottom-nav-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="19.43" height="20" viewBox="0 0 19.4287 19.999" fill="currentColor"><path d="M17.4053 9.10938C18.5209 9.10955 19.4285 10.0281 19.4287 11.1572C19.4287 11.9867 18.9399 12.7301 18.1826 13.0488C17.956 13.1451 17.8097 13.3671 17.8096 13.6152L17.4053 15.2539C17.4053 16.7244 16.3046 17.9388 14.8945 18.1016C15.2268 18.2622 15.458 18.6037 15.458 19.001C15.4578 19.552 15.0162 19.9988 14.4717 19.999C13.927 19.999 13.4846 19.5522 13.4844 19.001C13.4844 18.618 13.6993 18.2887 14.0117 18.1211H5.41797C5.73045 18.289 5.94531 18.6184 5.94531 19.001C5.94512 19.5521 5.50359 19.9989 4.95898 19.999C4.41429 19.999 3.97187 19.5522 3.97168 19.001C3.97168 18.6036 4.20382 18.2621 4.53613 18.1016C3.12471 17.9389 2.02344 16.7245 2.02344 15.2539L1.61914 13.6152C1.61906 13.3675 1.4727 13.1451 1.24609 13.0488C0.488881 12.7297 0 11.9867 0 11.1572C0.000194613 10.0281 0.907797 9.10959 2.02344 9.10938C3.80886 9.10938 5.26172 10.5798 5.26172 12.3867V12.9854C5.97896 12.726 7.36599 12.3867 9.71484 12.3867C12.0634 12.3868 13.4502 12.7261 14.167 12.9854V12.3867C14.167 10.5798 15.6198 9.10938 17.4053 9.10938ZM9.71191 0C13.0654 0 15.7841 2.7511 15.7842 6.14453V8.33105C14.4132 8.87465 13.3699 10.0855 13.0518 11.5684C12.2094 11.4127 11.1124 11.2969 9.71191 11.2969C8.31161 11.2969 7.2153 11.4127 6.37305 11.5684C6.05491 10.0859 5.01152 8.87565 3.64062 8.33203V6.14453C3.64068 2.75117 6.35896 0.000111759 9.71191 0Z"/></svg></span>
+    <span class="bottom-nav-label">হোম</span>
+  </a>
+  <a href="#" class="bottom-nav-item is-active" aria-current="page" data-route="courses">
+    <span class="bottom-nav-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path d="M17.5007 3.33333H16.6673V0.833333C16.6673 0.373333 16.294 0 15.834 0H3.33398C1.95565 0 0.834818 1.12083 0.833984 2.49917V2.5V17.5C0.833984 18.8783 1.95565 20 3.33398 20H17.5007C17.9607 20 18.334 19.6267 18.334 19.1667V4.16667C18.334 3.70667 17.9607 3.33333 17.5007 3.33333ZM12.5007 11.875C12.5007 12.4467 11.7965 12.7142 11.4148 12.2975L9.58398 10.3L7.75315 12.2975C7.37148 12.7158 6.66732 12.4458 6.66732 11.875V5.83333C6.66732 5.37333 7.04065 5 7.50065 5H11.6673C12.1273 5 12.5007 5.37333 12.5007 5.83333V11.875ZM15.0007 3.33333H3.33398C2.87482 3.33333 2.50065 2.95917 2.50065 2.5C2.50065 2.04083 2.87482 1.66667 3.33398 1.66667H15.0007V3.33333Z"/></svg></span>
+    <span class="bottom-nav-label">কোর্স</span>
+  </a>
+  <a href="#" class="bottom-nav-item" data-route="ai">
+    <span class="bottom-nav-icon"><img src="assets/nav-ai.svg" width="22" height="22" alt=""></span>
+    <span class="bottom-nav-label">Shikho AI</span>
+  </a>
+  <a href="profile.html" class="bottom-nav-item" data-route="profile">
+    <span class="bottom-nav-icon"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="2.5 2.5 19 19" fill="currentColor"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-4.42 0-8 2.24-8 5v1.5c0 .55.45 1 1 1h14c.55 0 1-.45 1-1V19c0-2.76-3.58-5-8-5Z"/></svg></span>
+    <span class="bottom-nav-label">প্রোফাইল</span>
+  </a>
+</nav>
+<div id="proto-toast" class="proto-toast" role="status" aria-live="polite"></div>
+
+  <script src="main.js"></script>
+</body>
+</html>

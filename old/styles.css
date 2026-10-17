@@ -1,0 +1,96 @@
+/* Frozen copy of the ORIGINAL (pre-redesign) styles, used only by old/free.html and old/paid.html */
+:root {
+  --page-bg: #f9f9fa;
+  --page-width: 412px;
+}
+
+* { box-sizing: border-box; }
+
+/* Reserve scrollbar space so locking scroll for the menu doesn't shift the page */
+html { scrollbar-gutter: stable; }
+
+html, body {
+  margin: 0;
+  background: var(--page-bg);
+  font-family: 'Noto Sans Bengali', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Figma frame is a 412px mobile layout */
+.page {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  background: var(--page-bg);
+  /* clip (not hidden) so the sticky logo bar stays fixed at the top while scrolling */
+  overflow-x: clip;
+}
+
+.page-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 54px;
+}
+
+.page-main {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-bottom: 36px;
+}
+
+/* Horizontal scrollers (chips + card rows) */
+.h-scroll {
+  overflow-x: auto !important;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+.h-scroll::-webkit-scrollbar { display: none; }
+.h-scroll > * { scroll-snap-align: start; }
+
+button, a { cursor: pointer; }
+button { background: none; border: 0; padding: 0; font: inherit; color: inherit; }
+
+/* Burger menu: full-screen drawer sliding in from the right (matches live ant-drawer) */
+.menu-drawer {
+  /* Confined to the mobile screen column, not the whole browser window */
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: min(100vw, var(--page-width));
+  transform: translateX(-50%);
+  z-index: 100;
+  pointer-events: none;
+  overflow: hidden;
+  visibility: hidden;
+  /* stay visible until the slide-out finishes, then hide */
+  transition: visibility 0s linear 300ms;
+}
+.menu-panel {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.menu-drawer.is-open { pointer-events: auto; visibility: visible; transition-delay: 0s; }
+.menu-drawer.is-open .menu-panel { transform: translateX(0); }
+body.menu-locked { overflow: hidden; }
+
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 8px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fff;
+  color: #8c929c;
+  font: 500 13px/19.5px 'Noto Sans Bengali', sans-serif;
+  text-decoration: none;
+}
+.menu-link.is-active { background: #f4f4f6; color: #4d61f8; }
+.menu-link:hover:not(.is-active) { background: #f9f9fa; }

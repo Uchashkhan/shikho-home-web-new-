@@ -1,0 +1,363 @@
+:root {
+  --page-bg: #f9f9fa;
+  --page-width: 412px;
+  --bottom-nav-h: 78px; /* 12 top + 28 icon + 2 + 24 label + 8 + 4 indicator */
+  --bottom-nav-space: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom));
+}
+
+* { box-sizing: border-box; }
+
+/* Reserve scrollbar space so pages with and without a scrollbar line up */
+html { scrollbar-gutter: stable; }
+
+html, body {
+  margin: 0;
+  background: var(--page-bg);
+  font-family: 'Noto Sans Bengali', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Figma frame is a 412px mobile layout */
+.page {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  background: var(--page-bg);
+  /* clip (not hidden) so the sticky header still sticks to the viewport */
+  overflow-x: clip;
+  /* keep the footer clear of the fixed bottom navigation */
+  padding-bottom: var(--bottom-nav-space);
+}
+
+.page-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 54px;
+}
+/* Homepage: the header is a simple introduction that scrolls away with the page;
+   the logo row shares the page background with the greeting (no bar, no shadow) */
+.page-nav--intro { position: static; height: auto; }
+.page-nav--intro > [data-name="Navigation"] { background: transparent; filter: none; padding: 8px 16px 0; }
+/* Tighter lead-in from the header to the first section (its own top inset was sized for a sticky bar) */
+.page-nav--intro ~ .page-main > section[data-first] > [data-name="Section"] { padding-top: 20px; }
+
+/* Homepage content for the student's plan only (html[data-plan] is set in <head>) */
+/* the paid routine is a full-width white band: keep it clear of the header divider */
+.page-nav--intro ~ .page-main > section[data-plan="paid"][data-first] { margin-top: 16px; }
+html[data-plan="paid"] [data-plan="free"],
+html[data-plan="free"] [data-plan="paid"] { display: none !important; }
+
+.page-main {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-bottom: 36px;
+}
+
+/* Horizontal scrollers (chips + card rows) */
+.h-scroll {
+  overflow-x: auto !important;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  /* snap to the 16px page inset, not the screen edge */
+  scroll-padding-inline: 16px;
+  -webkit-overflow-scrolling: touch;
+}
+.h-scroll::-webkit-scrollbar { display: none; }
+.h-scroll > * { scroll-snap-align: start; }
+
+button, a { cursor: pointer; }
+/* No double-tap-zoom delay on taps */
+a, button, [role="button"] { touch-action: manipulation; }
+[hidden] { display: none !important; }
+button { background: none; border: 0; padding: 0; font: inherit; color: inherit; }
+
+/* Profile page action rows: one pattern for every row (icon, label, end mark) */
+.profile-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 56px;
+  padding: 16px 0;
+  color: #0a0c11;
+  font: 600 13px/19.5px 'Noto Sans Bengali', sans-serif;
+  text-align: left;
+  text-decoration: none;
+}
+.profile-list > .profile-row:not([hidden]) ~ .profile-row { border-top: 1px solid #e5e7eb; }
+.profile-row-icon { display: flex; flex-shrink: 0; }
+.profile-row-label { flex: 1; min-width: 0; }
+.profile-row-end { flex-shrink: 0; color: #8c929c; }
+.profile-row--danger { color: #e92020; }
+
+
+/* Primary mobile navigation, fixed inside the mobile column (app bottom bar, Figma 145:15724) */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  width: min(100vw, var(--page-width));
+  transform: translateX(-50%);
+  z-index: 60;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 20px env(safe-area-inset-bottom);
+  background: #fff;
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -1px 5px rgba(29, 22, 22, 0.11);
+}
+.bottom-nav-item {
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #b1bfca;            /* inactive icon */
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.bottom-nav-icon { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; }
+.bottom-nav-label {
+  margin-top: 2px;
+  color: #676ea0;
+  font: 500 14px/24px 'Noto Sans Bengali', sans-serif;
+  white-space: nowrap;
+}
+/* Active tab: pink icon and label, with a 4px indicator along the bottom edge */
+.bottom-nav-item::after {
+  content: '';
+  width: 100%;
+  height: 4px;
+  margin-top: 8px;
+  border-radius: 10px 10px 0 0;
+}
+.bottom-nav-item.is-active,
+.bottom-nav-item.is-active .bottom-nav-label { color: #e2008d; }
+.bottom-nav-item.is-active::after { background: #e2008d; }
+.bottom-nav-item:focus-visible { outline: 2px solid #e2008d; outline-offset: 2px; border-radius: 8px; }
+
+/* Notice for destinations that aren't built in this prototype */
+.proto-toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--bottom-nav-space) + 12px);
+  transform: translate(-50%, 8px);
+  z-index: 110;
+  max-width: calc(min(100vw, var(--page-width)) - 32px);
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: #222732;
+  color: #fff;
+  font: 500 12px/18px 'Noto Sans Bengali', sans-serif;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+.proto-toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+
+/* Empty result for the subject filter */
+.filter-empty {
+  align-self: stretch;
+  margin: 16px 16px 0;
+  padding: 24px 16px;
+  border-radius: 20px;
+  background: #fff;
+  color: #5b616d;
+  text-align: center;
+  font: 500 13px/19.5px 'Noto Sans Bengali', sans-serif;
+}
+
+/* Profile value that the student hasn't provided */
+.is-missing { color: #5b616d !important; font-weight: 500 !important; }
+
+/* Minimum 44px tap area for small buttons, without changing their size */
+.hit-44::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 44px;
+  transform: translateY(-50%);
+}
+
+/* Pressed feedback on the controls added for the app-like navigation */
+.bottom-nav-item,
+.profile-row,
+.page-greeting a,
+[data-section="features"] a { transition: opacity 150ms ease, transform 150ms ease; }
+.bottom-nav-item:active,
+.profile-row:active,
+.page-greeting a:active { opacity: 0.6; }
+[data-section="features"] a:active { transform: scale(0.97); }
+
+/* Respect the system "reduce motion" setting (carousel slides, toast, press effects) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ===== Inner pages (important classes, guidelines, courses, course detail, Shikho AI) ===== */
+.page-nav--sub { height: 56px; }
+.subpage-bar {
+  display: flex; align-items: center; gap: 4px; height: 56px; padding: 0 8px;
+  background: #fff;
+  box-shadow: 0 1px 0.5px rgba(0,0,0,0.04), 0 3px 1.5px rgba(0,0,0,0.04);
+}
+.subpage-back { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 999px; color: #0a0c11; }
+.subpage-back:active { background: #f4f4f6; }
+.subpage-title { margin: 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #0a0c11; font: 700 16px/24px 'Noto Sans Bengali', sans-serif; }
+.subpage-main { display: flex; flex-direction: column; gap: 16px; padding: 16px 16px 32px; }
+.page-lead { margin: 0; color: #0a0c11; font: 700 18px/27px 'Noto Sans Bengali', sans-serif; }
+
+/* Chips: same look as the homepage subject chips */
+.chip-row { display: flex; gap: 6px; margin: 0 -16px; padding: 0 16px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0; height: 36px; padding: 0 12px;
+  border: 1px solid #e5e7eb; border-radius: 1000px; background: transparent;
+  color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; text-decoration: none; white-space: nowrap;
+}
+.chip img { width: 14px; height: 20px; object-fit: cover; }
+.chip.is-active { border-color: #85a4ff; background: #d5e7ff; color: #3b4ee3; }
+.tag-pill { display: inline-flex; align-items: center; padding: 3px 8px; border: 1px solid #e5e7eb; border-radius: 1000px; background: #fff; color: #5b616d; font: 500 11px/16.5px 'Noto Sans Bengali', sans-serif; white-space: nowrap; }
+.tag-pill--lg { padding: 6px 12px; font-size: 12px; line-height: 18px; }
+
+/* Video card (same anatomy as the homepage class cards, stacked one per row) */
+.video-list { display: flex; flex-direction: column; gap: 16px; }
+.video-card {
+  display: flex; flex-direction: column; overflow: hidden; border-radius: 20px; background: #fff; text-decoration: none;
+  box-shadow: 0 1px 0.5px rgba(0,0,0,0.04), 0 3px 1.5px rgba(0,0,0,0.04), 0 24px 12px rgba(0,0,0,0.04);
+}
+.video-thumb { position: relative; display: block; aspect-ratio: 16 / 9; background: #ebecf0; }
+.video-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.video-duration { position: absolute; top: 8px; right: 8px; padding: 0 6px; border-radius: 6px; background: rgba(0,0,0,0.6); color: #fff; font: 600 11px/18px 'Noto Sans Bengali', sans-serif; }
+.video-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1.5px solid #fff; border-radius: 999px; background: rgba(0,0,0,0.25); }
+.video-body { display: flex; flex-direction: column; gap: 12px; padding: 12px 16px 16px; }
+.video-title { color: #0a0c11; font: 600 13px/19.5px 'Noto Sans Bengali', sans-serif; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.video-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.video-teacher { display: flex; align-items: center; gap: 8px; min-width: 0; color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.video-teacher img { width: 24px; height: 24px; border-radius: 999px; object-fit: cover; flex-shrink: 0; }
+.video-card .tag-pill { flex-shrink: 0; max-width: 55%; overflow: hidden; text-overflow: ellipsis; }
+
+/* Course card */
+.course-list { display: flex; flex-direction: column; gap: 16px; }
+.course-card {
+  display: flex; flex-direction: column; overflow: hidden; border-radius: 20px; background: #fff;
+  box-shadow: 0 1px 0.5px rgba(0,0,0,0.04), 0 3px 1.5px rgba(0,0,0,0.04), 0 24px 12px rgba(0,0,0,0.04);
+}
+.course-thumb { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #ebecf0; }
+.course-body { padding: 12px 16px; }
+.course-title { margin: 0; color: #0a0c11; font: 700 15px/22.5px 'Noto Sans Bengali', sans-serif; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.course-days { margin: 4px 0 0; color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
+.course-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; background: #eef1ff; }
+.course-price-wrap { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 6px; min-width: 0; }
+.course-price { color: #0a0c11; font: 700 15px/22.5px 'Noto Sans Bengali', sans-serif; }
+.course-from { color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
+.course-old { color: #8c929c; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; height: 40px; padding: 0 16px; border-radius: 10px;
+  background: #5468ff; color: #fff; font: 600 13px/24px 'Noto Sans Bengali', sans-serif; text-decoration: none;
+  box-shadow: inset 0 3px 4px rgba(255,255,255,0.32);
+}
+.btn-secondary {
+  display: flex; align-items: center; justify-content: center; height: 40px; padding: 0 12px; border: 1px solid rgba(107,114,128,0.12); border-radius: 10px;
+  background: #f4f4f6; color: #0a0c11; font: 600 13px/24px 'Noto Sans Bengali', sans-serif; text-decoration: none;
+}
+.course-row { display: flex; gap: 12px; margin: 0 -16px; padding: 0 16px 8px; }
+.course-card--compact { flex: 0 0 260px; }
+.course-card--compact .course-title { font-size: 13px; line-height: 19.5px; }
+
+/* Course detail */
+.course-detail { padding-bottom: calc(32px + 72px); }
+.course-hero { overflow: hidden; border-radius: 20px; background: #1e2b99; color: #fff; box-shadow: inset 0 0 32px #abb3f6; }
+.course-hero-img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.course-hero-body { padding: 16px; }
+.course-hero-title { margin: 0; font: 700 18px/27px 'Noto Sans Bengali', sans-serif; }
+.course-hero-meta { display: flex; align-items: center; gap: 8px; margin: 6px 0 0; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; color: rgba(255,255,255,0.86); }
+.hero-tag { padding: 2px 8px; border-radius: 1000px; background: rgba(255,255,255,0.16); color: #fff; }
+.course-tabs { display: flex; gap: 6px; margin: 0 -16px; padding: 4px 16px; position: sticky; top: 56px; z-index: 5; background: var(--page-bg); }
+.detail-card { display: flex; flex-direction: column; padding: 16px; scroll-margin-top: 112px; text-decoration: none; }
+.detail-heading { margin: 0 0 12px; color: #0a0c11; font: 700 15px/22.5px 'Noto Sans Bengali', sans-serif; }
+.detail-sub { margin: 0; color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
+.detail-sub--gap { margin-top: 16px; }
+.detail-sub--lead { margin-bottom: 12px; }
+.detail-text { margin: 0; color: #5b616d; font: 500 13px/19.5px 'Noto Sans Bengali', sans-serif; }
+.mentor { display: flex; gap: 12px; }
+.mentor-pic { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; flex-shrink: 0; overflow: hidden; border-radius: 999px; background: #eef1ff; color: #4d61f8; font: 600 18px/1 'Noto Sans Bengali', sans-serif; }
+.mentor-pic img { width: 100%; height: 100%; object-fit: cover; }
+.mentor-name { margin: 0; color: #0a0c11; font: 700 13px/19.5px 'Noto Sans Bengali', sans-serif; }
+.mentor-points { margin: 4px 0 0; padding-left: 16px; list-style: disc; color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
+.syllabus { border-top: 1px solid #f4f4f6; }
+.syllabus:first-of-type { border-top: 0; }
+.syllabus summary, .faq summary {
+  display: flex; align-items: center; gap: 8px; min-height: 48px; cursor: pointer; list-style: none;
+  color: #0a0c11; font: 600 13px/19.5px 'Noto Sans Bengali', sans-serif;
+}
+.syllabus summary::-webkit-details-marker, .faq summary::-webkit-details-marker { display: none; }
+.syllabus summary svg, .faq summary svg { margin-left: auto; flex-shrink: 0; color: #8c929c; transform: rotate(90deg); transition: transform 150ms ease; }
+.syllabus[open] summary svg, .faq[open] summary svg { transform: rotate(-90deg); }
+.syllabus-count { color: #5b616d; font-weight: 500; font-size: 12px; }
+.chapter-list { margin: 0 0 12px; padding: 0; list-style: none; display: flex; flex-direction: column; }
+.chapter-list li { display: flex; gap: 8px; padding: 8px 0; border-top: 1px dashed #ebecf0; color: #0a0c11; font: 500 13px/19.5px 'Noto Sans Bengali', sans-serif; }
+.chapter-no { flex-shrink: 0; width: 72px; color: #5b616d; font-size: 12px; }
+.syllabus-empty { margin: 0 0 12px; color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
+.payment-help { gap: 8px; }
+.payment-help .detail-heading { margin: 4px 0 0; }
+.payment-video { position: relative; display: block; overflow: hidden; border-radius: 12px; aspect-ratio: 16 / 9; }
+.payment-video img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.enroll-bar {
+  position: fixed; left: 50%; bottom: var(--bottom-nav-space); transform: translateX(-50%); z-index: 55;
+  width: min(100vw, var(--page-width)); display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px 16px; background: #fff; border-top: 1px solid #e5e7eb;
+}
+.enroll-label { width: 100%; color: #5b616d; font: 500 11px/16.5px 'Noto Sans Bengali', sans-serif; }
+.btn-enroll { display: inline-flex; align-items: center; height: 44px; padding: 0 16px; border-radius: 10px; background: #f8b51d; color: #0a0c11; font: 700 13px/24px 'Noto Sans Bengali', sans-serif; text-decoration: none; white-space: nowrap; }
+
+/* Shikho AI */
+.ai-hero {
+  position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 12px; padding: 20px 16px; border-radius: 20px; color: #fff;
+  background-image: linear-gradient(82.88deg, rgb(255, 55, 223) 0.54%, rgb(110, 0, 255) 99.41%);
+  box-shadow: inset 0 0 32px rgba(201,201,201,0.72);
+}
+.ai-hero > * { position: relative; }
+.ai-hero-deco { position: absolute !important; right: 0; top: 0; }
+.ai-hero-title { margin: 4px 0 0; font: 700 22px/33px 'Noto Sans Bengali', sans-serif; }
+.ai-hero-sub { margin: 0; color: rgba(255,255,255,0.92); font: 500 13px/19.5px 'Noto Sans Bengali', sans-serif; }
+.ai-hero-cta { display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border-radius: 40px; background: #fff; color: #6e00ff; font: 700 13px/24px 'Noto Sans Bengali', sans-serif; text-decoration: none; }
+.ai-hero-cta--ghost { background: rgba(0,0,0,0.24); color: #fff; }
+.ai-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0; padding: 0; list-style: none; }
+.ai-stats li { display: flex; flex-direction: column; padding: 10px 8px; border-radius: 12px; background: #fff; border: 1px solid #ebecf0; color: #5b616d; font: 500 11px/16.5px 'Noto Sans Bengali', sans-serif; text-align: center; }
+.ai-stats b { color: #0a0c11; font-size: 15px; line-height: 22.5px; }
+.ai-steps { display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.ai-step { display: flex; gap: 12px; align-items: flex-start; }
+.ai-step-no { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; flex-shrink: 0; border-radius: 999px; background: #f3e8ff; color: #6e00ff; font: 700 13px/1 'Noto Sans Bengali', sans-serif; }
+.ai-step-title { display: block; color: #0a0c11; font: 600 13px/19.5px 'Noto Sans Bengali', sans-serif; }
+.ai-step-sub { display: block; color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
+.pkg-row { display: flex; gap: 12px; margin: 0 -16px; padding: 4px 16px 16px; }
+.pkg { flex: 0 0 200px; display: flex; flex-direction: column; gap: 8px; padding: 16px; }
+.pkg--popular { outline: 2px solid #b54cff; }
+.pkg-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.pkg-name { color: #5b616d; font: 600 13px/19.5px 'Noto Sans Bengali', sans-serif; }
+.pkg-badge { padding: 2px 8px; border-radius: 1000px; background: #f3e8ff; color: #6e00ff; font: 600 11px/16.5px 'Noto Sans Bengali', sans-serif; }
+.pkg-price { margin: 0; color: #0a0c11; font: 700 22px/33px 'Noto Sans Bengali', sans-serif; }
+.pkg-feats { display: flex; flex-direction: column; gap: 6px; margin: 0 0 8px; padding: 0; list-style: none; color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
+.pkg-feats li { display: flex; gap: 6px; align-items: flex-start; }
+.pkg-feats svg { flex-shrink: 0; margin-top: 1px; }
+.pkg .btn-secondary, .pkg .btn-ai { margin-top: auto; }
+.btn-ai { display: flex; align-items: center; justify-content: center; height: 40px; border-radius: 10px; color: #fff; font: 600 13px/24px 'Noto Sans Bengali', sans-serif; text-decoration: none; background-image: linear-gradient(90deg, #ff37df, #6e00ff); }
+.faq { border-top: 1px solid #f4f4f6; }
+.faq:first-of-type { border-top: 0; }
+.faq p { margin: 0 0 12px; color: #5b616d; font: 500 12px/19.2px 'Noto Sans Bengali', sans-serif; }
+.ai-help { margin: 0; text-align: center; color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
+.ai-help a { color: #5468ff; font-weight: 700; text-decoration: none; }
+
+/* Press feedback for the new tappable cards and buttons */
+.video-card, .course-card .btn-primary, .btn-secondary, .btn-ai, .btn-enroll, .ai-hero-cta, .chip { transition: opacity 150ms ease, transform 150ms ease; }
+.video-card:active { transform: scale(0.98); }
+.course-card .btn-primary:active, .btn-secondary:active, .btn-ai:active, .btn-enroll:active, .ai-hero-cta:active, .chip:active { opacity: 0.7; }
+.subpage-main .filter-empty { margin: 0; }
+html { scroll-padding-top: 112px; }

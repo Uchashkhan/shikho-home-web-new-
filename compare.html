@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Old vs New | Shikho</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Prototype review tool: switch instantly between the original and redesigned homepages */
+    :root { --screen: 412px; --bar: 56px; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: #e9ebef; font-family: 'Noto Sans Bengali', sans-serif; }
+    .bar {
+      position: fixed; inset: 0 0 auto; height: var(--bar); z-index: 2;
+      display: flex; align-items: center; justify-content: center; gap: 8px; padding: 0 8px;
+      background: #222732; color: #fff;
+    }
+    .seg { display: flex; padding: 3px; border-radius: 999px; background: rgba(255,255,255,0.12); }
+    .seg button {
+      min-width: 56px; height: 36px; padding: 0 14px; border: 0; border-radius: 999px; background: none; cursor: pointer;
+      color: #c9ccd3; font: 700 13px/36px 'Noto Sans Bengali', sans-serif; letter-spacing: 0.02em;
+      transition: background 150ms ease, color 150ms ease; touch-action: manipulation;
+    }
+    .seg button[aria-pressed="true"] { background: #fff; color: #222732; }
+    .seg button:focus-visible { outline: 2px solid #e2008d; outline-offset: 2px; }
+    .seg--version button[data-version="old"][aria-pressed="true"] { background: #ffd7d7; }
+    .seg--version button[data-version="new"][aria-pressed="true"] { background: #d7f5df; }
+    .hint { position: absolute; right: 16px; color: #8c929c; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
+    @media (max-width: 720px) { .hint { display: none; } }
+    .stage { position: fixed; inset: var(--bar) 0 0; display: flex; justify-content: center; }
+    .screen { position: relative; width: min(100vw, var(--screen)); height: 100%; background: #f9f9fa; box-shadow: 0 0 0 1px rgba(0,0,0,0.06), 0 12px 40px rgba(0,0,0,0.12); }
+    /* All four screens stay loaded; only the selected one is visible, so switching is instant */
+    .screen iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; visibility: hidden; }
+    .screen iframe.is-shown { visibility: visible; }
+    @media (prefers-reduced-motion: reduce) { .seg button { transition: none; } }
+  </style>
+</head>
+<body>
+  <div class="bar">
+    <div class="seg seg--version" role="group" aria-label="সংস্করণ">
+      <button type="button" data-version="old" aria-pressed="false">OLD</button>
+      <button type="button" data-version="new" aria-pressed="true">NEW</button>
+    </div>
+    <div class="seg" role="group" aria-label="শিক্ষার্থী">
+      <button type="button" data-plan="free" aria-pressed="true">ফ্রি</button>
+      <button type="button" data-plan="paid" aria-pressed="false">পেইড</button>
+    </div>
+    <span class="hint">Space: OLD ⇄ NEW · F / P: ফ্রি / পেইড</span>
+  </div>
+  <div class="stage">
+    <div class="screen">
+      <iframe title="OLD ফ্রি" data-key="old-free" src="old/free.html?embed"></iframe>
+      <iframe title="OLD পেইড" data-key="old-paid" src="old/paid.html?embed"></iframe>
+      <iframe title="NEW ফ্রি" data-key="new-free" src="index.html?free&amp;embed"></iframe>
+      <iframe title="NEW পেইড" data-key="new-paid" src="index.html?paid&amp;embed"></iframe>
+    </div>
+  </div>
+  <script>
+    (() => {
+      // State lives in the URL hash (#new-free etc.) so a reload or shared link keeps the view
+      const parse = () => {
+        const [v, p] = location.hash.slice(1).split('-');
+        return { version: v === 'old' ? 'old' : 'new', plan: p === 'paid' ? 'paid' : 'free' };
+      };
+      let state = parse();
+      const frames = [...document.querySelectorAll('iframe')];
+      const show = () => {
+        frames.forEach((f) => f.classList.toggle('is-shown', f.dataset.key === `${state.version}-${state.plan}`));
+        document.querySelectorAll('[data-version]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.version === state.version)));
+        document.querySelectorAll('[data-plan]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.plan === state.plan)));
+        history.replaceState(null, '', `#${state.version}-${state.plan}`);
+        document.title = `${state.version.toUpperCase()} ${state.plan === 'paid' ? 'পেইড' : 'ফ্রি'} | Shikho`;
+      };
+      document.querySelectorAll('[data-version]').forEach((b) => b.addEventListener('click', () => { state.version = b.dataset.version; show(); }));
+      document.querySelectorAll('[data-plan]').forEach((b) => b.addEventListener('click', () => { state.plan = b.dataset.plan; show(); }));
+      document.addEventListener('keydown', (e) => {
+        if (e.target.closest?.('input, textarea')) return;
+        if (e.key === ' ') { e.preventDefault(); state.version = state.version === 'old' ? 'new' : 'old'; show(); }
+        if (e.key === 'f' || e.key === 'F') { state.plan = 'free'; show(); }
+        if (e.key === 'p' || e.key === 'P') { state.plan = 'paid'; show(); }
+      });
+      window.addEventListener('hashchange', () => { state = parse(); show(); });
+      show();
+    })();
+  </script>
+</body>
+</html>
