@@ -16,9 +16,10 @@
 b, strong { font-weight: 600; }
 
 :root {
-  --page-bg: var(--fold-ash);
+  --page-bg: #FFFFFF; /* reference: white page, cards separated by a thin Slate border */
   --page-width: 412px;
-  --bottom-nav-h: 78px; /* 12 top + 28 icon + 2 + 24 label + 8 + 4 indicator */
+  --appbar-h: 44px;
+  --bottom-nav-h: 70px; /* 12 top + 24 icon + 4 + 18 label + 12 */
   --bottom-nav-space: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom));
 }
 
@@ -49,25 +50,46 @@ html, body {
   position: sticky;
   top: 0;
   z-index: 50;
-  height: 54px;
+  height: var(--appbar-h);
 }
-/* Homepage: the header is a simple introduction that scrolls away with the page;
-   the logo row shares the page background with the greeting (no bar, no shadow) */
-.page-nav--intro { position: static; height: auto; }
-.page-nav--intro > [data-name="Navigation"] { background: transparent; filter: none; padding: 8px 16px 0; }
-/* Tighter lead-in from the header to the first section (its own top inset was sized for a sticky bar) */
-.page-nav--intro ~ .page-main > section[data-first] > [data-name="Section"] { padding-top: 20px; }
+
+/* Pink app bar on every page (reference: shikho-bkash .appbar): back arrow + centred title */
+.appbar { position: relative; height: var(--appbar-h); background: var(--fold-cerise); color: #fff; }
+.appbar-title { margin: 0; padding: 0 56px; text-align: center; font: 600 18px/44px var(--font-fold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.appbar-back { position: absolute; left: 6px; top: 0; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: #fff; }
+.appbar-back:active { background: rgba(255,255,255,0.16); }
+.appbar-back:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
+
+/* Homepage profile row under the app bar (reference .profile): avatar + edit badge, name, class, bird mark */
+.home-profile { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 16px 10px; }
+.profile-user { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.avatar-edit { position: relative; flex: none; width: 44px; height: 44px; border-radius: 22px; }
+.avatar { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; overflow: hidden; border-radius: 22px; background: var(--fold-lotus); color: var(--fold-cerise); font: 600 18px/1 var(--font-fold); }
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+.edit-badge { position: absolute; right: -3px; bottom: -3px; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; background: var(--fold-cerise); border: 2px solid #fff; }
+.profile-text { min-width: 0; }
+.profile-name { margin: 0; color: var(--fold-charcoal); font: 600 16px/24px var(--font-fold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.profile-class { margin: 0; color: var(--fold-graphite); font: 400 12px/18px var(--font-fold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.profile-logo { flex: none; width: 42px; height: auto; }
+/* first section: 24px under the profile row (reference: .profile + .sec-head) */
+.home-profile ~ .page-main > section[data-first] > [data-name="Section"] { padding-top: 14px; }
+
+/* Section "আরো দেখো": pink text link (reference .sec-head a) */
+.sec-link { flex: none; position: relative; color: var(--fold-cerise); font: 500 12px/18px var(--font-fold); text-decoration: none; white-space: nowrap; }
+.sec-link::before { content: ''; position: absolute; inset: -13px -8px; } /* 44px tap area */
+
+/* Buttons (reference .btn: 6px corners, flat) */
+.btn-sm { height: 36px !important; padding: 0 14px !important; font: 500 12px/18px var(--font-fold) !important; }
+.btn-light { display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 14px; border-radius: 6px; background: #fff; color: var(--fold-cerise); font: 500 12px/18px var(--font-fold); white-space: nowrap; text-decoration: none; }
 
 /* Homepage content for the student's plan only (html[data-plan] is set in <head>) */
-/* the paid routine is a full-width white band: keep it clear of the header divider */
-.page-nav--intro ~ .page-main > section[data-plan="paid"][data-first] { margin-top: 16px; }
 html[data-plan="paid"] [data-plan="free"],
 html[data-plan="free"] [data-plan="paid"] { display: none !important; }
 
 .page-main {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 32px; /* reference --section */
   padding-bottom: 36px;
 }
 
@@ -118,39 +140,37 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
   transform: translateX(-50%);
   z-index: 60;
   display: flex;
-  justify-content: space-between;
-  padding: 12px 20px env(safe-area-inset-bottom);
-  background: #fff;
-  border-radius: 12px 12px 0 0;
-  box-shadow: 0 -1px 5px rgba(29, 22, 22, 0.11);
+  justify-content: space-around;
+  padding: 12px 8px env(safe-area-inset-bottom);
+  /* Frosted glass like the bKash tab bar (reference .tabbar) */
+  background: rgba(255, 255, 255, 0.8);
+  -webkit-backdrop-filter: blur(20px) saturate(130%);
+  backdrop-filter: blur(20px) saturate(130%);
+  border-top: 1px solid var(--fold-slate);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .bottom-nav { background: #fff; }
 }
 .bottom-nav-item {
-  width: 60px;
+  width: 25%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: var(--fold-graphite);            /* inactive icon */
+  gap: 4px;
+  color: rgb(112 112 112 / 0.6);          /* inactive icon: Graphite 60% (reference) */
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }
-.bottom-nav-icon { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; }
+.bottom-nav-icon { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; }
 .bottom-nav-label {
-  margin-top: 2px;
   color: var(--fold-graphite);
-  font: 500 14px/20px var(--font-fold);
+  font: 500 12px/18px var(--font-fold);
   white-space: nowrap;
 }
-/* Active tab: pink icon and label, with a 4px indicator along the bottom edge */
-.bottom-nav-item::after {
-  content: '';
-  width: 100%;
-  height: 4px;
-  margin-top: 8px;
-  border-radius: 10px 10px 0 0;
-}
+/* Active tab: pink icon and label (no indicator line, as in the reference) */
 .bottom-nav-item.is-active,
 .bottom-nav-item.is-active .bottom-nav-label { color: var(--fold-cerise); }
-.bottom-nav-item.is-active::after { background: var(--fold-cerise); }
+.bottom-nav-item:not(.is-active) img { filter: grayscale(1); opacity: 0.6; }
 .bottom-nav-item:focus-visible { outline: 2px solid var(--fold-cerise); outline-offset: 2px; border-radius: 8px; }
 
 /* Notice for destinations that aren't built in this prototype */
@@ -177,7 +197,8 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
   align-self: stretch;
   margin: 16px 16px 0;
   padding: 24px 16px;
-  border-radius: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--fold-slate);
   background: #fff;
   color: var(--fold-dark);
   text-align: center;
@@ -201,11 +222,11 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
 /* Pressed feedback on the controls added for the app-like navigation */
 .bottom-nav-item,
 .profile-row,
-.page-greeting a,
+.avatar-edit,
 [data-section="features"] a { transition: opacity 150ms ease, transform 150ms ease; }
 .bottom-nav-item:active,
 .profile-row:active,
-.page-greeting a:active { opacity: 0.6; }
+.avatar-edit:active, .sec-link:active { opacity: 0.6; }
 [data-section="features"] a:active { transform: scale(0.97); }
 
 /* Respect the system "reduce motion" setting (carousel slides, toast, press effects) */
@@ -219,53 +240,38 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
 
 
 /* ===== Inner pages (important classes, guidelines, courses, course detail, Shikho AI) ===== */
-.page-nav--sub { height: 56px; }
-.subpage-bar {
-  display: flex; align-items: center; gap: 4px; height: 56px; padding: 0 8px;
-  background: #fff;
-  box-shadow: 0 1px 0.5px rgba(0,0,0,0.04), 0 3px 1.5px rgba(0,0,0,0.04);
-}
-.subpage-back { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 999px; color: var(--fold-charcoal); }
-.subpage-back:active { background: var(--fold-slate); }
-.subpage-title { margin: 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--fold-charcoal); font: 600 16px/24px var(--font-fold); }
 .subpage-main { display: flex; flex-direction: column; gap: 16px; padding: 16px 16px 32px; }
 .page-lead { margin: 0; color: var(--fold-charcoal); font: 600 18px/28px var(--font-fold); }
 
 /* Chips: same look as the homepage subject chips */
-.chip-row { display: flex; gap: 6px; margin: 0 -16px; padding: 0 16px; }
+.chip-row { display: flex; gap: 8px; margin: 0 -16px; padding: 0 16px; }
 .chip {
-  display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0; height: 36px; padding: 0 12px;
-  border: 1px solid var(--fold-grey); border-radius: 1000px; background: transparent;
+  display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; height: 40px; padding: 0 14px;
+  border: 1px solid var(--fold-grey); border-radius: 10px; background: #fff;
   color: var(--fold-dark); font: 500 12px/18px var(--font-fold); text-decoration: none; white-space: nowrap;
 }
 .chip img { width: 14px; height: 20px; object-fit: cover; }
-.chip.is-active { border-color: var(--fold-carnation); background: var(--fold-lotus); color: var(--fold-cerise); }
+.chip.is-active { border-color: var(--fold-cerise); background: var(--fold-bloom); color: var(--fold-cerise); }
 .tag-pill { display: inline-flex; align-items: center; padding: 3px 8px; border: 1px solid var(--fold-grey); border-radius: 1000px; background: #fff; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); white-space: nowrap; }
 .tag-pill--lg { padding: 6px 12px; font-size: 12px; line-height: 18px; }
 
 /* Video card (same anatomy as the homepage class cards, stacked one per row) */
-.video-list { display: flex; flex-direction: column; gap: 16px; }
-.video-card {
-  display: flex; flex-direction: column; overflow: hidden; border-radius: 20px; background: #fff; text-decoration: none;
-  box-shadow: 0 1px 0.5px rgba(0,0,0,0.04), 0 3px 1.5px rgba(0,0,0,0.04), 0 24px 12px rgba(0,0,0,0.04);
-}
-.video-thumb { position: relative; display: block; aspect-ratio: 16 / 9; background: var(--fold-grey); }
+.video-list { display: flex; flex-direction: column; gap: 24px; }
+.video-card { display: flex; flex-direction: column; text-decoration: none; }
+.video-thumb { position: relative; display: block; overflow: hidden; aspect-ratio: 16 / 9; border-radius: 10px; background: var(--fold-slate); }
 .video-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .video-duration { position: absolute; top: 8px; right: 8px; padding: 0 6px; border-radius: 6px; background: rgba(0,0,0,0.6); color: #fff; font: 600 12px/18px var(--font-fold); }
-.video-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1.5px solid #fff; border-radius: 999px; background: rgba(0,0,0,0.25); }
-.video-body { display: flex; flex-direction: column; gap: 12px; padding: 12px 16px 16px; }
-.video-title { color: var(--fold-charcoal); font: 600 14px/20px var(--font-fold); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.video-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 2px solid rgba(255,255,255,0.92); border-radius: 999px; background: var(--fold-overlay-black); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
+.video-body { display: flex; flex-direction: column; gap: 6px; padding: 10px 0 0; }
+.video-title { color: var(--fold-charcoal); font: 600 16px/24px var(--font-fold); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .video-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.video-teacher { display: flex; align-items: center; gap: 8px; min-width: 0; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.video-teacher { display: flex; align-items: center; gap: 8px; min-width: 0; color: var(--fold-graphite); font: 500 12px/18px var(--font-fold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .video-teacher img { width: 24px; height: 24px; border-radius: 999px; object-fit: cover; flex-shrink: 0; }
 .video-card .tag-pill { flex-shrink: 0; max-width: 55%; overflow: hidden; text-overflow: ellipsis; }
 
 /* Course card */
 .course-list { display: flex; flex-direction: column; gap: 16px; }
-.course-card {
-  display: flex; flex-direction: column; overflow: hidden; border-radius: 20px; background: #fff;
-  box-shadow: 0 1px 0.5px rgba(0,0,0,0.04), 0 3px 1.5px rgba(0,0,0,0.04), 0 24px 12px rgba(0,0,0,0.04);
-}
+.course-card { display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--fold-slate); border-radius: 12px; background: #fff; }
 .course-thumb { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--fold-grey); }
 .course-body { padding: 12px 16px; }
 .course-title { margin: 0; color: var(--fold-charcoal); font: 600 16px/24px var(--font-fold); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -276,28 +282,27 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
 .course-from { color: var(--fold-dark); font: 500 12px/18px var(--font-fold); }
 .course-old { color: var(--fold-graphite); font: 500 12px/18px var(--font-fold); }
 .btn-primary {
-  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; height: 40px; padding: 0 16px; border-radius: 10px;
-  background: var(--fold-cerise); color: #fff; font: 600 14px/24px var(--font-fold); text-decoration: none;
-  box-shadow: inset 0 3px 4px rgba(255,255,255,0.32);
+  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; height: 40px; padding: 0 16px; border-radius: 6px;
+  background: var(--fold-cerise); color: #fff; font: 600 14px/20px var(--font-fold); text-decoration: none;
 }
 .btn-secondary {
-  display: flex; align-items: center; justify-content: center; height: 40px; padding: 0 12px; border: 1px solid rgba(112, 112, 112,0.12); border-radius: 10px;
-  background: var(--fold-slate); color: var(--fold-charcoal); font: 600 14px/24px var(--font-fold); text-decoration: none;
+  display: flex; align-items: center; justify-content: center; height: 40px; padding: 0 12px; border: 1px solid var(--fold-grey); border-radius: 6px;
+  background: #fff; color: var(--fold-charcoal); font: 600 14px/24px var(--font-fold); text-decoration: none;
 }
 .course-row { display: flex; gap: 12px; margin: 0 -16px; padding: 0 16px 8px; }
 .course-card--compact { flex: 0 0 260px; }
-.course-card--compact .course-title { font-size: 13px; line-height: 19.5px; }
+.course-card--compact .course-title { font-size: 14px; line-height: 20px; }
 
 /* Course detail */
 .course-detail { padding-bottom: calc(32px + 72px); }
-.course-hero { overflow: hidden; border-radius: 20px; background: var(--fold-charcoal); color: #fff; box-shadow: inset 0 0 32px var(--fold-dark); }
+.course-hero { overflow: hidden; border-radius: 12px; background: var(--fold-charcoal); color: #fff; box-shadow: inset 0 0 32px var(--fold-dark); }
 .course-hero-img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
 .course-hero-body { padding: 16px; }
 .course-hero-title { margin: 0; font: 600 18px/28px var(--font-fold); }
 .course-hero-meta { display: flex; align-items: center; gap: 8px; margin: 6px 0 0; font: 500 12px/18px var(--font-fold); color: rgba(255,255,255,0.86); }
 .hero-tag { padding: 2px 8px; border-radius: 1000px; background: rgba(255,255,255,0.16); color: #fff; }
-.course-tabs { display: flex; gap: 6px; margin: 0 -16px; padding: 4px 16px; position: sticky; top: 56px; z-index: 5; background: var(--page-bg); }
-.detail-card { display: flex; flex-direction: column; padding: 16px; scroll-margin-top: 112px; text-decoration: none; }
+.course-tabs { display: flex; gap: 6px; margin: 0 -16px; padding: 4px 16px; position: sticky; top: var(--appbar-h); z-index: 5; background: var(--page-bg); }
+.detail-card { display: flex; flex-direction: column; padding: 16px; scroll-margin-top: 100px; text-decoration: none; }
 .detail-heading { margin: 0 0 12px; color: var(--fold-charcoal); font: 600 16px/24px var(--font-fold); }
 .detail-sub { margin: 0; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); }
 .detail-sub--gap { margin-top: 16px; }
@@ -332,11 +337,11 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
   padding: 12px 16px; background: #fff; border-top: 1px solid var(--fold-grey);
 }
 .enroll-label { width: 100%; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); }
-.btn-enroll { display: inline-flex; align-items: center; height: 44px; padding: 0 16px; border-radius: 10px; background: var(--fold-amber); color: var(--fold-charcoal); font: 600 14px/24px var(--font-fold); text-decoration: none; white-space: nowrap; }
+.btn-enroll { display: inline-flex; align-items: center; height: 44px; padding: 0 16px; border-radius: 6px; background: var(--fold-amber); color: var(--fold-charcoal); font: 600 14px/24px var(--font-fold); text-decoration: none; white-space: nowrap; }
 
 /* Shikho AI */
 .ai-hero {
-  position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 12px; padding: 20px 16px; border-radius: 20px; color: #fff;
+  position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 12px; padding: 20px 16px; border-radius: 12px; color: #fff;
   background-image: linear-gradient(82.88deg, rgb(226, 19, 110) 0.54%, rgb(238, 113, 168) 99.41%);
   box-shadow: inset 0 0 32px rgba(201,201,201,0.72);
 }
@@ -344,10 +349,10 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
 .ai-hero-deco { position: absolute !important; right: 0; top: 0; }
 .ai-hero-title { margin: 4px 0 0; font: 600 24px/36px var(--font-fold); }
 .ai-hero-sub { margin: 0; color: rgba(255,255,255,0.92); font: 500 14px/20px var(--font-fold); }
-.ai-hero-cta { display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border-radius: 40px; background: #fff; color: var(--fold-cerise); font: 600 14px/24px var(--font-fold); text-decoration: none; }
+.ai-hero-cta { display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border-radius: 6px; background: #fff; color: var(--fold-cerise); font: 600 14px/24px var(--font-fold); text-decoration: none; }
 .ai-hero-cta--ghost { background: rgba(0,0,0,0.24); color: #fff; }
 .ai-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0; padding: 0; list-style: none; }
-.ai-stats li { display: flex; flex-direction: column; padding: 10px 8px; border-radius: 12px; background: #fff; border: 1px solid var(--fold-grey); color: var(--fold-dark); font: 500 12px/18px var(--font-fold); text-align: center; }
+.ai-stats li { display: flex; flex-direction: column; padding: 10px 8px; border-radius: 12px; background: #fff; border: 1px solid var(--fold-slate); color: var(--fold-dark); font: 500 12px/18px var(--font-fold); text-align: center; }
 .ai-stats b { color: var(--fold-charcoal); font-size: 15px; line-height: 22.5px; }
 .ai-steps { display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0; list-style: none; }
 .ai-step { display: flex; gap: 12px; align-items: flex-start; }
@@ -365,7 +370,7 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
 .pkg-feats li { display: flex; gap: 6px; align-items: flex-start; }
 .pkg-feats svg { flex-shrink: 0; margin-top: 1px; }
 .pkg .btn-secondary, .pkg .btn-ai { margin-top: auto; }
-.btn-ai { display: flex; align-items: center; justify-content: center; height: 40px; border-radius: 10px; color: #fff; font: 600 14px/24px var(--font-fold); text-decoration: none; background-image: linear-gradient(90deg, var(--fold-cerise), var(--fold-cerise)); }
+.btn-ai { display: flex; align-items: center; justify-content: center; height: 40px; border-radius: 6px; color: #fff; font: 600 14px/24px var(--font-fold); text-decoration: none; background-image: linear-gradient(90deg, var(--fold-cerise), var(--fold-cerise)); }
 .faq { border-top: 1px solid var(--fold-slate); }
 .faq:first-of-type { border-top: 0; }
 .faq p { margin: 0 0 12px; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); }
@@ -377,4 +382,4 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
 .video-card:active { transform: scale(0.98); }
 .course-card .btn-primary:active, .btn-secondary:active, .btn-ai:active, .btn-enroll:active, .ai-hero-cta:active, .chip:active { opacity: 0.7; }
 .subpage-main .filter-empty { margin: 0; }
-html { scroll-padding-top: 112px; }
+html { scroll-padding-top: 100px; }

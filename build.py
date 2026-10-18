@@ -41,7 +41,7 @@ HOME = f"""    <main class="page-main">
     </footer>"""
 
 
-def page(title, active, body, greeting=False, bar=None, back="index.html"):
+def page(title, active, body, greeting=False, bar="Shikho", back="index.html"):
     # Same header and bottom navigation on every page; only the active tab differs
     nav = frag("bottom-nav").replace(
         f'class="bottom-nav-item" data-route="{active}"',
@@ -72,8 +72,8 @@ def page(title, active, body, greeting=False, bar=None, back="index.html"):
 <body>
   <div class="page">
 {pages.review_switch() if greeting else ""}
-    <header class="page-nav{" page-nav--intro" if greeting else ""}{" page-nav--sub" if bar else ""}">
-{pages.subpage_bar(bar, back) if bar else frag("s01_nav")}
+    <header class="page-nav">
+{pages.app_bar(bar, back, optional_back=greeting)}
     </header>
 {frag("greeting") if greeting else ""}
 {body}
@@ -87,7 +87,7 @@ def page(title, active, body, greeting=False, bar=None, back="index.html"):
 
 for name, html in [
     ("index.html", page("Shikho | ঘরে বসে SSC/HSC'র A+ প্রস্তুতির বিশ্বস্ত প্রতিষ্ঠান", "home", HOME, greeting=True)),
-    ("profile.html", page("প্রোফাইল | Shikho", "profile", frag("profile"))),
+    ("profile.html", page("প্রোফাইল | Shikho", "profile", frag("profile"), bar="প্রোফাইল")),
     # Pages behind the homepage links, with content from the live app
     ("important-classes.html", page("মোস্ট ইমপর্ট্যান্ট ক্লাস | Shikho", "home",
                                     pages.video_list("videos-important.json"), bar="মোস্ট ইমপর্ট্যান্ট ক্লাস")),

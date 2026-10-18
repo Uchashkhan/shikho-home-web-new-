@@ -1,13 +1,23 @@
-<!-- Personalised header row (homepage): name + class on the left, avatar on the right.
-     A light divider below separates it from the first content section. Scrolls with the page. -->
-<div class="page-greeting flex items-center justify-between gap-[16px] mx-[16px] pt-[12px] pb-[16px] border-b border-[#DDDDDD]" data-auth="in" hidden>
-  <div class="min-w-0">
-    <p class="m-0 truncate font-fold font-semibold text-[18px] leading-[28px] text-[#202020]"><span data-user="name"></span> <span aria-hidden="true">👋</span></p>
-    <p class="m-0 truncate font-fold font-medium text-[14px] leading-[20px] text-[#505050]" data-user="class-line"></p>
+<!-- Profile row under the app bar (reference: shikho-bkash .profile). Scrolls with the page. -->
+<div class="home-profile" data-auth="in" hidden>
+  <div class="profile-user">
+    <a href="profile.html" class="avatar-edit" data-route="profile" aria-label="প্রোফাইল এডিট করো">
+      <span class="avatar" data-user="avatar" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-4.42 0-8 2.24-8 5v1.5c0 .55.45 1 1 1h14c.55 0 1-.45 1-1V19c0-2.76-3.58-5-8-5Z"/></svg>
+      </span>
+      <span class="edit-badge" aria-hidden="true">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16v4Z"/><path d="m13.5 6.5 4 4"/></svg>
+      </span>
+    </a>
+    <div class="profile-text">
+      <p class="profile-name"><span data-user="name"></span> <span aria-hidden="true">👋</span></p>
+      <p class="profile-class" data-user="class-line"></p>
+    </div>
   </div>
-  <a href="profile.html" class="shrink-0 rounded-full" data-route="profile" aria-label="প্রোফাইল">
-    <span class="size-[44px] overflow-hidden rounded-full bg-[#F9D0E2] text-[#E2136E] flex items-center justify-center font-fold font-semibold text-[18px]" data-user="avatar" aria-hidden="true">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-4.42 0-8 2.24-8 5v1.5c0 .55.45 1 1 1h14c.55 0 1-.45 1-1V19c0-2.76-3.58-5-8-5Z"/></svg>
-    </span>
-  </a>
+  <img class="profile-logo" src="assets/shikho-bird.svg" alt="Shikho" width="42" height="27">
+</div>
+<!-- Signed out: Shikho mark + account entry point -->
+<div class="home-profile" data-auth="out" hidden>
+  <img class="profile-logo" src="assets/shikho-bird.svg" alt="Shikho" width="42" height="27">
+  <a href="#" class="btn-primary btn-sm relative hit-44" data-route="login">লগইন</a>
 </div>

@@ -62,16 +62,10 @@
     if (link && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); link.click(); }
   });
 
-  /* Homepage "আরো দেখো" buttons open their list pages */
-  const SEE_ALL = { s02_important: 'importantClasses', p05_important: 'importantClasses', s03_guideline: 'guidelines', p06_guideline: 'guidelines' };
-  Object.entries(SEE_ALL).forEach(([section, route]) => {
-    const btn = [...document.querySelectorAll(`[data-section="${section}"] [data-name="Button"]`)].find((b) => b.textContent.trim() === 'আরো দেখো');
-    if (!btn) return;
-    btn.dataset.route = route;
-    btn.setAttribute('role', 'link');
-    btn.tabIndex = 0;
-    btn.style.cursor = 'pointer';
-  });
+  /* Homepage back arrow: only shown when there is a prototype page to go back to */
+  const cameFromHere = document.referrer && new URL(document.referrer).origin === location.origin
+    && new URL(document.referrer).pathname !== location.pathname;
+  document.querySelectorAll('[data-back-optional]').forEach((a) => { a.hidden = !cameFromHere; });
 
   /* Inner pages: back goes to the previous page when it was part of this prototype */
   document.querySelectorAll('[data-back]').forEach((a) => a.addEventListener('click', (e) => {
@@ -298,10 +292,10 @@
   });
 
   /* Subject filter chips: scrollable row with a single active chip that filters the cards */
-  const CHIP_ACTIVE = { border: 'border-[#F3A1C5]', bg: 'bg-[#F9D0E2]', text: 'text-[#E2136E]' };
-  const CHIP_IDLE = { border: 'border-[#DDDDDD]', bg: 'bg-[rgba(255,255,255,0)]', text: 'text-[#505050]' };
+  const CHIP_ACTIVE = { border: 'border-[#E2136E]', bg: 'bg-[#FEF3F8]', text: 'text-[#E2136E]' };
+  const CHIP_IDLE = { border: 'border-[#DDDDDD]', bg: 'bg-white', text: 'text-[#505050]' };
 
-  document.querySelectorAll('.overflow-clip.justify-center.h-\\[36px\\]').forEach((row) => {
+  document.querySelectorAll('.overflow-clip.justify-center.h-\\[40px\\]').forEach((row) => {
     row.classList.replace('justify-center', 'justify-start');
     row.classList.add('h-scroll');
     row.setAttribute('role', 'group');

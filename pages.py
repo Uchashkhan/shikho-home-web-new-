@@ -10,8 +10,7 @@ import os
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 F = "font-fold"
-CARD = ("bg-white drop-shadow-[0px_1px_0.5px_rgba(0,0,0,0.04),0px_3px_1.5px_rgba(0,0,0,0.04),"
-        "0px_24px_12px_rgba(0,0,0,0.04)] rounded-[20px]")
+CARD = "bg-white border border-[#EDEDED] border-solid rounded-[12px]"  # reference card: thin Slate border
 e = lambda s: html.escape(s or "", quote=True)
 
 
@@ -25,13 +24,15 @@ CHEVRON = ('<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" f
            'stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>')
 
 
-def subpage_bar(title, back="index.html"):
-    """Sticky top bar for inner pages: back + title (replaces the homepage intro header)."""
-    return f'''<div class="subpage-bar">
-      <a href="{back}" class="subpage-back" data-back aria-label="ফিরে যাও">
-        <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+def app_bar(title, back="index.html", optional_back=False):
+    """Pink app bar on every page (reference: shikho-bkash .appbar): back arrow + centred title.
+    optional_back: the homepage only shows the arrow when there is a page to go back to."""
+    extra = " data-back-optional hidden" if optional_back else ""
+    return f'''<div class="appbar">
+      <a href="{back}" class="appbar-back" data-back{extra} aria-label="ফিরে যাও">
+        <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4"/><path d="m10 6-6 6 6 6"/></svg>
       </a>
-      <h1 class="subpage-title">{e(title)}</h1>
+      <h1 class="appbar-title">{e(title)}</h1>
     </div>'''
 
 
@@ -306,6 +307,7 @@ def review_switch():
   /* A slim strip fixed to the top of the mobile column; the page is pushed down by its height */
   :root { --rs-h: 44px; }
   body { padding-top: var(--rs-h); }
+  .page-nav { top: var(--rs-h); } /* pink app bar sticks just below this strip */
   .review-switch { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: min(100vw, var(--page-width, 412px)); height: var(--rs-h); z-index: 90; display: flex; align-items: center; justify-content: center; padding: 0 8px; background: #202020; font-family: 'Inter Tight', 'Noto Sans Bengali', sans-serif; }
   .rs-seg { display: flex; padding: 2px; border-radius: 999px; background: rgba(255,255,255,0.1); }
   .rs-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 52px; height: 32px; padding: 0 10px; border: 0; border-radius: 999px; background: none; color: #DDDDDD; font: 600 12px/32px 'Inter Tight', 'Noto Sans Bengali', sans-serif; cursor: pointer; touch-action: manipulation; }
