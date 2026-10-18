@@ -66,13 +66,12 @@ def page(title, active, body, greeting=False, bar=None, back="index.html"):
       var user = q.has('guest') ? null : window.SHIKHO_USER;
       var paid = q.has('paid') || (!q.has('free') && !!(user && user.enrolled));
       document.documentElement.dataset.plan = paid ? 'paid' : 'free';
-      if (q.has('embed')) document.documentElement.classList.add('is-embedded'); // inside compare.html
     }})();
   </script>
 </head>
 <body>
   <div class="page">
-{pages.review_switch("new") if greeting else ""}
+{pages.review_switch() if greeting else ""}
     <header class="page-nav{" page-nav--intro" if greeting else ""}{" page-nav--sub" if bar else ""}">
 {pages.subpage_bar(bar, back) if bar else frag("s01_nav")}
     </header>
@@ -102,39 +101,3 @@ for name, html in [
     open(os.path.join(ROOT, name), "w", encoding="utf-8").write(html)
     print(name, len(html))
 
-
-# ---------- ORIGINAL screens, frozen for side-by-side comparison (see compare.html) ----------
-# They live in old/ with their own frozen styles.css and main.js (burger menu, sticky bar).
-import re  # noqa: E402
-
-OLD = os.path.join(ROOT, "old")
-up = lambda s: re.sub(r'(src="|url\(&quot;)assets/', r'\1../assets/', s)  # old/ pages sit one level down
-
-# Free: the exact page as it was before the redesign
-with_switch = lambda s, plan: s.replace('<div class="page">', '<div class="page">\n' + pages.review_switch("old", plan), 1)
-open(os.path.join(OLD, "free.html"), "w", encoding="utf-8").write(with_switch(up(frag("old/free-original")), "free"))
-
-# Paid: Figma 130:3454 as designed (sticky logo + burger, animated lessons row, dark AI card)
-old_paid = ["p01_routine", "p02_program", "old/p03_links_original", "old/s06_ai", "p05_important",
-            "p06_guideline", "s08_app", "s09_call", "s10_community"]
-old_free_src = frag("old/free-original")
-head = old_free_src[:old_free_src.index("<body>")]
-paid_html = f"""{head}<body>
-  <div class="page">
-    <header class="page-nav">
-{frag("old/s01_nav")}
-    </header>
-    <main class="page-main">
-{chr(10).join(f'      <section data-section="{n.split("/")[-1]}">{chr(10)}{frag(n)}{chr(10)}      </section>' for n in old_paid)}
-    </main>
-    <footer>
-{frag("s11_footer")}
-    </footer>
-  </div>
-{frag("old/menu").replace("@@AI_CARD@@", frag("old/s06_ai"))}
-  <script src="main.js"></script>
-</body>
-</html>
-"""
-open(os.path.join(OLD, "paid.html"), "w", encoding="utf-8").write(with_switch(up(paid_html), "paid"))
-print("old/free.html, old/paid.html")

@@ -17,7 +17,6 @@
       var user = q.has('guest') ? null : window.SHIKHO_USER;
       var paid = q.has('paid') || (!q.has('free') && !!(user && user.enrolled));
       document.documentElement.dataset.plan = paid ? 'paid' : 'free';
-      if (q.has('embed')) document.documentElement.classList.add('is-embedded'); // inside compare.html
     })();
   </script>
 </head>

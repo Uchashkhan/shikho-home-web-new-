@@ -296,57 +296,24 @@ def ai_page():
     </main>'''
 
 
-# ---------- Prototype review switch: OLD / NEW design and ফ্রি / পেইড student ----------
+# ---------- Prototype switch: ফ্রি / পেইড student ----------
 
-def review_switch(version, plan=None):
-    """Floating switch shown on the homepage (version="new") and on old/free.html + old/paid.html.
-
-    NEW homepage: ফ্রি/পেইড switch in place (main.js, [data-plan-set]); OLD opens the matching
-    original screen. OLD screens: links between the originals; NEW opens the matching new view.
-    Hidden when the page is shown inside compare.html (?embed).
-    """
-    pressed = lambda on: f'aria-pressed="{"true" if on else "false"}"'
-    if version == "new":
-        plans = ('<button type="button" class="rs-btn" data-plan-set="free">ফ্রি</button>'
-                 '<button type="button" class="rs-btn" data-plan-set="paid">পেইড</button>')
-        versions = (f'<a class="rs-btn rs-old" href="old/free.html" data-rs-old {pressed(False)}>OLD</a>'
-                    f'<span class="rs-btn rs-new" {pressed(True)}>NEW</span>')
-    else:
-        plans = (f'<a class="rs-btn" href="free.html" {pressed(plan == "free")}>ফ্রি</a>'
-                 f'<a class="rs-btn" href="paid.html" {pressed(plan == "paid")}>পেইড</a>')
-        versions = (f'<span class="rs-btn rs-old" {pressed(True)}>OLD</span>'
-                    f'<a class="rs-btn rs-new" href="../index.html?{plan}" {pressed(False)}>NEW</a>')
-    return f'''<!-- Prototype review switch (not part of the product UI) -->
+def review_switch():
+    """Fixed strip at the top of the homepage that switches between the free and paid
+    student views in place (main.js, [data-plan-set]). Not part of the product UI."""
+    return '''<!-- Prototype switch (not part of the product UI) -->
 <style>
-  /* A slim strip fixed to the top of the mobile column; the page is pushed down by its height,
-     and the old screens' sticky logo bar stays fixed just below it. It sits under the old burger menu. */
-  :root {{ --rs-h: 44px; }}
-  body {{ padding-top: var(--rs-h); }}
-  .page-nav {{ top: var(--rs-h); }}
-  .review-switch {{ position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: min(100vw, var(--page-width, 412px)); height: var(--rs-h); z-index: 90; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 0 8px; background: #222732; font-family: 'Noto Sans Bengali', sans-serif; }}
-  .is-embedded body {{ padding-top: 0; }}
-  .is-embedded .page-nav {{ top: 0; }}
-
-  .rs-seg {{ display: flex; padding: 2px; border-radius: 999px; background: rgba(255,255,255,0.1); }}
-  .rs-btn {{ display: inline-flex; align-items: center; justify-content: center; min-width: 52px; height: 32px; padding: 0 10px; border: 0; border-radius: 999px; background: none; color: #c9ccd3; font: 700 12px/32px 'Noto Sans Bengali', sans-serif; text-decoration: none; cursor: pointer; touch-action: manipulation; }}
-  .rs-btn[aria-pressed="true"] {{ background: #fff; color: #222732; cursor: default; }}
-  .rs-old[aria-pressed="true"] {{ background: #ffd7d7; }}
-  .rs-new[aria-pressed="true"] {{ background: #d7f5df; }}
-  .rs-btn:focus-visible {{ outline: 2px solid #e2008d; outline-offset: 2px; }}
-  .is-embedded .review-switch {{ display: none; }}
+  /* A slim strip fixed to the top of the mobile column; the page is pushed down by its height */
+  :root { --rs-h: 44px; }
+  body { padding-top: var(--rs-h); }
+  .review-switch { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: min(100vw, var(--page-width, 412px)); height: var(--rs-h); z-index: 90; display: flex; align-items: center; justify-content: center; padding: 0 8px; background: #222732; font-family: 'Noto Sans Bengali', sans-serif; }
+  .rs-seg { display: flex; padding: 2px; border-radius: 999px; background: rgba(255,255,255,0.1); }
+  .rs-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 52px; height: 32px; padding: 0 10px; border: 0; border-radius: 999px; background: none; color: #c9ccd3; font: 700 12px/32px 'Noto Sans Bengali', sans-serif; cursor: pointer; touch-action: manipulation; }
+  .rs-btn[aria-pressed="true"] { background: #fff; color: #222732; cursor: default; }
+  .rs-btn:focus-visible { outline: 2px solid #e2008d; outline-offset: 2px; }
 </style>
-<div class="review-switch" role="group" aria-label="প্রোটোটাইপ রিভিউ">
-  <div class="rs-seg" role="group" aria-label="সংস্করণ">{versions}</div>
-  <div class="rs-seg" role="group" aria-label="শিক্ষার্থী">{plans}</div>
-</div>
-<script>
-  (function () {{
-    if (new URLSearchParams(location.search).has('embed')) document.documentElement.classList.add('is-embedded');
-    // NEW homepage: OLD opens the original screen for the plan currently shown
-    var old = document.querySelector('[data-rs-old]');
-    if (old) old.addEventListener('click', function (e) {{
-      e.preventDefault();
-      location.href = 'old/' + (document.documentElement.dataset.plan === 'paid' ? 'paid' : 'free') + '.html';
-    }});
-  }})();
-</script>'''
+<div class="review-switch">
+  <div class="rs-seg" role="group" aria-label="শিক্ষার্থী (প্রোটোটাইপ)">
+    <button type="button" class="rs-btn" data-plan-set="free">ফ্রি</button><button type="button" class="rs-btn" data-plan-set="paid">পেইড</button>
+  </div>
+</div>'''

@@ -17,46 +17,27 @@
       var user = q.has('guest') ? null : window.SHIKHO_USER;
       var paid = q.has('paid') || (!q.has('free') && !!(user && user.enrolled));
       document.documentElement.dataset.plan = paid ? 'paid' : 'free';
-      if (q.has('embed')) document.documentElement.classList.add('is-embedded'); // inside compare.html
     })();
   </script>
 </head>
 <body>
   <div class="page">
-<!-- Prototype review switch (not part of the product UI) -->
+<!-- Prototype switch (not part of the product UI) -->
 <style>
-  /* A slim strip fixed to the top of the mobile column; the page is pushed down by its height,
-     and the old screens' sticky logo bar stays fixed just below it. It sits under the old burger menu. */
+  /* A slim strip fixed to the top of the mobile column; the page is pushed down by its height */
   :root { --rs-h: 44px; }
   body { padding-top: var(--rs-h); }
-  .page-nav { top: var(--rs-h); }
-  .review-switch { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: min(100vw, var(--page-width, 412px)); height: var(--rs-h); z-index: 90; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 0 8px; background: #222732; font-family: 'Noto Sans Bengali', sans-serif; }
-  .is-embedded body { padding-top: 0; }
-  .is-embedded .page-nav { top: 0; }
-
+  .review-switch { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: min(100vw, var(--page-width, 412px)); height: var(--rs-h); z-index: 90; display: flex; align-items: center; justify-content: center; padding: 0 8px; background: #222732; font-family: 'Noto Sans Bengali', sans-serif; }
   .rs-seg { display: flex; padding: 2px; border-radius: 999px; background: rgba(255,255,255,0.1); }
-  .rs-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 52px; height: 32px; padding: 0 10px; border: 0; border-radius: 999px; background: none; color: #c9ccd3; font: 700 12px/32px 'Noto Sans Bengali', sans-serif; text-decoration: none; cursor: pointer; touch-action: manipulation; }
+  .rs-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 52px; height: 32px; padding: 0 10px; border: 0; border-radius: 999px; background: none; color: #c9ccd3; font: 700 12px/32px 'Noto Sans Bengali', sans-serif; cursor: pointer; touch-action: manipulation; }
   .rs-btn[aria-pressed="true"] { background: #fff; color: #222732; cursor: default; }
-  .rs-old[aria-pressed="true"] { background: #ffd7d7; }
-  .rs-new[aria-pressed="true"] { background: #d7f5df; }
   .rs-btn:focus-visible { outline: 2px solid #e2008d; outline-offset: 2px; }
-  .is-embedded .review-switch { display: none; }
 </style>
-<div class="review-switch" role="group" aria-label="প্রোটোটাইপ রিভিউ">
-  <div class="rs-seg" role="group" aria-label="সংস্করণ"><a class="rs-btn rs-old" href="old/free.html" data-rs-old aria-pressed="false">OLD</a><span class="rs-btn rs-new" aria-pressed="true">NEW</span></div>
-  <div class="rs-seg" role="group" aria-label="শিক্ষার্থী"><button type="button" class="rs-btn" data-plan-set="free">ফ্রি</button><button type="button" class="rs-btn" data-plan-set="paid">পেইড</button></div>
+<div class="review-switch">
+  <div class="rs-seg" role="group" aria-label="শিক্ষার্থী (প্রোটোটাইপ)">
+    <button type="button" class="rs-btn" data-plan-set="free">ফ্রি</button><button type="button" class="rs-btn" data-plan-set="paid">পেইড</button>
+  </div>
 </div>
-<script>
-  (function () {
-    if (new URLSearchParams(location.search).has('embed')) document.documentElement.classList.add('is-embedded');
-    // NEW homepage: OLD opens the original screen for the plan currently shown
-    var old = document.querySelector('[data-rs-old]');
-    if (old) old.addEventListener('click', function (e) {
-      e.preventDefault();
-      location.href = 'old/' + (document.documentElement.dataset.plan === 'paid' ? 'paid' : 'free') + '.html';
-    });
-  })();
-</script>
     <header class="page-nav page-nav--intro">
 <div class="bg-white content-stretch drop-shadow-[0px_1px_0.5px_rgba(0,0,0,0.04),0px_3px_1.5px_rgba(0,0,0,0.04),0px_24px_12px_rgba(0,0,0,0.04)] flex items-center justify-between gap-[12px] px-[16px] py-[12px] relative size-full" data-name="Navigation">
       <div class="content-stretch flex flex-col items-start relative shrink-0" data-name="Link">
