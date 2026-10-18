@@ -2,14 +2,14 @@
 
 Content comes from the live app (app.shikho.dev / ai.shikho.com), collected into data/*.json.
 Markup reuses the homepage's design system: white 20px-radius cards, the subject chip
-style, Noto Sans Bengali type scale and the existing button colours.
+style and the Fold design system (colour tokens, Inter Tight + Noto Sans Bengali type scale).
 """
 import html
 import json
 import os
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-F = "font-['Noto_Sans_Bengali']"
+F = "font-fold"
 CARD = ("bg-white drop-shadow-[0px_1px_0.5px_rgba(0,0,0,0.04),0px_3px_1.5px_rgba(0,0,0,0.04),"
         "0px_24px_12px_rgba(0,0,0,0.04)] rounded-[20px]")
 e = lambda s: html.escape(s or "", quote=True)
@@ -222,7 +222,7 @@ def ai_page():
         ("প্রো", "৳২৭৯", "৩০ দিনের মেয়াদ", "আনলিমিটেড প্রশ্ন", "এখনই কিনে নাও", True),
         ("এলিট", "৳৭৪৯", "৯০ দিনের মেয়াদ", "আনলিমিটেড প্রশ্ন", "এখনই কিনে নাও", False),
     ]
-    tick = ('<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#16a34a" '
+    tick = ('<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#01846C" '
             'stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg>')
     def pkg(name, price, days, q, cta, popular):
         feats = "".join(f"<li>{tick}{e(t)}</li>" for t in (days, q, "AI মডেল: Shikho AI Pro", "ছবি আপলোড করে প্রশ্ন"))
@@ -306,11 +306,11 @@ def review_switch():
   /* A slim strip fixed to the top of the mobile column; the page is pushed down by its height */
   :root { --rs-h: 44px; }
   body { padding-top: var(--rs-h); }
-  .review-switch { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: min(100vw, var(--page-width, 412px)); height: var(--rs-h); z-index: 90; display: flex; align-items: center; justify-content: center; padding: 0 8px; background: #222732; font-family: 'Noto Sans Bengali', sans-serif; }
+  .review-switch { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: min(100vw, var(--page-width, 412px)); height: var(--rs-h); z-index: 90; display: flex; align-items: center; justify-content: center; padding: 0 8px; background: #202020; font-family: 'Inter Tight', 'Noto Sans Bengali', sans-serif; }
   .rs-seg { display: flex; padding: 2px; border-radius: 999px; background: rgba(255,255,255,0.1); }
-  .rs-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 52px; height: 32px; padding: 0 10px; border: 0; border-radius: 999px; background: none; color: #c9ccd3; font: 700 12px/32px 'Noto Sans Bengali', sans-serif; cursor: pointer; touch-action: manipulation; }
-  .rs-btn[aria-pressed="true"] { background: #fff; color: #222732; cursor: default; }
-  .rs-btn:focus-visible { outline: 2px solid #e2008d; outline-offset: 2px; }
+  .rs-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 52px; height: 32px; padding: 0 10px; border: 0; border-radius: 999px; background: none; color: #DDDDDD; font: 600 12px/32px 'Inter Tight', 'Noto Sans Bengali', sans-serif; cursor: pointer; touch-action: manipulation; }
+  .rs-btn[aria-pressed="true"] { background: #fff; color: #202020; cursor: default; }
+  .rs-btn:focus-visible { outline: 2px solid #E2136E; outline-offset: 2px; }
 </style>
 <div class="review-switch">
   <div class="rs-seg" role="group" aria-label="শিক্ষার্থী (প্রোটোটাইপ)">

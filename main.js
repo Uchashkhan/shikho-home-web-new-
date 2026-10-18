@@ -202,7 +202,7 @@
       if (dotsHost?.tagName === 'SECTION') { dotsHost = null; break; }
     }
     const dots = dotsHost ? [...dotsHost.querySelectorAll('[data-name="List Item"]')].filter((d) => d.className.includes('h-[6px]') || d.className.includes('size-[6px]')) : [];
-    const initialDot = Math.max(0, dots.findIndex((d) => d.className.includes('bg-[#e2008d]')));
+    const initialDot = Math.max(0, dots.findIndex((d) => d.className.includes('bg-[#E2136E]')));
 
     let visible = all, start = 0, index = 0;
     const EASE = 'transform 350ms ease';
@@ -222,8 +222,8 @@
       const active = mod(index + initialDot, dots.length);
       dots.forEach((d, i) => {
         const on = i === active;
-        d.classList.toggle('bg-[#e2008d]', on);
-        d.classList.toggle('bg-[#99b6d6]', !on);
+        d.classList.toggle('bg-[#E2136E]', on);
+        d.classList.toggle('bg-[#DDDDDD]', !on);
         d.classList.toggle('w-[12px]', on);
         d.classList.toggle('h-[6px]', on);
         d.classList.toggle('rounded-[50px]', on);
@@ -298,8 +298,8 @@
   });
 
   /* Subject filter chips: scrollable row with a single active chip that filters the cards */
-  const CHIP_ACTIVE = { border: 'border-[#85a4ff]', bg: 'bg-[#d5e7ff]', text: 'text-[#3b4ee3]' };
-  const CHIP_IDLE = { border: 'border-[#e5e7eb]', bg: 'bg-[rgba(255,255,255,0)]', text: 'text-[#5b616d]' };
+  const CHIP_ACTIVE = { border: 'border-[#F3A1C5]', bg: 'bg-[#F9D0E2]', text: 'text-[#E2136E]' };
+  const CHIP_IDLE = { border: 'border-[#DDDDDD]', bg: 'bg-[rgba(255,255,255,0)]', text: 'text-[#505050]' };
 
   document.querySelectorAll('.overflow-clip.justify-center.h-\\[36px\\]').forEach((row) => {
     row.classList.replace('justify-center', 'justify-start');

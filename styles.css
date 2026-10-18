@@ -1,5 +1,22 @@
+/* Fold design system v1.1: primitive colour tokens (Colors.md) */
 :root {
-  --page-bg: #f9f9fa;
+  --fold-cerise: #E2136E; --fold-magenta: #E8428B; --fold-azalea: #EE71A8;
+  --fold-carnation: #F3A1C5; --fold-lotus: #F9D0E2; --fold-bloom: #FEF3F8;
+  --fold-charcoal: #202020; --fold-dark: #505050; --fold-graphite: #707070;
+  --fold-grey: #DDDDDD; --fold-slate: #EDEDED; --fold-ash: #F7F7F7; --fold-white: #FFFFFF;
+  --fold-emerald: #01846C; --fold-jade: #349D89; --fold-frost: #F2F9F8;
+  --fold-crimson: #D0021B; --fold-lace: #FDF2F4;
+  --fold-amber: #FFAB00; --fold-butter: #FFEECC;
+  --fold-overlay-black: rgba(0, 0, 0, 0.4); --fold-overlay-white: rgba(255, 255, 255, 0.6);
+  /* Typography.md: Inter Tight for English, Noto Sans Bengali for Bangla. Bangla glyphs are
+     not in Inter Tight, so each script automatically gets its own family. Weights: 400/500/600. */
+  --font-fold: 'Inter Tight', 'Noto Sans Bengali', sans-serif;
+}
+.font-fold { font-family: var(--font-fold); }
+b, strong { font-weight: 600; }
+
+:root {
+  --page-bg: var(--fold-ash);
   --page-width: 412px;
   --bottom-nav-h: 78px; /* 12 top + 28 icon + 2 + 24 label + 8 + 4 indicator */
   --bottom-nav-space: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom));
@@ -13,7 +30,7 @@ html { scrollbar-gutter: stable; }
 html, body {
   margin: 0;
   background: var(--page-bg);
-  font-family: 'Noto Sans Bengali', sans-serif;
+  font-family: var(--font-fold);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -80,16 +97,16 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
   width: 100%;
   min-height: 56px;
   padding: 16px 0;
-  color: #0a0c11;
-  font: 600 13px/19.5px 'Noto Sans Bengali', sans-serif;
+  color: var(--fold-charcoal);
+  font: 600 14px/20px var(--font-fold);
   text-align: left;
   text-decoration: none;
 }
-.profile-list > .profile-row:not([hidden]) ~ .profile-row { border-top: 1px solid #e5e7eb; }
+.profile-list > .profile-row:not([hidden]) ~ .profile-row { border-top: 1px solid var(--fold-grey); }
 .profile-row-icon { display: flex; flex-shrink: 0; }
 .profile-row-label { flex: 1; min-width: 0; }
-.profile-row-end { flex-shrink: 0; color: #8c929c; }
-.profile-row--danger { color: #e92020; }
+.profile-row-end { flex-shrink: 0; color: var(--fold-graphite); }
+.profile-row--danger { color: var(--fold-crimson); }
 
 
 /* Primary mobile navigation, fixed inside the mobile column (app bottom bar, Figma 145:15724) */
@@ -112,15 +129,15 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #b1bfca;            /* inactive icon */
+  color: var(--fold-graphite);            /* inactive icon */
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }
 .bottom-nav-icon { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; }
 .bottom-nav-label {
   margin-top: 2px;
-  color: #676ea0;
-  font: 500 14px/24px 'Noto Sans Bengali', sans-serif;
+  color: var(--fold-graphite);
+  font: 500 14px/20px var(--font-fold);
   white-space: nowrap;
 }
 /* Active tab: pink icon and label, with a 4px indicator along the bottom edge */
@@ -132,9 +149,9 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
   border-radius: 10px 10px 0 0;
 }
 .bottom-nav-item.is-active,
-.bottom-nav-item.is-active .bottom-nav-label { color: #e2008d; }
-.bottom-nav-item.is-active::after { background: #e2008d; }
-.bottom-nav-item:focus-visible { outline: 2px solid #e2008d; outline-offset: 2px; border-radius: 8px; }
+.bottom-nav-item.is-active .bottom-nav-label { color: var(--fold-cerise); }
+.bottom-nav-item.is-active::after { background: var(--fold-cerise); }
+.bottom-nav-item:focus-visible { outline: 2px solid var(--fold-cerise); outline-offset: 2px; border-radius: 8px; }
 
 /* Notice for destinations that aren't built in this prototype */
 .proto-toast {
@@ -146,9 +163,9 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
   max-width: calc(min(100vw, var(--page-width)) - 32px);
   padding: 8px 14px;
   border-radius: 10px;
-  background: #222732;
+  background: var(--fold-charcoal);
   color: #fff;
-  font: 500 12px/18px 'Noto Sans Bengali', sans-serif;
+  font: 500 12px/18px var(--font-fold);
   opacity: 0;
   pointer-events: none;
   transition: opacity 200ms ease, transform 200ms ease;
@@ -162,13 +179,13 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
   padding: 24px 16px;
   border-radius: 20px;
   background: #fff;
-  color: #5b616d;
+  color: var(--fold-dark);
   text-align: center;
-  font: 500 13px/19.5px 'Noto Sans Bengali', sans-serif;
+  font: 500 14px/20px var(--font-fold);
 }
 
 /* Profile value that the student hasn't provided */
-.is-missing { color: #5b616d !important; font-weight: 500 !important; }
+.is-missing { color: var(--fold-dark) !important; font-weight: 500 !important; }
 
 /* Minimum 44px tap area for small buttons, without changing their size */
 .hit-44::before {
@@ -208,22 +225,22 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
   background: #fff;
   box-shadow: 0 1px 0.5px rgba(0,0,0,0.04), 0 3px 1.5px rgba(0,0,0,0.04);
 }
-.subpage-back { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 999px; color: #0a0c11; }
-.subpage-back:active { background: #f4f4f6; }
-.subpage-title { margin: 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #0a0c11; font: 700 16px/24px 'Noto Sans Bengali', sans-serif; }
+.subpage-back { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 999px; color: var(--fold-charcoal); }
+.subpage-back:active { background: var(--fold-slate); }
+.subpage-title { margin: 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--fold-charcoal); font: 600 16px/24px var(--font-fold); }
 .subpage-main { display: flex; flex-direction: column; gap: 16px; padding: 16px 16px 32px; }
-.page-lead { margin: 0; color: #0a0c11; font: 700 18px/27px 'Noto Sans Bengali', sans-serif; }
+.page-lead { margin: 0; color: var(--fold-charcoal); font: 600 18px/28px var(--font-fold); }
 
 /* Chips: same look as the homepage subject chips */
 .chip-row { display: flex; gap: 6px; margin: 0 -16px; padding: 0 16px; }
 .chip {
   display: inline-flex; align-items: center; gap: 4px; flex-shrink: 0; height: 36px; padding: 0 12px;
-  border: 1px solid #e5e7eb; border-radius: 1000px; background: transparent;
-  color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; text-decoration: none; white-space: nowrap;
+  border: 1px solid var(--fold-grey); border-radius: 1000px; background: transparent;
+  color: var(--fold-dark); font: 500 12px/18px var(--font-fold); text-decoration: none; white-space: nowrap;
 }
 .chip img { width: 14px; height: 20px; object-fit: cover; }
-.chip.is-active { border-color: #85a4ff; background: #d5e7ff; color: #3b4ee3; }
-.tag-pill { display: inline-flex; align-items: center; padding: 3px 8px; border: 1px solid #e5e7eb; border-radius: 1000px; background: #fff; color: #5b616d; font: 500 11px/16.5px 'Noto Sans Bengali', sans-serif; white-space: nowrap; }
+.chip.is-active { border-color: var(--fold-carnation); background: var(--fold-lotus); color: var(--fold-cerise); }
+.tag-pill { display: inline-flex; align-items: center; padding: 3px 8px; border: 1px solid var(--fold-grey); border-radius: 1000px; background: #fff; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); white-space: nowrap; }
 .tag-pill--lg { padding: 6px 12px; font-size: 12px; line-height: 18px; }
 
 /* Video card (same anatomy as the homepage class cards, stacked one per row) */
@@ -232,14 +249,14 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
   display: flex; flex-direction: column; overflow: hidden; border-radius: 20px; background: #fff; text-decoration: none;
   box-shadow: 0 1px 0.5px rgba(0,0,0,0.04), 0 3px 1.5px rgba(0,0,0,0.04), 0 24px 12px rgba(0,0,0,0.04);
 }
-.video-thumb { position: relative; display: block; aspect-ratio: 16 / 9; background: #ebecf0; }
+.video-thumb { position: relative; display: block; aspect-ratio: 16 / 9; background: var(--fold-grey); }
 .video-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.video-duration { position: absolute; top: 8px; right: 8px; padding: 0 6px; border-radius: 6px; background: rgba(0,0,0,0.6); color: #fff; font: 600 11px/18px 'Noto Sans Bengali', sans-serif; }
+.video-duration { position: absolute; top: 8px; right: 8px; padding: 0 6px; border-radius: 6px; background: rgba(0,0,0,0.6); color: #fff; font: 600 12px/18px var(--font-fold); }
 .video-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border: 1.5px solid #fff; border-radius: 999px; background: rgba(0,0,0,0.25); }
 .video-body { display: flex; flex-direction: column; gap: 12px; padding: 12px 16px 16px; }
-.video-title { color: #0a0c11; font: 600 13px/19.5px 'Noto Sans Bengali', sans-serif; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.video-title { color: var(--fold-charcoal); font: 600 14px/20px var(--font-fold); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .video-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.video-teacher { display: flex; align-items: center; gap: 8px; min-width: 0; color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.video-teacher { display: flex; align-items: center; gap: 8px; min-width: 0; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .video-teacher img { width: 24px; height: 24px; border-radius: 999px; object-fit: cover; flex-shrink: 0; }
 .video-card .tag-pill { flex-shrink: 0; max-width: 55%; overflow: hidden; text-overflow: ellipsis; }
 
@@ -249,23 +266,23 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
   display: flex; flex-direction: column; overflow: hidden; border-radius: 20px; background: #fff;
   box-shadow: 0 1px 0.5px rgba(0,0,0,0.04), 0 3px 1.5px rgba(0,0,0,0.04), 0 24px 12px rgba(0,0,0,0.04);
 }
-.course-thumb { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #ebecf0; }
+.course-thumb { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--fold-grey); }
 .course-body { padding: 12px 16px; }
-.course-title { margin: 0; color: #0a0c11; font: 700 15px/22.5px 'Noto Sans Bengali', sans-serif; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.course-days { margin: 4px 0 0; color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
-.course-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; background: #eef1ff; }
+.course-title { margin: 0; color: var(--fold-charcoal); font: 600 16px/24px var(--font-fold); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.course-days { margin: 4px 0 0; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); }
+.course-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; background: var(--fold-bloom); }
 .course-price-wrap { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 6px; min-width: 0; }
-.course-price { color: #0a0c11; font: 700 15px/22.5px 'Noto Sans Bengali', sans-serif; }
-.course-from { color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
-.course-old { color: #8c929c; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
+.course-price { color: var(--fold-charcoal); font: 600 16px/24px var(--font-fold); }
+.course-from { color: var(--fold-dark); font: 500 12px/18px var(--font-fold); }
+.course-old { color: var(--fold-graphite); font: 500 12px/18px var(--font-fold); }
 .btn-primary {
   display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; height: 40px; padding: 0 16px; border-radius: 10px;
-  background: #5468ff; color: #fff; font: 600 13px/24px 'Noto Sans Bengali', sans-serif; text-decoration: none;
+  background: var(--fold-cerise); color: #fff; font: 600 14px/24px var(--font-fold); text-decoration: none;
   box-shadow: inset 0 3px 4px rgba(255,255,255,0.32);
 }
 .btn-secondary {
-  display: flex; align-items: center; justify-content: center; height: 40px; padding: 0 12px; border: 1px solid rgba(107,114,128,0.12); border-radius: 10px;
-  background: #f4f4f6; color: #0a0c11; font: 600 13px/24px 'Noto Sans Bengali', sans-serif; text-decoration: none;
+  display: flex; align-items: center; justify-content: center; height: 40px; padding: 0 12px; border: 1px solid rgba(112, 112, 112,0.12); border-radius: 10px;
+  background: var(--fold-slate); color: var(--fold-charcoal); font: 600 14px/24px var(--font-fold); text-decoration: none;
 }
 .course-row { display: flex; gap: 12px; margin: 0 -16px; padding: 0 16px 8px; }
 .course-card--compact { flex: 0 0 260px; }
@@ -273,38 +290,38 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
 
 /* Course detail */
 .course-detail { padding-bottom: calc(32px + 72px); }
-.course-hero { overflow: hidden; border-radius: 20px; background: #1e2b99; color: #fff; box-shadow: inset 0 0 32px #abb3f6; }
+.course-hero { overflow: hidden; border-radius: 20px; background: var(--fold-charcoal); color: #fff; box-shadow: inset 0 0 32px var(--fold-dark); }
 .course-hero-img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
 .course-hero-body { padding: 16px; }
-.course-hero-title { margin: 0; font: 700 18px/27px 'Noto Sans Bengali', sans-serif; }
-.course-hero-meta { display: flex; align-items: center; gap: 8px; margin: 6px 0 0; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; color: rgba(255,255,255,0.86); }
+.course-hero-title { margin: 0; font: 600 18px/28px var(--font-fold); }
+.course-hero-meta { display: flex; align-items: center; gap: 8px; margin: 6px 0 0; font: 500 12px/18px var(--font-fold); color: rgba(255,255,255,0.86); }
 .hero-tag { padding: 2px 8px; border-radius: 1000px; background: rgba(255,255,255,0.16); color: #fff; }
 .course-tabs { display: flex; gap: 6px; margin: 0 -16px; padding: 4px 16px; position: sticky; top: 56px; z-index: 5; background: var(--page-bg); }
 .detail-card { display: flex; flex-direction: column; padding: 16px; scroll-margin-top: 112px; text-decoration: none; }
-.detail-heading { margin: 0 0 12px; color: #0a0c11; font: 700 15px/22.5px 'Noto Sans Bengali', sans-serif; }
-.detail-sub { margin: 0; color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
+.detail-heading { margin: 0 0 12px; color: var(--fold-charcoal); font: 600 16px/24px var(--font-fold); }
+.detail-sub { margin: 0; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); }
 .detail-sub--gap { margin-top: 16px; }
 .detail-sub--lead { margin-bottom: 12px; }
-.detail-text { margin: 0; color: #5b616d; font: 500 13px/19.5px 'Noto Sans Bengali', sans-serif; }
+.detail-text { margin: 0; color: var(--fold-dark); font: 500 14px/20px var(--font-fold); }
 .mentor { display: flex; gap: 12px; }
-.mentor-pic { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; flex-shrink: 0; overflow: hidden; border-radius: 999px; background: #eef1ff; color: #4d61f8; font: 600 18px/1 'Noto Sans Bengali', sans-serif; }
+.mentor-pic { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; flex-shrink: 0; overflow: hidden; border-radius: 999px; background: var(--fold-lotus); color: var(--fold-cerise); font: 600 18px/1 var(--font-fold); }
 .mentor-pic img { width: 100%; height: 100%; object-fit: cover; }
-.mentor-name { margin: 0; color: #0a0c11; font: 700 13px/19.5px 'Noto Sans Bengali', sans-serif; }
-.mentor-points { margin: 4px 0 0; padding-left: 16px; list-style: disc; color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
-.syllabus { border-top: 1px solid #f4f4f6; }
+.mentor-name { margin: 0; color: var(--fold-charcoal); font: 600 14px/20px var(--font-fold); }
+.mentor-points { margin: 4px 0 0; padding-left: 16px; list-style: disc; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); }
+.syllabus { border-top: 1px solid var(--fold-slate); }
 .syllabus:first-of-type { border-top: 0; }
 .syllabus summary, .faq summary {
   display: flex; align-items: center; gap: 8px; min-height: 48px; cursor: pointer; list-style: none;
-  color: #0a0c11; font: 600 13px/19.5px 'Noto Sans Bengali', sans-serif;
+  color: var(--fold-charcoal); font: 600 14px/20px var(--font-fold);
 }
 .syllabus summary::-webkit-details-marker, .faq summary::-webkit-details-marker { display: none; }
-.syllabus summary svg, .faq summary svg { margin-left: auto; flex-shrink: 0; color: #8c929c; transform: rotate(90deg); transition: transform 150ms ease; }
+.syllabus summary svg, .faq summary svg { margin-left: auto; flex-shrink: 0; color: var(--fold-graphite); transform: rotate(90deg); transition: transform 150ms ease; }
 .syllabus[open] summary svg, .faq[open] summary svg { transform: rotate(-90deg); }
-.syllabus-count { color: #5b616d; font-weight: 500; font-size: 12px; }
+.syllabus-count { color: var(--fold-dark); font-weight: 500; font-size: 12px; }
 .chapter-list { margin: 0 0 12px; padding: 0; list-style: none; display: flex; flex-direction: column; }
-.chapter-list li { display: flex; gap: 8px; padding: 8px 0; border-top: 1px dashed #ebecf0; color: #0a0c11; font: 500 13px/19.5px 'Noto Sans Bengali', sans-serif; }
-.chapter-no { flex-shrink: 0; width: 72px; color: #5b616d; font-size: 12px; }
-.syllabus-empty { margin: 0 0 12px; color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
+.chapter-list li { display: flex; gap: 8px; padding: 8px 0; border-top: 1px dashed var(--fold-grey); color: var(--fold-charcoal); font: 500 14px/20px var(--font-fold); }
+.chapter-no { flex-shrink: 0; width: 72px; color: var(--fold-dark); font-size: 12px; }
+.syllabus-empty { margin: 0 0 12px; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); }
 .payment-help { gap: 8px; }
 .payment-help .detail-heading { margin: 4px 0 0; }
 .payment-video { position: relative; display: block; overflow: hidden; border-radius: 12px; aspect-ratio: 16 / 9; }
@@ -312,48 +329,48 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
 .enroll-bar {
   position: fixed; left: 50%; bottom: var(--bottom-nav-space); transform: translateX(-50%); z-index: 55;
   width: min(100vw, var(--page-width)); display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  padding: 12px 16px; background: #fff; border-top: 1px solid #e5e7eb;
+  padding: 12px 16px; background: #fff; border-top: 1px solid var(--fold-grey);
 }
-.enroll-label { width: 100%; color: #5b616d; font: 500 11px/16.5px 'Noto Sans Bengali', sans-serif; }
-.btn-enroll { display: inline-flex; align-items: center; height: 44px; padding: 0 16px; border-radius: 10px; background: #f8b51d; color: #0a0c11; font: 700 13px/24px 'Noto Sans Bengali', sans-serif; text-decoration: none; white-space: nowrap; }
+.enroll-label { width: 100%; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); }
+.btn-enroll { display: inline-flex; align-items: center; height: 44px; padding: 0 16px; border-radius: 10px; background: var(--fold-amber); color: var(--fold-charcoal); font: 600 14px/24px var(--font-fold); text-decoration: none; white-space: nowrap; }
 
 /* Shikho AI */
 .ai-hero {
   position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 12px; padding: 20px 16px; border-radius: 20px; color: #fff;
-  background-image: linear-gradient(82.88deg, rgb(255, 55, 223) 0.54%, rgb(110, 0, 255) 99.41%);
+  background-image: linear-gradient(82.88deg, rgb(226, 19, 110) 0.54%, rgb(238, 113, 168) 99.41%);
   box-shadow: inset 0 0 32px rgba(201,201,201,0.72);
 }
 .ai-hero > * { position: relative; }
 .ai-hero-deco { position: absolute !important; right: 0; top: 0; }
-.ai-hero-title { margin: 4px 0 0; font: 700 22px/33px 'Noto Sans Bengali', sans-serif; }
-.ai-hero-sub { margin: 0; color: rgba(255,255,255,0.92); font: 500 13px/19.5px 'Noto Sans Bengali', sans-serif; }
-.ai-hero-cta { display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border-radius: 40px; background: #fff; color: #6e00ff; font: 700 13px/24px 'Noto Sans Bengali', sans-serif; text-decoration: none; }
+.ai-hero-title { margin: 4px 0 0; font: 600 24px/36px var(--font-fold); }
+.ai-hero-sub { margin: 0; color: rgba(255,255,255,0.92); font: 500 14px/20px var(--font-fold); }
+.ai-hero-cta { display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border-radius: 40px; background: #fff; color: var(--fold-cerise); font: 600 14px/24px var(--font-fold); text-decoration: none; }
 .ai-hero-cta--ghost { background: rgba(0,0,0,0.24); color: #fff; }
 .ai-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0; padding: 0; list-style: none; }
-.ai-stats li { display: flex; flex-direction: column; padding: 10px 8px; border-radius: 12px; background: #fff; border: 1px solid #ebecf0; color: #5b616d; font: 500 11px/16.5px 'Noto Sans Bengali', sans-serif; text-align: center; }
-.ai-stats b { color: #0a0c11; font-size: 15px; line-height: 22.5px; }
+.ai-stats li { display: flex; flex-direction: column; padding: 10px 8px; border-radius: 12px; background: #fff; border: 1px solid var(--fold-grey); color: var(--fold-dark); font: 500 12px/18px var(--font-fold); text-align: center; }
+.ai-stats b { color: var(--fold-charcoal); font-size: 15px; line-height: 22.5px; }
 .ai-steps { display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0; list-style: none; }
 .ai-step { display: flex; gap: 12px; align-items: flex-start; }
-.ai-step-no { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; flex-shrink: 0; border-radius: 999px; background: #f3e8ff; color: #6e00ff; font: 700 13px/1 'Noto Sans Bengali', sans-serif; }
-.ai-step-title { display: block; color: #0a0c11; font: 600 13px/19.5px 'Noto Sans Bengali', sans-serif; }
-.ai-step-sub { display: block; color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
+.ai-step-no { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; flex-shrink: 0; border-radius: 999px; background: var(--fold-lotus); color: var(--fold-cerise); font: 600 14px/1 var(--font-fold); }
+.ai-step-title { display: block; color: var(--fold-charcoal); font: 600 14px/20px var(--font-fold); }
+.ai-step-sub { display: block; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); }
 .pkg-row { display: flex; gap: 12px; margin: 0 -16px; padding: 4px 16px 16px; }
 .pkg { flex: 0 0 200px; display: flex; flex-direction: column; gap: 8px; padding: 16px; }
-.pkg--popular { outline: 2px solid #b54cff; }
+.pkg--popular { outline: 2px solid var(--fold-cerise); }
 .pkg-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.pkg-name { color: #5b616d; font: 600 13px/19.5px 'Noto Sans Bengali', sans-serif; }
-.pkg-badge { padding: 2px 8px; border-radius: 1000px; background: #f3e8ff; color: #6e00ff; font: 600 11px/16.5px 'Noto Sans Bengali', sans-serif; }
-.pkg-price { margin: 0; color: #0a0c11; font: 700 22px/33px 'Noto Sans Bengali', sans-serif; }
-.pkg-feats { display: flex; flex-direction: column; gap: 6px; margin: 0 0 8px; padding: 0; list-style: none; color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
+.pkg-name { color: var(--fold-dark); font: 600 14px/20px var(--font-fold); }
+.pkg-badge { padding: 2px 8px; border-radius: 1000px; background: var(--fold-lotus); color: var(--fold-cerise); font: 600 12px/18px var(--font-fold); }
+.pkg-price { margin: 0; color: var(--fold-charcoal); font: 600 24px/36px var(--font-fold); }
+.pkg-feats { display: flex; flex-direction: column; gap: 6px; margin: 0 0 8px; padding: 0; list-style: none; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); }
 .pkg-feats li { display: flex; gap: 6px; align-items: flex-start; }
 .pkg-feats svg { flex-shrink: 0; margin-top: 1px; }
 .pkg .btn-secondary, .pkg .btn-ai { margin-top: auto; }
-.btn-ai { display: flex; align-items: center; justify-content: center; height: 40px; border-radius: 10px; color: #fff; font: 600 13px/24px 'Noto Sans Bengali', sans-serif; text-decoration: none; background-image: linear-gradient(90deg, #ff37df, #6e00ff); }
-.faq { border-top: 1px solid #f4f4f6; }
+.btn-ai { display: flex; align-items: center; justify-content: center; height: 40px; border-radius: 10px; color: #fff; font: 600 14px/24px var(--font-fold); text-decoration: none; background-image: linear-gradient(90deg, var(--fold-cerise), var(--fold-cerise)); }
+.faq { border-top: 1px solid var(--fold-slate); }
 .faq:first-of-type { border-top: 0; }
-.faq p { margin: 0 0 12px; color: #5b616d; font: 500 12px/19.2px 'Noto Sans Bengali', sans-serif; }
-.ai-help { margin: 0; text-align: center; color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
-.ai-help a { color: #5468ff; font-weight: 700; text-decoration: none; }
+.faq p { margin: 0 0 12px; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); }
+.ai-help { margin: 0; text-align: center; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); }
+.ai-help a { color: var(--fold-cerise); font-weight: 600; text-decoration: none; }
 
 /* Press feedback for the new tappable cards and buttons */
 .video-card, .course-card .btn-primary, .btn-secondary, .btn-ai, .btn-enroll, .ai-hero-cta, .chip { transition: opacity 150ms ease, transform 150ms ease; }
