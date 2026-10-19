@@ -24,10 +24,17 @@ PLANS = {
 SHARED = ["s08_app", "s09_call", "s10_community"]
 
 
+def lazy(html):
+    """Below-the-fold images load as they come near the screen (the first section stays eager)."""
+    import re
+    return re.sub(r'<img(?![^>]*\bloading=)', '<img loading="lazy" decoding="async"', html)
+
+
 def section(n, plan=None, first=False):
     attrs = f' data-plan="{plan}"' if plan else ""
     attrs += " data-first" if first else ""
-    return f'      <section data-section="{n}"{attrs}>\n{frag(n)}\n      </section>'
+    body = frag(n) if first else lazy(frag(n))
+    return f'      <section data-section="{n}"{attrs}>\n{body}\n      </section>'
 
 
 sections = [section(n, plan, i == 0) for plan, names in PLANS.items() for i, n in enumerate(names)]
@@ -37,7 +44,7 @@ HOME = f"""    <main class="page-main">
 {chr(10).join(sections)}
     </main>
     <footer>
-{frag("s11_footer")}
+{lazy(frag("s11_footer"))}
     </footer>"""
 
 

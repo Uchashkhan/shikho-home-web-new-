@@ -308,7 +308,11 @@
       const from = s === CHIP_ACTIVE ? CHIP_IDLE : CHIP_ACTIVE;
       chip.classList.replace(from.border, s.border);
       chip.querySelector('[aria-hidden]')?.classList.replace(from.bg, s.bg);
-      chip.querySelector('p')?.classList.replace(from.text, s.text);
+      const label = chip.querySelector('p');
+      label?.classList.replace(from.text, s.text);
+      // active chip in Semi Bold: pink on Bloom reads more clearly at 12px
+      label?.classList.toggle('font-semibold', s === CHIP_ACTIVE);
+      label?.classList.toggle('font-medium', s !== CHIP_ACTIVE);
       chip.setAttribute('aria-pressed', String(s === CHIP_ACTIVE));
     };
     const select = (chip) => {
@@ -324,6 +328,7 @@
       chip.addEventListener('click', () => select(chip));
       chip.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(chip); } });
     });
+    chips.forEach((c) => setChip(c, isActive(c) ? CHIP_ACTIVE : CHIP_IDLE)); // apply the weight to the initial chip
     row.scrollLeft = 0;
   });
 })();

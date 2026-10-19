@@ -251,7 +251,7 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
   color: var(--fold-dark); font: 500 12px/18px var(--font-fold); text-decoration: none; white-space: nowrap;
 }
 .chip img { width: 14px; height: 20px; object-fit: cover; }
-.chip.is-active { border-color: var(--fold-cerise); background: var(--fold-bloom); color: var(--fold-cerise); }
+.chip.is-active { border-color: var(--fold-cerise); background: var(--fold-bloom); color: var(--fold-cerise); font-weight: 600; }
 .tag-pill { display: inline-flex; align-items: center; padding: 3px 8px; border: 1px solid var(--fold-grey); border-radius: 1000px; background: #fff; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); white-space: nowrap; }
 .tag-pill--lg { padding: 6px 12px; font-size: 12px; line-height: 18px; }
 
@@ -383,3 +383,11 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
 .course-card .btn-primary:active, .btn-secondary:active, .btn-ai:active, .btn-enroll:active, .ai-hero-cta:active, .chip:active { opacity: 0.7; }
 .subpage-main .filter-empty { margin: 0; }
 html { scroll-padding-top: 100px; }
+
+/* Pressed feedback for the remaining tappable items: homepage chips, class cards, light buttons */
+.page-main [role="group"] > [role="button"],
+.page-main [data-name="Container:transform"] > div > div,
+.btn-light { transition: opacity 150ms ease; }
+.page-main [role="group"] > [role="button"]:active,
+.btn-light:active { opacity: 0.7; }
+.page-main [data-name="Container:transform"] > div > div:active { opacity: 0.85; }
