@@ -21,7 +21,7 @@ PLANS = {
     # free student: original web homepage order
     "free": ["s02_important", "s03_guideline", "features", "s05_freetrial", "s07_courses"],
 }
-SHARED = ["s08_app", "s09_call", "s10_community"]
+SHARED = ["s09_call", "s10_community"]
 
 
 def div_end(s, start):
