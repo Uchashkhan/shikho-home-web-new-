@@ -8,7 +8,7 @@
     home: { path: '/student/home', local: 'index.html' },
     profile: { path: '/student/profile', local: 'profile.html' },
     courses: { path: '/student/courses', local: 'courses.html' },
-    ai: { path: 'ai.shikho.com', local: 'shikho-ai.html' }, // live app opens the separate Shikho AI site
+    ai: { path: 'ai.shikho.com', local: 'ai-chat.html' }, // the শিখো AI tab opens the doubt screen directly
     importantClasses: { path: '/student/videos/PopularVideo', local: 'important-classes.html' },
     guidelines: { path: '/student/videos/GuidelineVideo', local: 'guidelines.html' },
     course: { path: '/student/courses/[id]', local: 'course.html' },

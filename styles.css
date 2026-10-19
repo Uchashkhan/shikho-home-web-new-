@@ -739,7 +739,7 @@ body.no-nav:has(.exam) { background: var(--fold-ash); }
 .ex-rows b { color: var(--fold-charcoal); font-weight: 500; }
 
 /* ---------- Shikho AI doubt screen (ai-chat.html) ---------- */
-.ai-screen { min-height: calc(100dvh - var(--appbar-h) - var(--bottom-nav-space)); padding: 0 16px 24px; background: linear-gradient(180deg, #fff 0%, var(--fold-bloom) 60%, #fff 100%); }
+.ai-screen { min-height: calc(100dvh - var(--appbar-h) - var(--bottom-nav-space)); padding: 0 16px 24px; background: #fff; }
 .ai-intro { display: flex; flex-direction: column; align-items: center; margin-top: 28px; text-align: center; }
 .ai-intro[hidden], .ai-popular[hidden], .ai-chat[hidden] { display: none; }
 .ai-intro img { width: 100px; height: auto; }

@@ -147,7 +147,6 @@ for name, html in [
     ("courses.html", page("কোর্স | Shikho", "courses", pages.courses_page(), bar="কোর্স")),
     ("course.html", page("Animated General Math | Shikho", "courses", pages.course_detail_page(),
                          bar="কোর্সের বিস্তারিত", back="courses.html")),
-    ("shikho-ai.html", page("Shikho AI | Shikho", "ai", pages.ai_page(), bar="Shikho AI")),
     # Journeys (layout and copy follow the shikho-bkash reference prototype)
     ("watch.html", page("ক্লাস | Shikho", "home", pages.watch_page(), bar="মোস্ট ইমপর্ট্যান্ট ক্লাস",
                         nav_on=False, scripts=("watch.js",))),
