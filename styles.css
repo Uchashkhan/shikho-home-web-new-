@@ -953,3 +953,8 @@ html[data-plan="free"] .mc-section--mine { display: none; } /* a free student ha
 .mc-title { margin: 0; color: var(--fold-charcoal); font: 600 16px/24px var(--font-fold); }
 .mc-actions { display: flex; gap: 8px; margin-top: 12px; }
 .mc-cta { flex: 1; height: 40px; }
+/* Registration: SSC batch chips (class 9/10), same chip style as the subject filters */
+.field-label { color: var(--fold-charcoal); font: 400 14px/20px var(--font-fold); }
+.ob-batch { margin-top: 18px; }
+.batch-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.batch-chips .chip { height: 40px; padding: 0 14px; }

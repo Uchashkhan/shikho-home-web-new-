@@ -363,6 +363,10 @@ def signup_page():
               <label for="ob-group">গ্রুপ</label>
               <select id="ob-group" name="group"></select>
             </div>
+            <div class="field ob-batch">
+              <span class="field-label" id="ob-batch-label">ব্যাচ</span>
+              <div class="batch-chips" role="radiogroup" aria-labelledby="ob-batch-label" data-batch></div>
+            </div>
           </div>
         </div>
         <div class="ob-actions">

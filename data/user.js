@@ -16,6 +16,6 @@ window.SHIKHO_USER = {
 try {
   var saved = JSON.parse(localStorage.getItem('shikho-profile') || 'null');
   if (saved && saved.name) {
-    window.SHIKHO_USER = Object.assign({}, window.SHIKHO_USER, saved, { exam: null, avatarUrl: null });
+    window.SHIKHO_USER = Object.assign({}, window.SHIKHO_USER, saved, { exam: saved.exam || null, avatarUrl: null });
   }
 } catch (e) { /* storage blocked: keep the sample student */ }
