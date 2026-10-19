@@ -72,7 +72,7 @@ html, body {
 .profile-class { margin: 0; color: var(--fold-graphite); font: 400 12px/18px var(--font-fold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .profile-logo { flex: none; width: 42px; height: auto; }
 /* first section: 24px under the profile row (reference: .profile + .sec-head) */
-.home-profile ~ .page-main > section[data-first] > [data-name="Section"] { padding-top: 14px; }
+.home-profile ~ .page-main > section[data-first] > [data-name="Section"] { padding-top: 24px; } /* reference: .profile + .sec-head */
 
 /* Section "আরো দেখো": pink text link (reference .sec-head a) */
 .sec-link { flex: none; position: relative; color: var(--fold-cerise); font: 500 12px/18px var(--font-fold); text-decoration: none; white-space: nowrap; }
