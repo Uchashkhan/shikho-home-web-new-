@@ -1,0 +1,18 @@
+{
+  "source": "https://app.shikho.com/student/my-courses (live app, read 2026-10-19)",
+  "mine": [
+    {"title": "ক্লাস ৯ - SSC '27 বিজ্ঞান", "thumb": "assets/live/mc-ssc27-c9.webp", "archived": false},
+    {"title": "ক্লাস ১০ - SSC '26 বিজ্ঞান", "thumb": "assets/live/mc-ssc26-c10.webp", "archived": false},
+    {"title": "ক্লাস ১০ - SSC '25 বিজ্ঞান", "thumb": "assets/live/mc-ssc25-c10.webp", "archived": true},
+    {"title": "ক্লাস ৯ - SSC '25", "thumb": "assets/live/mc-ssc25-c9.webp", "archived": true},
+    {"title": "Think AI", "thumb": "assets/live/mc-think-ai.webp", "archived": true}
+  ],
+  "other": [
+    {"title": "লক্ষ্য জিপিএ-৫ SSC ’27 বিজ্ঞান - রিভিশন + মডেল টেস্ট", "thumb": "assets/live/mc-gpa5-ssc27.webp", "trial": true},
+    {"title": "ক্লাস ১০ - SSC '27 বিজ্ঞান", "thumb": "assets/live/mc-ssc27-c10.webp", "trial": true},
+    {"title": "লক্ষ্য GPA-5 SSC '26 বিজ্ঞান - রিভিশন + মডেল টেস্ট", "thumb": "assets/live/mc-gpa5-ssc26.webp", "trial": false}
+  ],
+  "free": [
+    {"title": "ক্লাস ১০ বিজ্ঞান - SSC ' 27 টেস্ট পরীক্ষা প্রস্তুতি", "thumb": "assets/live/mc-free-ssc27-test.webp"}
+  ]
+}

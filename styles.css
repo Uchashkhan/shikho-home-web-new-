@@ -934,3 +934,22 @@ html:active-view-transition-type(back)::view-transition-new(root) { animation: 3
 .menu-row + .menu-row { border-top: 1px solid var(--fold-slate); }
 .menu-row svg { flex: none; color: var(--fold-dark); }
 .menu-row:active { background: var(--fold-ash); }
+
+/* ---------- কোর্স tab (content from app.shikho.com/student/my-courses) ---------- */
+.mc-page { gap: 32px; }
+.mc-section { display: flex; flex-direction: column; gap: 12px; }
+html[data-plan="free"] .mc-section--mine { display: none; } /* a free student has no enrolled course yet */
+.mc-heading { margin: 0 0 2px; color: var(--fold-charcoal); font: 600 18px/28px var(--font-fold); }
+.mc-card { overflow: hidden; border: 1px solid var(--fold-slate); border-radius: 12px; background: #fff; }
+.mc-thumb { position: relative; }
+.mc-thumb img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--fold-slate); }
+.mc-badges { position: absolute; top: 8px; left: 8px; display: flex; gap: 6px; }
+.mc-badge { padding: 0 8px; border-radius: 6px; font: 500 12px/20px var(--font-fold); }
+.mc-badge--done { background: var(--fold-frost); color: var(--fold-emerald); }
+.mc-badge--archive { background: #fff; color: var(--fold-dark); }
+.mc-badge--trial { background: var(--fold-cerise); color: #fff; }
+.mc-badge--free { background: var(--fold-emerald); color: #fff; }
+.mc-body { padding: 12px 16px 16px; }
+.mc-title { margin: 0; color: var(--fold-charcoal); font: 600 16px/24px var(--font-fold); }
+.mc-actions { display: flex; gap: 8px; margin-top: 12px; }
+.mc-cta { flex: 1; height: 40px; }

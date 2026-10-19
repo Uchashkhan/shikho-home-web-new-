@@ -115,13 +115,41 @@ def course_card(c, compact=False):
 
 
 def courses_page():
-    d = data("courses.json")
-    cards = "\n        ".join(course_card(c) for c in d["courses"])
-    return f'''<main class="subpage-main">
-      <p class="page-lead">{e(d["title"])}</p>
-      <div class="course-list">
-        {cards}
-      </div>
+    """কোর্স tab, content from app.shikho.com/student/my-courses: আমার কোর্স (enrolled; paid view only),
+    অন্যান্য কোর্স (3-day trial), ফ্রি কোর্স. Same order as the live page."""
+    d = data("my-courses.json")
+    def card(c, badges, actions):
+        tags = "".join(f'<span class="mc-badge mc-badge--{k}">{e(t)}</span>' for k, t in badges)
+        return f'''<article class="mc-card" data-title="{e(c["title"])}" data-img="{c["thumb"]}">
+          <div class="mc-thumb"><img src="{c["thumb"]}" alt="" width="720" height="405" loading="lazy">{f'<span class="mc-badges">{tags}</span>' if tags else ""}</div>
+          <div class="mc-body">
+            <h3 class="mc-title">{e(c["title"])}</h3>
+            <div class="mc-actions">{actions}</div>
+          </div>
+        </article>'''
+    cont = '<a href="#" class="btn-primary bk-chev mc-cta" data-route="courseOther">শেখা চালিয়ে যাও</a>'
+    mine = "\n        ".join(card(c, [("done", "ভর্তি হয়েছো")] + ([("archive", "আর্কাইভ")] if c["archived"] else []), cont) for c in d["mine"])
+    other = "\n        ".join(card(
+        c, [("trial", "৩ দিন সবকিছু ফ্রি!")] if c["trial"] else [],
+        ('<button type="button" class="btn-primary bk-chev mc-cta" data-sheet="trial">৩ দিন ফ্রিতে শিখো</button>' if c["trial"] else "")
+        + '<button type="button" class="btn-secondary mc-cta" data-sheet="program">বিস্তারিত দেখো</button>') for c in d["other"])
+    free = "\n        ".join(card(
+        c, [("free", "সম্পুর্ন ফ্রি")],
+        '<a href="#" class="btn-primary bk-chev mc-cta" data-route="courseOther">সম্পূর্ণ ফ্রি’তে শুরু করো</a>'
+        '<a href="#" class="btn-secondary mc-cta" data-route="courseOther">বিস্তারিত দেখো</a>') for c in d["free"])
+    return f'''<main class="subpage-main mc-page">
+      <section class="mc-section mc-section--mine" aria-labelledby="mc-mine">
+        <h2 class="mc-heading" id="mc-mine">আমার কোর্স</h2>
+        {mine}
+      </section>
+      <section class="mc-section" aria-labelledby="mc-other">
+        <h2 class="mc-heading" id="mc-other">অন্যান্য কোর্স</h2>
+        {other}
+      </section>
+      <section class="mc-section" aria-labelledby="mc-free">
+        <h2 class="mc-heading" id="mc-free">ফ্রি কোর্স</h2>
+        {free}
+      </section>
     </main>'''
 
 

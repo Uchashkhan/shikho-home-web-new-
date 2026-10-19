@@ -194,6 +194,10 @@
     const kind = el.dataset.sheet;
     if (kind === 'enroll') enroll(el);
     if (kind === 'ai-package') aiPackage(Number(el.dataset.package ?? 2));
+    if ((kind === 'program' || kind === 'trial') && el.closest('[data-title]')) {
+      const c = el.closest('[data-title]').dataset;
+      return (kind === 'trial' ? trial : program)({ title: c.title, img: c.img, filter: '' });
+    }
     if (kind === 'program' || kind === 'trial') {
       const root = el.closest('.bg-white.rounded-\\[16px\\]');
       const img = root?.querySelector('img');
