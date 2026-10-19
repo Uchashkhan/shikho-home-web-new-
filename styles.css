@@ -494,3 +494,27 @@ html { scroll-padding-top: 100px; }
   .bk-secondary:hover { background-color: var(--fold-bloom) !important; }
 }
 .bk-btn:active { opacity: 0.8; }
+
+/* Video cards: Shikho's 1px #F4F4F6 stroke around the whole card (homepage rows + list pages).
+   The image runs edge to edge at the top; title and details sit inside with 12px padding. */
+:root { --video-card-stroke: #F4F4F6; }
+:is([data-section="s02_important"], [data-section="s03_guideline"], [data-section="p05_important"], [data-section="p06_guideline"]) [data-name="Container:transform"] > div > div {
+  border: 1px solid var(--video-card-stroke);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #fff;
+}
+:is([data-section="s02_important"], [data-section="s03_guideline"], [data-section="p05_important"], [data-section="p06_guideline"]) [data-name="Container:transform"] > div > div > .absolute.rounded-\[10px\] {
+  border-radius: 0;
+}
+:is([data-section="s02_important"], [data-section="s03_guideline"], [data-section="p05_important"], [data-section="p06_guideline"]) [data-name="Heading 3"] {
+  padding-inline: 12px;
+}
+:is([data-section="s02_important"], [data-section="s03_guideline"], [data-section="p05_important"], [data-section="p06_guideline"]) [data-name="Heading 3"] + div {
+  padding-inline: 12px;
+  padding-bottom: 12px;
+  height: auto; /* the Figma row is a fixed 41px; let it grow by the padding */
+}
+.video-card { border: 1px solid var(--video-card-stroke); border-radius: 12px; overflow: hidden; background: #fff; }
+.video-card .video-thumb { border-radius: 0; }
+.video-card .video-body { padding: 10px 12px 12px; }
