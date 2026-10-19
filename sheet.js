@@ -214,4 +214,38 @@
     b.style.cursor = 'pointer';
     b.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); b.click(); } });
   });
+
+  // ---------- bKash mini-app header: "⋯" menu and close ----------
+  const MENU_IC = {
+    home: '<path d="M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4.5v-5h-5v5H5a1 1 0 0 1-1-1Z"/>',
+    link: '<path d="M10 14a4 4 0 0 0 5.66 0l3-3a4 4 0 0 0-5.66-5.66l-1 1"/><path d="M14 10a4 4 0 0 0-5.66 0l-3 3a4 4 0 0 0 5.66 5.66l1-1"/>',
+    reload: '<path d="M20 11a8 8 0 1 0-2.34 5.66"/><path d="M20 4v7h-7"/>',
+  };
+  const menuRow = (key, label) => `<button type="button" class="menu-row" data-menu="${key}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${MENU_IC[key]}</svg>${label}</button>`;
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('[data-appbar-close]')) {
+      window.ShikhoToast?.('bKash অ্যাপে এখান থেকে Shikho বন্ধ হয়ে যাবে');
+      return;
+    }
+    if (e.target.closest('[data-appbar-more]')) {
+      open('Shikho', `<div class="menu-list">${menuRow('home', 'হোমে যাও')}${menuRow('link', 'লিংক কপি করো')}${menuRow('reload', 'রিলোড করো')}</div>`);
+      return;
+    }
+    const item = e.target.closest('[data-menu]');
+    if (!item) return;
+    const act = item.dataset.menu;
+    if (act === 'home') location.href = 'index.html';
+    if (act === 'reload') location.reload();
+    if (act === 'link') {
+      const done = () => { close(); window.ShikhoToast?.('লিংক কপি হয়েছে'); };
+      navigator.clipboard?.writeText(location.href).then(done, () => { close(); window.ShikhoToast?.('লিংক কপি করা যায়নি'); }) ?? done();
+    }
+  });
+  // Hairline under the header once content scrolls beneath it
+  const nav = document.querySelector('.page-nav');
+  if (nav) {
+    const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 4);
+    addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
 })();

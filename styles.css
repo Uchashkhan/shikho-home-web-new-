@@ -18,7 +18,7 @@ b, strong { font-weight: 600; }
 :root {
   --page-bg: #FFFFFF; /* reference: white page, cards separated by a thin Slate border */
   --page-width: 412px;
-  --appbar-h: 44px;
+  --appbar-h: 56px;
   --bottom-nav-h: 71px; /* 1 border + 12 top + 24 icon + 4 + 18 label + 12 bottom */
   --bottom-nav-space: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom));
 }
@@ -53,12 +53,18 @@ html, body {
   height: calc(var(--appbar-h) + env(safe-area-inset-top));
 }
 
-/* Pink app bar on every page (reference: shikho-bkash .appbar): back arrow + centred title */
-.appbar { position: relative; height: calc(var(--appbar-h) + env(safe-area-inset-top)); padding-top: env(safe-area-inset-top); background: var(--fold-cerise); color: #fff; }
-.appbar-title { margin: 0; padding: 0 56px; text-align: center; font: 600 18px/44px var(--font-fold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.appbar-back { position: absolute; left: 6px; top: env(safe-area-inset-top); width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: #fff; }
-.appbar-back:active { background: rgba(255,255,255,0.16); }
-.appbar-back:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
+/* bKash mini-app header on every page: white bar, back chevron, left title, "⋯ | ⊗" capsule */
+.appbar { position: relative; display: flex; align-items: center; gap: 4px; height: calc(var(--appbar-h) + env(safe-area-inset-top)); padding: env(safe-area-inset-top) 12px 0 4px; background: #fff; color: var(--fold-charcoal); }
+.appbar-back { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: var(--fold-charcoal); }
+.appbar-back[hidden] { display: none; }
+.appbar-back[hidden] + .appbar-title { padding-left: 12px; }
+.appbar-title { flex: 1; min-width: 0; margin: 0; padding-left: 4px; font: 600 18px/28px var(--font-fold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.appbar-pill { flex: none; display: flex; align-items: center; height: 32px; padding: 0 2px; border: 1px solid var(--fold-slate); border-radius: 999px; background: #fff; }
+.appbar-pill-btn { position: relative; display: grid; place-items: center; width: 40px; height: 30px; border-radius: 999px; color: var(--fold-charcoal); }
+.appbar-pill-btn::before { content: ""; position: absolute; inset: -7px -2px; } /* 44px tap height */
+.appbar-pill-sep { width: 1px; height: 16px; background: var(--fold-grey); }
+.appbar-back:active, .appbar-pill-btn:active { background: var(--fold-ash); }
+.appbar-back:focus-visible, .appbar-pill-btn:focus-visible { outline: 2px solid var(--fold-cerise); outline-offset: -2px; }
 
 /* Homepage profile row under the app bar (reference .profile): avatar + edit badge, name, class, bird mark */
 .home-profile { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 16px 10px; }
@@ -435,7 +441,7 @@ html { scroll-padding-top: 100px; }
   .btn-secondary:hover, .btn-light:hover, .chip:hover { background: var(--fold-bloom); }
   .btn-danger:hover { background: #B00217; }
   .sec-link:hover, .ai-help a:hover { text-decoration: underline; text-underline-offset: 3px; }
-  .appbar-back:hover { background: rgba(255,255,255,0.16); }
+  .appbar-back:hover, .appbar-pill-btn:hover { background: var(--fold-ash); }
   .bottom-nav-item:not(.is-active):hover .bottom-nav-label { color: var(--fold-charcoal); }
   .profile-row:hover .profile-row-label { text-decoration: underline; text-underline-offset: 3px; }
   .video-card:hover .video-thumb img, .course-card:hover .course-thumb { opacity: 0.9; }
@@ -920,3 +926,11 @@ html:active-view-transition-type(back)::view-transition-new(root) { animation: 3
 /* শিখো AI tab: grey like the other tabs; the Shikho AI gradient only when it is the selected tab */
 .bottom-nav-item[data-route="ai"] .bottom-nav-icon path[fill^="url"] { fill: currentColor; fill-opacity: .6; }
 .bottom-nav-item[data-route="ai"].is-active .bottom-nav-icon path[fill^="url"] { fill: url(#nav-ai-grad); fill-opacity: 1; }
+
+.page-nav.is-scrolled .appbar { box-shadow: 0 1px 0 var(--fold-slate); }
+/* Header "⋯" menu rows (bKash list in a bottom sheet) */
+.menu-list { display: flex; flex-direction: column; }
+.menu-row { display: flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 4px; color: var(--fold-charcoal); font: 500 14px/20px var(--font-fold); text-align: left; }
+.menu-row + .menu-row { border-top: 1px solid var(--fold-slate); }
+.menu-row svg { flex: none; color: var(--fold-dark); }
+.menu-row:active { background: var(--fold-ash); }
