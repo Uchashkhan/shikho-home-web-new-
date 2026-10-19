@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>প্রোফাইল তৈরি | Shikho</title>
+  <meta name="theme-color" content="#E2136E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Noto+Sans+Bengali:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="data/user.js"></script>
+  <script>
+    // App-like page transitions: tab ↔ tab crossfades, opening a page pushes it in, back slides it out
+    window.addEventListener('pagereveal', function (e) {
+      var a = window.navigation && navigation.activation;
+      if (!e.viewTransition || !a || !a.from) return;
+      if (a.navigationType === 'reload') return e.viewTransition.skipTransition();
+      var TABS = ['index.html', 'courses.html', 'ai-chat.html', 'profile.html'];
+      var page = function (u) { var p = new URL(u).pathname.split('/').pop(); return p || 'index.html'; };
+      var from = page(a.from.url), to = page(a.entry.url);
+      var type = TABS.indexOf(from) > -1 && TABS.indexOf(to) > -1 ? 'tab'
+        : a.navigationType === 'traverse' && a.entry.index < a.from.index ? 'back'
+        : TABS.indexOf(to) > -1 ? 'back' : 'forward';
+      e.viewTransition.types.add(type);
+      document.documentElement.dataset.navTransition = type; // which animation ran
+      // clip the slide to the page column's real edges (scrollbar-safe)
+      var col = document.querySelector('.page');
+      if (col) {
+        var r = col.getBoundingClientRect();
+        document.documentElement.style.setProperty('--vt-l', r.left + 'px');
+        document.documentElement.style.setProperty('--vt-w', r.width + 'px');
+      }
+    });
+  </script>
+  <script>
+    // Paid (enrolled) or free homepage, decided before first paint. ?paid / ?free preview either.
+    (function () {
+      var q = new URLSearchParams(location.search);
+      var user = q.has('guest') ? null : window.SHIKHO_USER;
+      var paid = q.has('paid') || (!q.has('free') && !!(user && user.enrolled));
+      document.documentElement.dataset.plan = paid ? 'paid' : 'free';
+    })();
+  </script>
+</head>
+<body class="no-nav">
+  <a class="skip-link" href="#main">মূল কন্টেন্টে যাও</a>
+  <div class="page">
+
+    <header class="page-nav">
+<div class="appbar">
+      <a href="index.html" class="appbar-back" data-back aria-label="ফিরে যাও">
+        <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4"/><path d="m10 6-6 6 6 6"/></svg>
+      </a>
+      <h1 class="appbar-title" translate="no">Shikho</h1>
+    </div>
+    </header>
+
+<main id="main" tabindex="-1" class="onboard">
+      <div class="ob-hero">
+        <img class="ob-logo" src="assets/shikho-logo.svg" alt="Shikho" width="78" height="40">
+        <h2 id="onboard-title">চলো শিখোতে তোমার<br><em>প্রোফাইল তৈরি করি</em></h2>
+        <p>কয়েকটি তথ্য দাও, তোমার জন্য শেখাটা সাজিয়ে দেবো</p>
+      </div>
+      <form class="ob-form" data-signup novalidate aria-labelledby="onboard-title">
+        <div class="field">
+          <label for="ob-name">শিক্ষার্থীর নাম</label>
+          <!-- Not prefilled: the bKash account holder is usually the parent, not the student -->
+          <input id="ob-name" name="name" type="text" autocomplete="off" placeholder="নাম লেখো" maxlength="40" required aria-describedby="ob-name-hint">
+          <small class="hint" id="ob-name-hint">যে পড়বে তার নাম লেখো</small>
+        </div>
+        <div class="field">
+          <label for="ob-class">ক্লাস</label>
+          <select id="ob-class" name="class" required></select>
+        </div>
+        <!-- Group only exists for class 9 and 10: revealed below Class when one of them is picked -->
+        <div class="reveal" data-group-reveal inert>
+          <div class="reveal-inner">
+            <div class="field">
+              <label for="ob-group">গ্রুপ</label>
+              <select id="ob-group" name="group"></select>
+            </div>
+          </div>
+        </div>
+        <div class="ob-actions">
+          <button class="btn-primary btn-block ob-submit" type="submit" disabled>প্রোফাইল তৈরি করো</button>
+        </div>
+      </form>
+    </main>
+  </div>
+<div id="proto-toast" class="proto-toast" role="status" aria-live="polite"></div>
+
+  <script src="data/videos.js"></script>
+  <script src="main.js"></script>
+  <script src="sheet.js"></script>
+  <script src="signup.js"></script>
+</body>
+</html>

@@ -11,3 +11,11 @@ window.SHIKHO_USER = {
   enrolled: false, // true = paid student: the homepage shows routine, program and shortcuts
   avatarUrl: null,
 };
+
+// A profile made on the sign-up screen (signup.html) replaces the sample student in this browser
+try {
+  var saved = JSON.parse(localStorage.getItem('shikho-profile') || 'null');
+  if (saved && saved.name) {
+    window.SHIKHO_USER = Object.assign({}, window.SHIKHO_USER, saved, { exam: null, avatarUrl: null });
+  }
+} catch (e) { /* storage blocked: keep the sample student */ }

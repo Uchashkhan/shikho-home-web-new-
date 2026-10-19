@@ -876,3 +876,27 @@ html:active-view-transition-type(back)::view-transition-new(root) { animation: 3
   @view-transition { navigation: none; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }
+
+/* ---------- Sign-up / profile setup (signup.html; reference .onboard) ---------- */
+.onboard { display: flex; flex-direction: column; min-height: calc(100dvh - var(--appbar-h) - env(safe-area-inset-top)); padding: 0 16px; }
+.ob-hero { padding: 28px 0 24px; }
+.ob-logo { display: block; width: 78px; height: auto; margin-bottom: 16px; }
+.ob-hero h2 { margin: 0; color: var(--fold-charcoal); font: 600 24px/36px var(--font-fold); }
+.ob-hero h2 em { font-style: normal; color: var(--fold-cerise); }
+.ob-hero p { max-width: 280px; margin: 8px 0 0; color: var(--fold-graphite); font: 400 14px/20px var(--font-fold); }
+.ob-form { flex: 1; display: flex; flex-direction: column; gap: 18px; margin-top: 8px; }
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field label { color: var(--fold-charcoal); font: 400 14px/20px var(--font-fold); }
+.field input, .field select { width: 100%; height: 44px; padding: 0 12px; border: 1px solid var(--fold-grey); border-radius: 8px; background: #fff; color: var(--fold-charcoal); font: 400 16px/24px var(--font-fold); -webkit-appearance: none; appearance: none; } /* 16px: no iOS zoom */
+.field input::placeholder { color: var(--fold-graphite); }
+.field select { padding-right: 36px; background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23707070' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") right 12px center / 16px no-repeat; }
+.field select:has(option[value=""]:checked) { color: var(--fold-graphite); }
+.field input:focus, .field select:focus { outline: none; border-color: var(--fold-cerise); box-shadow: inset 0 0 0 1px var(--fold-cerise); }
+.ob-form .hint { color: var(--fold-graphite); font: 400 12px/18px var(--font-fold); }
+/* Group slides open under Class (grid rows animate the height; the form gap is cancelled while closed) */
+.reveal { display: grid; grid-template-rows: 0fr; margin-top: -18px; opacity: 0; transition: grid-template-rows .25s ease, margin-top .25s ease, opacity .2s ease; }
+.reveal.open { grid-template-rows: 1fr; margin-top: 0; opacity: 1; }
+.reveal-inner { min-height: 0; overflow: hidden; }
+.ob-actions { position: sticky; bottom: 0; margin: auto -16px 0; padding: 12px 16px calc(32px + env(safe-area-inset-bottom)); background: #fff; }
+.ob-submit { height: 44px; border-radius: 8px; font-weight: 500; }
+.ob-submit:disabled { background: var(--fold-grey); color: var(--fold-graphite); cursor: not-allowed; }

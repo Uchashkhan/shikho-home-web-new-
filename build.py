@@ -175,6 +175,8 @@ for name, html in [
                         nav_on=False, scripts=("watch.js",))),
     ("exam.html", page("প্র্যাকটিস কুইজ | Shikho", "home", pages.exam_page(), bar="প্র্যাকটিস কুইজ",
                        nav_on=False, scripts=("exam.js",))),
+    ("signup.html", page("প্রোফাইল তৈরি | Shikho", "home", pages.signup_page(), bar="Shikho",
+                         nav_on=False, scripts=("signup.js",))),
     ("ai-chat.html", page("ডাউট সল্ভ | Shikho AI", "ai", pages.ai_chat_page(), bar="শিখো AI",
                           scripts=("ai-chat.js",))),
 ]:

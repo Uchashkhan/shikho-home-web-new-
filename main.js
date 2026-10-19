@@ -23,9 +23,9 @@
     homework: { path: null, local: null },
     reportCard: { path: '/student/report-card', local: null },
     syllabus: { path: null, local: null },
-    login: { path: null, local: null },
+    login: { path: null, local: 'signup.html' }, // sign-up / profile setup from the reference
     editProfile: { path: null, local: null }, // edit flow not confirmed on live
-    logout: { path: null, local: null }, // needs the app's real sign-out
+    logout: { path: null, local: 'signup.html' }, // prototype: forget the saved profile, start again
   };
 
   const toast = document.getElementById('proto-toast');
@@ -49,6 +49,8 @@
     // Destructive actions (log out) ask first, inline
     if (link.dataset.confirm && !link.dataset.confirmed) { e.preventDefault(); askConfirm(link); return; }
     const route = ROUTES[link.dataset.route];
+    if (link.dataset.route === 'logout') { try { localStorage.removeItem('shikho-profile'); } catch (err) { /* ignore */ } }
+    if (route?.local && link.tagName !== 'A') { e.preventDefault(); location.href = route.local; return; } // buttons
     if (route?.local && !link.hasAttribute('aria-current')) return; // real link: let the browser follow it
     e.preventDefault();
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

@@ -298,3 +298,38 @@ def ai_chat_page():
       <div class="ai-usage" data-ai-usage></div>
       <p class="ai-disclaimer">শিখো AI ভুল করতে পারে। গুরুত্বপূর্ণ তথ্য যাচাই করে নিও।</p>
     </main>'''
+
+
+def signup_page():
+    """Profile setup / sign-up (shikho-bkash reference .onboard). Behaviour in signup.js."""
+    return '''<main class="onboard">
+      <div class="ob-hero">
+        <img class="ob-logo" src="assets/shikho-logo.svg" alt="Shikho" width="78" height="40">
+        <h2 id="onboard-title">চলো শিখোতে তোমার<br><em>প্রোফাইল তৈরি করি</em></h2>
+        <p>কয়েকটি তথ্য দাও, তোমার জন্য শেখাটা সাজিয়ে দেবো</p>
+      </div>
+      <form class="ob-form" data-signup novalidate aria-labelledby="onboard-title">
+        <div class="field">
+          <label for="ob-name">শিক্ষার্থীর নাম</label>
+          <!-- Not prefilled: the bKash account holder is usually the parent, not the student -->
+          <input id="ob-name" name="name" type="text" autocomplete="off" placeholder="নাম লেখো" maxlength="40" required aria-describedby="ob-name-hint">
+          <small class="hint" id="ob-name-hint">যে পড়বে তার নাম লেখো</small>
+        </div>
+        <div class="field">
+          <label for="ob-class">ক্লাস</label>
+          <select id="ob-class" name="class" required></select>
+        </div>
+        <!-- Group only exists for class 9 and 10: revealed below Class when one of them is picked -->
+        <div class="reveal" data-group-reveal inert>
+          <div class="reveal-inner">
+            <div class="field">
+              <label for="ob-group">গ্রুপ</label>
+              <select id="ob-group" name="group"></select>
+            </div>
+          </div>
+        </div>
+        <div class="ob-actions">
+          <button class="btn-primary btn-block ob-submit" type="submit" disabled>প্রোফাইল তৈরি করো</button>
+        </div>
+      </form>
+    </main>'''
