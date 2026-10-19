@@ -111,6 +111,13 @@ def page(title, active, body, greeting=False, bar="Shikho", back="index.html", n
         : TABS.indexOf(to) > -1 ? 'back' : 'forward';
       e.viewTransition.types.add(type);
       document.documentElement.dataset.navTransition = type; // which animation ran
+      // clip the slide to the page column's real edges (scrollbar-safe)
+      var col = document.querySelector('.page');
+      if (col) {{
+        var r = col.getBoundingClientRect();
+        document.documentElement.style.setProperty('--vt-l', r.left + 'px');
+        document.documentElement.style.setProperty('--vt-w', r.width + 'px');
+      }}
     }});
   </script>
   <script>

@@ -844,21 +844,24 @@ body.no-nav:has(.exam) { background: var(--fold-ash); }
 ::view-transition-old(appbar), ::view-transition-new(appbar),
 ::view-transition-old(tabbar), ::view-transition-new(tabbar) { animation-duration: 160ms; }
 
+/* The slide stays inside the 412px column ("the phone screen"): each snapshot is clipped to the
+   column's edges while it moves. --vt-l / --vt-w are the column's left edge and width (set from
+   the real layout in the <head> script; these defaults match it). */
+:root { --vt-w: min(100vw, var(--page-width)); --vt-l: calc((100vw - var(--vt-w)) / 2); }
+
 @keyframes vt-fade-in { from { opacity: 0; } }
 @keyframes vt-fade-out { to { opacity: 0; } }
-@keyframes vt-push-in { from { transform: translateX(100%); } }
-@keyframes vt-push-out { to { transform: translateX(-28%); opacity: .6; } }
-@keyframes vt-pop-in { from { transform: translateX(-28%); opacity: .6; } }
-@keyframes vt-pop-out { to { transform: translateX(100%); } }
+@keyframes vt-push-in { from { transform: translateX(var(--vt-w)); clip-path: inset(0 calc(100% - var(--vt-l)) 0 max(0px, calc(var(--vt-l) - var(--vt-w)))); } to { transform: none; clip-path: inset(0 calc(100% - var(--vt-l) - var(--vt-w)) 0 var(--vt-l)); } }
+@keyframes vt-push-out { from { transform: none; clip-path: inset(0 calc(100% - var(--vt-l) - var(--vt-w)) 0 var(--vt-l)); } to { transform: translateX(calc(var(--vt-w) * -.28)); clip-path: inset(0 max(0px, calc(100% - var(--vt-l) - var(--vt-w) * 1.28)) 0 calc(var(--vt-l) + var(--vt-w) * .28)); opacity: .5; } }
+@keyframes vt-pop-in { from { transform: translateX(calc(var(--vt-w) * -.28)); clip-path: inset(0 max(0px, calc(100% - var(--vt-l) - var(--vt-w) * 1.28)) 0 calc(var(--vt-l) + var(--vt-w) * .28)); opacity: .5; } to { transform: none; clip-path: inset(0 calc(100% - var(--vt-l) - var(--vt-w)) 0 var(--vt-l)); } }
+@keyframes vt-pop-out { from { transform: none; clip-path: inset(0 calc(100% - var(--vt-l) - var(--vt-w)) 0 var(--vt-l)); } to { transform: translateX(var(--vt-w)); clip-path: inset(0 calc(100% - var(--vt-l)) 0 max(0px, calc(var(--vt-l) - var(--vt-w)))); } }
 
 html:active-view-transition-type(tab)::view-transition-old(root) { animation: 120ms ease-in both vt-fade-out; }
 html:active-view-transition-type(tab)::view-transition-new(root) { animation: 200ms ease-out 60ms both vt-fade-in; }
 html:active-view-transition-type(forward)::view-transition-old(root) { animation: 340ms cubic-bezier(.32,.72,0,1) both vt-push-out; }
-html:active-view-transition-type(forward)::view-transition-new(root) { animation: 340ms cubic-bezier(.32,.72,0,1) both vt-push-in; box-shadow: -8px 0 24px rgba(0,0,0,.08); }
+html:active-view-transition-type(forward)::view-transition-new(root) { animation: 340ms cubic-bezier(.32,.72,0,1) both vt-push-in; }
 html:active-view-transition-type(back)::view-transition-old(root) { animation: 300ms cubic-bezier(.32,.72,0,1) both vt-pop-out; z-index: 1; }
 html:active-view-transition-type(back)::view-transition-new(root) { animation: 300ms cubic-bezier(.32,.72,0,1) both vt-pop-in; }
-/* new page draws on top while pushing */
-html:active-view-transition-type(forward)::view-transition-image-pair(root) { isolation: isolate; }
 
 /* In-page jumps (course tabs, #packages) glide instead of jumping */
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
