@@ -233,7 +233,12 @@
       if (dotsHost?.tagName === 'SECTION') { dotsHost = null; break; }
     }
     const dots = dotsHost ? [...dotsHost.querySelectorAll('[data-name="List Item"]')].filter((d) => d.className.includes('h-[6px]') || d.className.includes('size-[6px]')) : [];
-    const initialDot = Math.max(0, dots.findIndex((d) => d.className.includes('bg-[#E2136E]')));
+    // Dot colours come from the markup (the wide dot is the active one), so each carousel keeps its own
+    // palette: Shikho pink/blue-grey in the free-trial section, Fold elsewhere
+    const bgOf = (d) => (d ? [...d.classList].find((c) => /^bg-\[#/.test(c)) : undefined);
+    const initialDot = Math.max(0, dots.findIndex((d) => d.classList.contains('w-[12px]')));
+    const dotOn = dots[initialDot] && bgOf(dots[initialDot]);
+    const dotOff = bgOf(dots.find((d, i) => i !== initialDot)) || dotOn;
 
     let visible = all, start = 0, index = 0;
     const EASE = 'transform 350ms ease';
@@ -253,8 +258,8 @@
       const active = mod(index + initialDot, dots.length);
       dots.forEach((d, i) => {
         const on = i === active;
-        d.classList.toggle('bg-[#E2136E]', on);
-        d.classList.toggle('bg-[#DDDDDD]', !on);
+        d.classList.toggle(dotOn, on);
+        d.classList.toggle(dotOff, !on);
         d.classList.toggle('w-[12px]', on);
         d.classList.toggle('h-[6px]', on);
         d.classList.toggle('rounded-[50px]', on);
