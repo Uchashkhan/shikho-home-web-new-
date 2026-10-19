@@ -98,7 +98,7 @@ def course_card(c, compact=False):
           </div>
           <div class="course-foot">
             <span class="course-price-wrap">{price(c)}</span>
-            <a {route} class="btn-primary">বিস্তারিত</a>
+            <a {route} class="btn-primary bk-chev">বিস্তারিত</a>
           </div>
         </article>'''
 
@@ -208,7 +208,7 @@ def course_detail_page():
 
       <div class="enroll-bar">
         <span class="course-price-wrap"><span class="enroll-label">কোর্সের মূল্য</span>{price(c)}</span>
-        <a href="#" class="btn-enroll" data-route="enroll">কোর্সে ভর্তি হও</a>
+        <a href="#" class="btn-enroll bk-chev" data-route="enroll">কোর্সে ভর্তি হও</a>
       </div>
     </main>'''
 
@@ -232,7 +232,7 @@ def ai_page():
             <div class="pkg-head"><span class="pkg-name">{e(name)}</span>{badge}</div>
             <p class="pkg-price">{e(price)}</p>
             <ul class="pkg-feats">{feats}</ul>
-            <a href="#" class="{"btn-ai" if popular else "btn-secondary"}" data-route="aiPackage">{e(cta)}</a>
+            <a href="#" class="{"btn-ai bk-chev" if popular else "btn-secondary"}" data-route="aiPackage">{e(cta)}</a>
           </article>'''
     faq = [
         ("Shikho AI কী?", "Shikho AI বাংলাদেশের প্রথম NCTB’র কারিকুলাম অনুযায়ী বিষয়ভিত্তিক শিক্ষা সহায়ক কৃত্রিম বুদ্ধিমত্তা (AI), যা একাডেমিক যেকোনো প্রশ্নের সহজ ও দ্রুত সমাধান দেয়।"),
@@ -260,7 +260,7 @@ def ai_page():
         <p class="ai-hero-title">প্রশ্ন? থাকতেই পারে!<br>উত্তর? সেকেন্ডেই!</p>
         <p class="ai-hero-sub">দেশের প্রথম সম্পূর্ণ বাংলায় AI; জাতীয় কারিকুলাম অনুযায়ী সকল প্রশ্নের ইনস্ট্যান্ট উত্তর।</p>
         <div class="flex gap-[8px]">
-          <a href="#" class="ai-hero-cta" data-route="aiChat">ফ্রি’তে ট্রাই করো</a>
+          <a href="#" class="ai-hero-cta bk-chev" data-route="aiChat">ফ্রি’তে ট্রাই করো</a>
           <a href="#packages" class="ai-hero-cta ai-hero-cta--ghost">প্যাকেজ দেখো</a>
         </div>
       </section>
