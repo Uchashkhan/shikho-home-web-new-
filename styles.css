@@ -435,3 +435,20 @@ html { scroll-padding-top: 100px; }
   .car-btn:hover { background: var(--fold-bloom); }
   .syllabus summary:hover, .faq summary:hover { color: var(--fold-cerise); }
 }
+
+/* Class & guideline cards: details row spans the card so the subject tag lines up with the
+   image's right edge; the teacher name takes the free space */
+:is([data-section="s02_important"], [data-section="s03_guideline"], [data-section="p05_important"], [data-section="p06_guideline"]) [data-name="Heading 3"] + div {
+  width: 100%;
+}
+:is([data-section="s02_important"], [data-section="s03_guideline"], [data-section="p05_important"], [data-section="p06_guideline"]) [data-name="Heading 3"] + div > :nth-child(2) {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+}
+:is([data-section="s02_important"], [data-section="s03_guideline"], [data-section="p05_important"], [data-section="p06_guideline"]) [data-name="Heading 3"] + div > :nth-child(2) > .absolute {
+  width: calc(100% + 8px);
+}
+/* card rows start on the same 16px edge as the section heading and chips */
+:is([data-section="s02_important"], [data-section="s03_guideline"]) [data-name="Container:transform"] { margin-left: 1px; }
+:is([data-section="p05_important"], [data-section="p06_guideline"]) [data-name="Container:transform"] { margin-left: -1px; }
