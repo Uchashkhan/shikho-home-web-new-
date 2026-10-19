@@ -19,7 +19,7 @@ b, strong { font-weight: 600; }
   --page-bg: #FFFFFF; /* reference: white page, cards separated by a thin Slate border */
   --page-width: 412px;
   --appbar-h: 44px;
-  --bottom-nav-h: 70px; /* 12 top + 24 icon + 4 + 18 label + 12 */
+  --bottom-nav-h: 71px; /* 1 border + 12 top + 24 icon + 4 + 18 label + 12 bottom */
   --bottom-nav-space: calc(var(--bottom-nav-h) + env(safe-area-inset-bottom));
 }
 
@@ -141,7 +141,7 @@ main:focus { outline: none; } /* programmatic focus target of the skip link only
 .profile-row--danger { color: var(--fold-crimson); }
 
 
-/* Primary mobile navigation, fixed inside the mobile column (app bottom bar, Figma 145:15724) */
+/* Primary mobile navigation, fixed inside the mobile column (Figma 158:15958) */
 .bottom-nav {
   position: fixed;
   bottom: 0;
@@ -151,12 +151,14 @@ main:focus { outline: none; } /* programmatic focus target of the skip link only
   z-index: 60;
   display: flex;
   justify-content: space-around;
-  padding: 12px 8px env(safe-area-inset-bottom);
-  /* Frosted glass like the bKash tab bar (reference .tabbar) */
+  padding: 12px 8px calc(12px + env(safe-area-inset-bottom)); /* 12px top and bottom, plus the home indicator */
+  /* Frosted 80% white, rounded top, Slate top border and a soft upward shadow */
   background: rgba(255, 255, 255, 0.8);
   -webkit-backdrop-filter: blur(20px) saturate(130%);
   backdrop-filter: blur(20px) saturate(130%);
   border-top: 1px solid var(--fold-slate);
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 -1px 2.5px rgba(29, 22, 22, 0.11);
 }
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .bottom-nav { background: #fff; }
@@ -167,20 +169,20 @@ main:focus { outline: none; } /* programmatic focus target of the skip link only
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  color: rgb(112 112 112 / 0.6);          /* inactive icon: Graphite 60% (reference) */
+  color: var(--fold-graphite);            /* inactive icon + label: Graphite */
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }
-.bottom-nav-icon { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; }
+.bottom-nav-icon { display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; } /* 20.4px icon + 1.8px margin */
 .bottom-nav-label {
   color: var(--fold-graphite);
   font: 500 12px/18px var(--font-fold);
   white-space: nowrap;
 }
-/* Active tab: pink icon and label (no indicator line, as in the reference) */
+/* Active tab: Cerise icon and label */
 .bottom-nav-item.is-active,
 .bottom-nav-item.is-active .bottom-nav-label { color: var(--fold-cerise); }
-.bottom-nav-item:not(.is-active) img { filter: grayscale(1); opacity: 0.6; }
+
 .bottom-nav-item:focus-visible { outline: 2px solid var(--fold-cerise); outline-offset: 2px; border-radius: 8px; }
 
 /* Notice for destinations that aren't built in this prototype */
