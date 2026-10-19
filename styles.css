@@ -452,3 +452,9 @@ html { scroll-padding-top: 100px; }
 /* card rows start on the same 16px edge as the section heading and chips */
 :is([data-section="s02_important"], [data-section="s03_guideline"]) [data-name="Container:transform"] { margin-left: 1px; }
 :is([data-section="p05_important"], [data-section="p06_guideline"]) [data-name="Container:transform"] { margin-left: -1px; }
+
+/* Homepage subject chips: icon and label share one vertical centre (the Figma frames pinned the
+   label to the bottom and the icon to the top) */
+.page-main [role="group"] > button { align-items: center; }
+.page-main [role="group"] > button > [data-name="Auto-added frame"] { height: auto; align-items: center; }
+.page-main [role="group"] > button [data-name="Text:margin"] { align-items: center; }
