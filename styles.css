@@ -134,7 +134,13 @@ main:focus { outline: none; } /* programmatic focus target of the skip link only
   text-align: left;
   text-decoration: none;
 }
-.profile-list > .profile-row:not([hidden]) ~ .profile-row { border-top: 1px solid var(--fold-grey); }
+/* Soft hairline that starts at the label (after the 20px icon + 12px gap), not at the card edge */
+.profile-row { position: relative; }
+.profile-list > .profile-row:not([hidden]) ~ .profile-row::before { content: ''; position: absolute; top: 0; left: 32px; right: 0; border-top: 1px solid var(--fold-slate); }
+
+/* Profile details: one soft Ash panel, no row dividers */
+.profile-facts { margin: 0; display: flex; flex-direction: column; padding: 4px 12px; border-radius: 10px; background: var(--fold-ash); }
+.profile-fact { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px 0; }
 .profile-row-icon { display: flex; flex-shrink: 0; }
 .profile-row-label { flex: 1; min-width: 0; }
 .profile-row-end { flex-shrink: 0; color: var(--fold-graphite); }
