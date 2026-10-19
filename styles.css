@@ -152,16 +152,11 @@ main:focus { outline: none; } /* programmatic focus target of the skip link only
   display: flex;
   justify-content: space-around;
   padding: 12px 8px calc(12px + env(safe-area-inset-bottom)); /* 12px top and bottom, plus the home indicator */
-  /* Frosted 80% white, rounded top, Slate top border and a soft upward shadow */
-  background: rgba(255, 255, 255, 0.8);
-  -webkit-backdrop-filter: blur(20px) saturate(130%);
-  backdrop-filter: blur(20px) saturate(130%);
+  /* Solid white, rounded top, Slate top border and a soft upward shadow */
+  background: #fff;
   border-top: 1px solid var(--fold-slate);
   border-radius: 12px 12px 0 0;
   box-shadow: 0 -1px 2.5px rgba(29, 22, 22, 0.11);
-}
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .bottom-nav { background: #fff; }
 }
 .bottom-nav-item {
   width: 25%;
