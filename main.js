@@ -13,13 +13,11 @@
     guidelines: { path: '/student/videos/GuidelineVideo', local: 'guidelines.html' },
     course: { path: '/student/courses/[id]', local: 'course.html' },
     courseOther: { path: '/student/courses/[id]', local: null }, // only one course detail is built
-    video: { path: '/student/watch', local: null },
-    enroll: { path: null, local: null }, // payment flow
+    video: { path: '/student/watch', local: 'watch.html' },
     paymentVideo: { path: null, local: null },
-    aiChat: { path: 'ai.shikho.com/doubt-solving', local: null },
-    aiPackage: { path: null, local: null }, // purchase flow
+    aiChat: { path: 'ai.shikho.com/doubt-solving', local: 'ai-chat.html' },
     admission: { path: '/student/admission', local: null },
-    practiceQuiz: { path: null, local: null }, // no quiz route confirmed on live
+    practiceQuiz: { path: null, local: 'exam.html' }, // no quiz route confirmed on live; journey from the reference
     routine: { path: '/student/routine', local: null },
     liveClass: { path: '/student/live-class', local: null },
     homework: { path: null, local: null },
@@ -38,6 +36,7 @@
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => toast.classList.remove('is-visible'), 2400);
   };
+  window.ShikhoToast = notify; // used by the journey scripts (watch, exam, AI, sheet)
 
   document.querySelectorAll('[data-route]').forEach((link) => {
     const route = ROUTES[link.dataset.route];
@@ -404,4 +403,30 @@
     if (start) select(start);
     row.scrollLeft = 0;
   });
+
+  /* Homepage class and guideline cards open the video player (watch.html). Cards are matched
+     to data/videos.js by title; a swipe on the carousel is not a tap. */
+  const VIDEOS = window.SHIKHO_VIDEOS;
+  if (VIDEOS) {
+    const norm = (t) => (t || '').replace(/["“”]/g, '').replace(/\s+/g, ' ').trim();
+    [['s02_important', 'important'], ['s03_guideline', 'guideline']].forEach(([section, key]) => {
+      const titles = VIDEOS[key].videos.map((v) => norm(v.title));
+      const seen = new Set();
+      document.querySelectorAll(`[data-section="${section}"] [data-name="Container:transform"] > div > div`).forEach((card) => {
+        const i = titles.indexOf(norm(card.querySelector('[data-name="Heading 3"]')?.textContent));
+        if (i < 0) return;
+        const href = `watch.html?list=${key}&v=${i}`;
+        card.classList.add('is-tappable');
+        card.setAttribute('role', 'link');
+        card.setAttribute('aria-label', `${VIDEOS[key].videos[i].title} দেখো`);
+        let x0 = 0;
+        card.addEventListener('pointerdown', (e) => { x0 = e.clientX; });
+        card.addEventListener('click', (e) => { if (Math.abs(e.clientX - x0) < 10) location.href = href; });
+        card.addEventListener('keydown', (e) => { if (e.key === 'Enter') location.href = href; });
+        // the loop repeats each card; only its first copy is a tab stop
+        card.tabIndex = seen.has(i) ? -1 : 0;
+        seen.add(i);
+      });
+    });
+  }
 })();

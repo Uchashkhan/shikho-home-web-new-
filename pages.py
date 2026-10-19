@@ -38,9 +38,9 @@ def app_bar(title, back="index.html", optional_back=False):
 
 # ---------- Video list ("আরো দেখো" pages) ----------
 
-def video_card(v):
+def video_card(v, href="#"):
     subject = (f'<span class="tag-pill">{e(v["subject"])}</span>' if v.get("subject") else "")
-    return f'''<a href="#" class="video-card" data-route="video" data-subject="{e(v.get("subject") or "")}">
+    return f'''<a href="{href}" class="video-card" data-subject="{e(v.get("subject") or "")}">
           <span class="video-thumb">
             <img src="{v["thumb"]}" alt="" width="640" height="360" loading="lazy">
             <span class="video-duration">{e(v["duration"])}</span>
@@ -69,7 +69,8 @@ def chips(items):
 
 def video_list(name):
     d = data(name)
-    cards = "\n        ".join(video_card(v) for v in d["videos"])
+    key = "important" if "important" in name else "guideline"  # list key in data/videos.js
+    cards = "\n        ".join(video_card(v, f"watch.html?list={key}&amp;v={i}") for i, v in enumerate(d["videos"]))
     return f'''<main class="subpage-main">
       {chips(d["chips"])}
       <div class="video-list" data-filter-list>
@@ -208,7 +209,7 @@ def course_detail_page():
 
       <div class="enroll-bar">
         <span class="course-price-wrap"><span class="enroll-label">কোর্সের মূল্য</span>{price(c)}</span>
-        <a href="#" class="btn-enroll bk-chev" data-route="enroll">কোর্সে ভর্তি হও</a>
+        <button type="button" class="btn-enroll bk-chev" data-sheet="enroll" data-title="{e(c["title"])}" data-thumb="{c["thumb"]}" data-price="{e(c["price"])}" data-old="{e(c["old"] or "")}" data-days="{e(c["days"])}">কোর্সে ভর্তি হও</button>
       </div>
     </main>'''
 
@@ -225,14 +226,15 @@ def ai_page():
     ]
     tick = ('<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#01846C" '
             'stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg>')
-    def pkg(name, price, days, q, cta, popular):
+    def pkg(i, name, price, days, q, cta, popular):
         feats = "".join(f"<li>{tick}{e(t)}</li>" for t in (days, q, "AI মডেল: Shikho AI Pro", "ছবি আপলোড করে প্রশ্ন"))
         badge = '<span class="pkg-badge">মোস্ট পপুলার</span>' if popular else ""
         return f'''<article class="{CARD} pkg{" pkg--popular" if popular else ""}">
             <div class="pkg-head"><span class="pkg-name">{e(name)}</span>{badge}</div>
             <p class="pkg-price">{e(price)}</p>
             <ul class="pkg-feats">{feats}</ul>
-            <a href="#" class="{"btn-ai bk-chev" if popular else "btn-secondary"}" data-route="aiPackage">{e(cta)}</a>
+            {f'<a href="#" class="btn-secondary" data-route="aiChat">{e(cta)}</a>' if i == 0 else
+             f'<button type="button" class="{"btn-ai bk-chev" if popular else "btn-secondary"}" data-sheet="ai-package" data-package="{i - 1}">{e(cta)}</button>'}
           </article>'''
     faq = [
         ("Shikho AI কী?", "Shikho AI বাংলাদেশের প্রথম NCTB’র কারিকুলাম অনুযায়ী বিষয়ভিত্তিক শিক্ষা সহায়ক কৃত্রিম বুদ্ধিমত্তা (AI), যা একাডেমিক যেকোনো প্রশ্নের সহজ ও দ্রুত সমাধান দেয়।"),
@@ -284,7 +286,7 @@ def ai_page():
         <h2 class="detail-heading px-[2px]">সহজ ও সাশ্রয়ী প্যাকেজ</h2>
         <p class="detail-sub detail-sub--lead px-[2px]">প্রয়োজন অনুযায়ী প্যাকেজ বেছে নাও। সব প্যাকেজেই আছে Shikho AI ব্যবহারের সুবিধা।</p>
         <div class="pkg-row h-scroll">
-          {"".join(pkg(*p) for p in packages)}
+          {"".join(pkg(i, *p) for i, p in enumerate(packages))}
         </div>
       </section>
 
@@ -322,3 +324,62 @@ def review_switch():
     <button type="button" class="rs-btn" data-plan-set="free">ফ্রি</button><button type="button" class="rs-btn" data-plan-set="paid">পেইড</button>
   </div>
 </div>'''
+
+
+# ---------- Journeys (shikho-bkash reference: watch, chapter exam, Shikho AI tab) ----------
+
+def watch_page():
+    """Video player + related list. Filled by watch.js from data/videos.js (?list=…&v=…)."""
+    return '''<main class="watch-main" data-watch aria-live="polite"></main>'''
+
+
+def exam_page():
+    """Practice quiz: rules -> questions -> overview grid -> result sheet (exam.js)."""
+    return '''<main class="exam" data-exam>
+      <div class="exam-head" data-exam-head></div>
+      <div class="exam-scroll" data-exam-body></div>
+      <div class="exam-foot" data-exam-foot></div>
+    </main>'''
+
+
+def ai_chat_page():
+    """Shikho AI doubt screen (reference AI tab). Behaviour in ai-chat.js."""
+    send = ('<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">'
+            '<path d="M3.4 20.4 21 12 3.4 3.6l-.1 6.5L15 12 3.3 13.9l.1 6.5Z"/></svg>')
+    photo = ('<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+             'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="15" height="14" rx="2"/>'
+             '<path d="m3 16 4-4 4 4 2-2 5 5"/><path d="M19 3v6M16 6h6"/></svg>')
+    return f'''<main class="ai-screen" data-ai>
+      <div class="ai-intro">
+        <img src="assets/ai-bubbles.webp" alt="" width="100" height="87">
+        <h2>ডাউট সল্ভ করতে প্রশ্ন করো</h2>
+        <p>যেকোনো টপিকের ডাউট যত স্পষ্ট করে লিখবে, শিখো AI তত ভালোভাবে বুঝিয়ে দেবে।</p>
+      </div>
+      <div class="ai-chat" data-ai-chat aria-live="polite" hidden></div>
+
+      <form class="ai-ask" data-ai-form>
+        <label class="ai-subject">
+          <span class="sr-only">বিষয়</span>
+          <select name="subject"></select>
+        </label>
+        <div class="ai-box">
+          <textarea name="q" rows="3" maxlength="500" placeholder="তোমার ডাউট লিখো" aria-label="তোমার ডাউট"></textarea>
+          <div class="ai-box-foot">
+            <span class="ai-count">ক্যারেক্টার লিমিট: <b data-ai-count>০/৫০০</b></span>
+            <span class="ai-tools">
+              <button type="button" class="ai-attach" data-ai-photo aria-label="ছবি যোগ করো">{photo}</button>
+              <button type="submit" class="ai-send" aria-label="পাঠাও" disabled>{send}</button>
+            </span>
+          </div>
+        </div>
+        <p class="ai-note">প্রতিটি ডাউটের জন্য একবারই প্রশ্ন করতে পারবে, তাই সমস্যাটি স্পষ্ট করে লিখো।</p>
+      </form>
+
+      <div class="ai-popular" data-ai-popular>
+        <h3>পপুলার ডাউট</h3>
+        <div class="ai-prompts" data-ai-prompts></div>
+      </div>
+
+      <div class="ai-usage" data-ai-usage></div>
+      <p class="ai-disclaimer">শিখো AI ভুল করতে পারে। গুরুত্বপূর্ণ তথ্য যাচাই করে নিও।</p>
+    </main>'''

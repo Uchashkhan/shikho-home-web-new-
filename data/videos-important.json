@@ -1,172 +1,184 @@
 {
- "title": "মোস্ট ইমপর্ট্যান্ট ক্লাস",
- "source": "app.shikho.dev/student/videos/PopularVideo",
- "chips": [
-  [
-   "সব",
-   null
+  "title": "মোস্ট ইমপর্ট্যান্ট ক্লাস",
+  "source": "app.shikho.dev/student/videos/PopularVideo",
+  "chips": [
+    [
+      "সব",
+      null
+    ],
+    [
+      "রসায়ন",
+      "assets/p05-image-chemistry.png"
+    ],
+    [
+      "উচ্চতর গণিত",
+      "assets/p05-image-higher-math.png"
+    ],
+    [
+      "পদার্থবিজ্ঞান",
+      "assets/p05-image-physics.png"
+    ],
+    [
+      "জীববিজ্ঞান",
+      "assets/p05-image-biology.png"
+    ],
+    [
+      "বাংলাদেশ ও বিশ্ব পরিচয়",
+      null
+    ],
+    [
+      "বাংলা ১ম পত্র",
+      "assets/p05-image-bangla1st.png"
+    ],
+    [
+      "বাংলা ২য় পত্র",
+      null
+    ],
+    [
+      "ইংরেজি ১ম পত্র",
+      "assets/p05-image-english1st-paper.png"
+    ],
+    [
+      "ইংরেজি ২য় পত্র",
+      null
+    ]
   ],
-  [
-   "পদার্থবিজ্ঞান",
-   "assets/p05-image-physics.png"
-  ],
-  [
-   "বাংলা ১ম পত্র",
-   "assets/p05-image-bangla1st.png"
-  ],
-  [
-   "সাধারণ গণিত",
-   "assets/p05-image-general-maths.png"
-  ],
-  [
-   "জীববিজ্ঞান",
-   "assets/p05-image-biology.png"
-  ],
-  [
-   "ইংরেজী ১ম পত্র",
-   "assets/p05-image-english1st-paper.png"
-  ],
-  [
-   "রসায়ন",
-   "assets/p05-image-chemistry.png"
-  ],
-  [
-   "English B",
-   "assets/p05-image-english-new1.png"
-  ],
-  [
-   "উচ্চতর গণিত",
-   "assets/p05-image-higher-math.png"
+  "videos": [
+    {
+      "title": "পদার্থের অবস্থা পর্ব-১",
+      "duration": "1:04:42",
+      "teacher": "Shaown Reza",
+      "subject": "রসায়ন",
+      "thumb": "assets/s02-image.webp",
+      "avatar": "assets/s02-image-shaown-reza.webp"
+    },
+    {
+      "title": "পর্যায় সারণি পর্ব-১",
+      "duration": "1:18:28",
+      "teacher": "Md. Sabbir Hossain Shisir",
+      "subject": "রসায়ন",
+      "thumb": "assets/s02-image1.webp",
+      "avatar": "assets/s02-image-md-sabbir-hossain-shisir.webp"
+    },
+    {
+      "title": "সেট ও ফাংশন পর্ব-৪",
+      "duration": "1:14:32",
+      "teacher": "S. M. Emon",
+      "subject": "উচ্চতর গণিত",
+      "thumb": "assets/s02-image2.webp",
+      "avatar": "assets/s02-image-s-m-emon.webp"
+    },
+    {
+      "title": "বীজগাণিতিক রাশি পর্ব-৫",
+      "duration": "1:20:30",
+      "teacher": "S. M. Emon",
+      "subject": "উচ্চতর গণিত",
+      "thumb": "assets/s02-image3.webp",
+      "avatar": "assets/s02-image-s-m-emon.webp"
+    },
+    {
+      "title": "গতি পর্ব-৩",
+      "duration": "1:29:18",
+      "teacher": "Shariful Islam Shuvo",
+      "subject": "পদার্থবিজ্ঞান",
+      "thumb": "assets/s02-image4.webp",
+      "avatar": "assets/s02-image-shariful-islam-shuvo.webp"
+    },
+    {
+      "title": "বল পর্ব-৪",
+      "duration": "1:24:24",
+      "teacher": "Masud Javed Jimi",
+      "subject": "পদার্থবিজ্ঞান",
+      "thumb": "assets/s02-image5.webp",
+      "avatar": "assets/s02-image-masud-javed.webp"
+    },
+    {
+      "title": "কোষ বিভাজন পর্ব-২",
+      "duration": "58:18",
+      "teacher": "Mohammad Bin Touhid",
+      "subject": "জীববিজ্ঞান",
+      "thumb": "assets/live/vid-duafurmppolz6twcl9of.jpg",
+      "avatar": "assets/live/ava-uuk7ymvcdml2tkyynl7u.jpg"
+    },
+    {
+      "title": "জীবকোষ ও টিস্যু পর্ব-২",
+      "duration": "1:39:30",
+      "teacher": "Mahbir Ahmed Maheen",
+      "subject": "জীববিজ্ঞান",
+      "thumb": "assets/live/vid-k5kaummqq7g1hgyigsjg.jpg",
+      "avatar": "assets/live/ava-bicy3snl9vsfdgb8er60.jpg"
+    },
+    {
+      "title": "সৌরজগৎ ও ভূমণ্ডল পর্ব-২",
+      "duration": "1:12:24",
+      "teacher": "Kamrul Hasan Shahedin",
+      "subject": "বাংলাদেশ ও বিশ্ব পরিচয়",
+      "thumb": "assets/live/vid-tjuonparpdgfpsak78jq.jpg",
+      "avatar": "assets/live/ava-oozud4annb9ak9xjah5x.jpg"
+    },
+    {
+      "title": "সৌরজগৎ ও ভূমণ্ডল পর্ব-৩",
+      "duration": "1:15:46",
+      "teacher": "Kamrul Hasan Shahedin",
+      "subject": "বাংলাদেশ ও বিশ্ব পরিচয়",
+      "thumb": "assets/live/vid-c0qlrh7zbsobeyfwjf4c.jpg",
+      "avatar": "assets/live/ava-oozud4annb9ak9xjah5x.jpg"
+    },
+    {
+      "title": "সুভা",
+      "duration": "49:16",
+      "teacher": "Abdullah Al Mehedi",
+      "subject": "বাংলা ১ম পত্র",
+      "thumb": "assets/live/vid-cauyclmrwwqjupnaj4w3.jpg",
+      "avatar": "assets/live/ava-tiqdjc6xme5mmfaixjw6.jpg"
+    },
+    {
+      "title": "নিমগাছ + সেইদিন এই মাঠ",
+      "duration": "1:00:12",
+      "teacher": "Abdullah Al Mehedi",
+      "subject": "বাংলা ১ম পত্র",
+      "thumb": "assets/live/vid-pllavowypulwx5oazvyn.jpg",
+      "avatar": "assets/live/ava-tiqdjc6xme5mmfaixjw6.jpg"
+    },
+    {
+      "title": "ব্যাকরণ, ধ্বনি ও ভাষারীতি ১",
+      "duration": "1:12:14",
+      "teacher": "Hironmoy Bowali",
+      "subject": "বাংলা ২য় পত্র",
+      "thumb": "assets/live/vid-hnc1b2ntmhtwydkomhr2.jpg",
+      "avatar": "assets/live/ava-lwo7bknbxy1tzv73dqry.jpg"
+    },
+    {
+      "title": "সমাস-১",
+      "duration": "1:15:30",
+      "teacher": "Abdullah Al Mehedi",
+      "subject": "বাংলা ২য় পত্র",
+      "thumb": "assets/live/vid-ygmcw5ie2imaz0filbp2.jpg",
+      "avatar": "assets/live/ava-tiqdjc6xme5mmfaixjw6.jpg"
+    },
+    {
+      "title": "Unit-2: Lesson 3, 4 & 5",
+      "duration": "1:11:02",
+      "teacher": "Diba Chowdhury",
+      "subject": "ইংরেজি ১ম পত্র",
+      "thumb": "assets/live/vid-hojtskhaw0jci1jz0awl.jpg",
+      "avatar": "assets/live/ava-hwzyhlotxjmpbt98ms40.jpg"
+    },
+    {
+      "title": "Writing Part Class",
+      "duration": "1:00:54",
+      "teacher": "Tashfikal Sami",
+      "subject": "ইংরেজি ১ম পত্র",
+      "thumb": "assets/live/vid-mndjmvvga4o3ewivoftf.jpg",
+      "avatar": "assets/live/ava-trbr6ctqrukajut0th5z.jpg"
+    },
+    {
+      "title": "Changing Sentences-03",
+      "duration": "1:15:24",
+      "teacher": "Abdullah Sadman Zamee",
+      "subject": "ইংরেজি ২য় পত্র",
+      "thumb": "assets/live/vid-g2otv8jfbk8ftihfnksz.jpg",
+      "avatar": "assets/live/ava-mlu9yu69ieoylyg7cpej.jpg"
+    }
   ]
- ],
- "videos": [
-  {
-   "title": "\" বীজগাণিতিক রাশি পর্ব-৫\"",
-   "duration": "03:45",
-   "teacher": "Shikho Farhana",
-   "subject": "সাধারণ গণিত",
-   "thumb": "assets/live/vid-bksurya6vxjnrzimvp0l.jpg",
-   "avatar": "assets/live/ava-gkiachb74kbc6cdh4toq.jpg"
-  },
-  {
-   "title": "বল পর্ব-৫",
-   "duration": "03:45",
-   "teacher": "Shikho Farhana",
-   "subject": "সাধারণ গণিত",
-   "thumb": "assets/live/vid-fsbkpolsnedm59ipz7sc.jpg",
-   "avatar": "assets/live/ava-gkiachb74kbc6cdh4toq.jpg"
-  },
-  {
-   "title": "বল পর্ব-৪",
-   "duration": "03:45",
-   "teacher": "Shikho Farhana",
-   "subject": "পদার্থবিজ্ঞান",
-   "thumb": "assets/live/vid-rcu6qtwyjyehyuxhjem1.jpg",
-   "avatar": "assets/live/ava-gkiachb74kbc6cdh4toq.jpg"
-  },
-  {
-   "title": "পর্যায় সারণি পর্ব-১",
-   "duration": "03:45",
-   "teacher": "Shikho Farhana",
-   "subject": "রসায়ন",
-   "thumb": "assets/live/vid-bob5gi3zbaad9ryrmp9e.jpg",
-   "avatar": "assets/live/ava-gkiachb74kbc6cdh4toq.jpg"
-  },
-  {
-   "title": "পর্যায় সারণি পর্ব-২",
-   "duration": "03:45",
-   "teacher": "Shikho Farhana",
-   "subject": "রসায়ন",
-   "thumb": "assets/live/vid-i2tmzc643ic5r5azaa8k.jpg",
-   "avatar": "assets/live/ava-gkiachb74kbc6cdh4toq.jpg"
-  },
-  {
-   "title": "কোষ বিভাজন পর্ব-২",
-   "duration": "58:18",
-   "teacher": "Mohammad Bin Touhid",
-   "subject": "জীববিজ্ঞান",
-   "thumb": "assets/live/vid-duafurmppolz6twcl9of.jpg",
-   "avatar": "assets/live/ava-uuk7ymvcdml2tkyynl7u.jpg"
-  },
-  {
-   "title": "জীবকোষ ও টিস্যু পর্ব-২",
-   "duration": "1:39:30",
-   "teacher": "Mahbir Ahmed Maheen",
-   "subject": "জীববিজ্ঞান",
-   "thumb": "assets/live/vid-k5kaummqq7g1hgyigsjg.jpg",
-   "avatar": "assets/live/ava-bicy3snl9vsfdgb8er60.jpg"
-  },
-  {
-   "title": "সৌরজগৎ ও ভূমন্ডল পর্ব-২",
-   "duration": "1:12:24",
-   "teacher": "Kamrul Hasan Shahedin",
-   "subject": "বাংলাদেশ ও বিশ্ব পরিচয় - SSC'25",
-   "thumb": "assets/live/vid-tjuonparpdgfpsak78jq.jpg",
-   "avatar": "assets/live/ava-oozud4annb9ak9xjah5x.jpg"
-  },
-  {
-   "title": "সৌরজগৎ ও ভূমন্ডল পর্ব-৩",
-   "duration": "1:15:46",
-   "teacher": "Kamrul Hasan Shahedin",
-   "subject": "বাংলাদেশ ও বিশ্ব পরিচয় - SSC'25",
-   "thumb": "assets/live/vid-c0qlrh7zbsobeyfwjf4c.jpg",
-   "avatar": "assets/live/ava-oozud4annb9ak9xjah5x.jpg"
-  },
-  {
-   "title": "সুভা",
-   "duration": "49:16",
-   "teacher": "Abdullah Al Mehedi",
-   "subject": "বাংলা ১ম পত্র",
-   "thumb": "assets/live/vid-cauyclmrwwqjupnaj4w3.jpg",
-   "avatar": "assets/live/ava-tiqdjc6xme5mmfaixjw6.jpg"
-  },
-  {
-   "title": "নিমগাছ + সেইদিন এই মাঠ",
-   "duration": "1:00:12",
-   "teacher": "Abdullah Al Mehedi",
-   "subject": "বাংলা ১ম পত্র",
-   "thumb": "assets/live/vid-pllavowypulwx5oazvyn.jpg",
-   "avatar": "assets/live/ava-tiqdjc6xme5mmfaixjw6.jpg"
-  },
-  {
-   "title": "ব্যাকরণ, ধ্বনি ও ভাষারীতি ১",
-   "duration": "1:12:14",
-   "teacher": "Hironmoy Bowali",
-   "subject": "বাংলা ২য় পত্র",
-   "thumb": "assets/live/vid-hnc1b2ntmhtwydkomhr2.jpg",
-   "avatar": "assets/live/ava-lwo7bknbxy1tzv73dqry.jpg"
-  },
-  {
-   "title": "সমাস-১",
-   "duration": "1:15:30",
-   "teacher": "Abdullah Al Mehedi",
-   "subject": "বাংলা ২য় পত্র",
-   "thumb": "assets/live/vid-ygmcw5ie2imaz0filbp2.jpg",
-   "avatar": "assets/live/ava-tiqdjc6xme5mmfaixjw6.jpg"
-  },
-  {
-   "title": "Unit-2: Lesson 3, 4 & 5",
-   "duration": "1:11:02",
-   "teacher": "Diba Chowdhury",
-   "subject": "ইংরেজি ১ম পত্র",
-   "thumb": "assets/live/vid-hojtskhaw0jci1jz0awl.jpg",
-   "avatar": "assets/live/ava-hwzyhlotxjmpbt98ms40.jpg"
-  },
-  {
-   "title": "Writing Part Class",
-   "duration": "1:00:54",
-   "teacher": "Tashfikal Sami",
-   "subject": "ইংরেজি ১ম পত্র",
-   "thumb": "assets/live/vid-mndjmvvga4o3ewivoftf.jpg",
-   "avatar": "assets/live/ava-trbr6ctqrukajut0th5z.jpg"
-  },
-  {
-   "title": "Changing Sentences-03",
-   "duration": "1:15:24",
-   "teacher": "Abdullah Sadman Zamee",
-   "subject": "ইংরেজি ২য় পত্র",
-   "thumb": "assets/live/vid-g2otv8jfbk8ftihfnksz.jpg",
-   "avatar": "assets/live/ava-mlu9yu69ieoylyg7cpej.jpg"
-  }
- ]
 }
