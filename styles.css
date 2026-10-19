@@ -553,3 +553,5 @@ html { scroll-padding-top: 100px; }
 .feature-sparkle { position: absolute !important; top: 0; right: -8px; width: 60px; height: 116px; overflow: hidden; pointer-events: none; }
 .feature-card { transition: transform 150ms ease; }
 .feature-card:active { transform: scale(0.97); }
+/* Paid users have no free-usage limits, so the "৩টি ফ্রি …" line is hidden there */
+section[data-plan="paid"] .feature-usage { display: none; }
