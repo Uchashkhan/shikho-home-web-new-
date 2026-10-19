@@ -152,7 +152,11 @@
   };
   planButtons.forEach((b) => b.addEventListener('click', () => {
     if (document.documentElement.dataset.plan === b.dataset.planSet) return;
-    showPlan(b.dataset.planSet);
+    // free ↔ paid crossfades like a tab switch
+    if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      try { document.startViewTransition({ update: () => showPlan(b.dataset.planSet), types: ['tab'] }); }
+      catch (err) { document.startViewTransition(() => showPlan(b.dataset.planSet)); } // older Chrome: no types
+    } else showPlan(b.dataset.planSet);
     const url = new URL(location.href);
     url.searchParams.delete('paid');
     url.searchParams.delete('free');

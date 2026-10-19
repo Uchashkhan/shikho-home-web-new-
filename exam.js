@@ -110,7 +110,7 @@
   function setStep(step, dir = 1) {
     exam.step = step;
     render();
-    window.scrollTo({ top: 0 });
+    window.scrollTo({ top: 0, behavior: 'instant' });
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
       body.animate([{ opacity: 0, transform: `translateX(${dir * 24}px)` }, { opacity: 1, transform: 'none' }], { duration: 260, easing: 'cubic-bezier(.32,.72,0,1)' });
     }

@@ -832,3 +832,37 @@ body.no-nav:has(.exam) { background: var(--fold-ash); }
 .routine-empty { margin: 0; padding: 20px 12px; border: 1px dashed var(--fold-grey); border-radius: 12px; color: var(--fold-graphite); font: 400 14px/20px var(--font-fold); text-align: center; }
 .routine-empty[hidden] { display: none; }
 .routine-card:active { opacity: .7; }
+
+/* ---------- App-like page transitions (View Transitions API, cross-document) ----------
+   Tabs crossfade; opening a page pushes it in from the right; back slides it out.
+   The app bar, tab bar and prototype switch stay put. Browsers without support just navigate. */
+@view-transition { navigation: auto; }
+.page-nav { view-transition-name: appbar; }
+.bottom-nav { view-transition-name: tabbar; }
+.review-switch { view-transition-name: review-switch; }
+::view-transition-group(*) { animation-duration: 320ms; animation-timing-function: cubic-bezier(.32, .72, 0, 1); }
+::view-transition-old(appbar), ::view-transition-new(appbar),
+::view-transition-old(tabbar), ::view-transition-new(tabbar) { animation-duration: 160ms; }
+
+@keyframes vt-fade-in { from { opacity: 0; } }
+@keyframes vt-fade-out { to { opacity: 0; } }
+@keyframes vt-push-in { from { transform: translateX(100%); } }
+@keyframes vt-push-out { to { transform: translateX(-28%); opacity: .6; } }
+@keyframes vt-pop-in { from { transform: translateX(-28%); opacity: .6; } }
+@keyframes vt-pop-out { to { transform: translateX(100%); } }
+
+html:active-view-transition-type(tab)::view-transition-old(root) { animation: 120ms ease-in both vt-fade-out; }
+html:active-view-transition-type(tab)::view-transition-new(root) { animation: 200ms ease-out 60ms both vt-fade-in; }
+html:active-view-transition-type(forward)::view-transition-old(root) { animation: 340ms cubic-bezier(.32,.72,0,1) both vt-push-out; }
+html:active-view-transition-type(forward)::view-transition-new(root) { animation: 340ms cubic-bezier(.32,.72,0,1) both vt-push-in; box-shadow: -8px 0 24px rgba(0,0,0,.08); }
+html:active-view-transition-type(back)::view-transition-old(root) { animation: 300ms cubic-bezier(.32,.72,0,1) both vt-pop-out; z-index: 1; }
+html:active-view-transition-type(back)::view-transition-new(root) { animation: 300ms cubic-bezier(.32,.72,0,1) both vt-pop-in; }
+/* new page draws on top while pushing */
+html:active-view-transition-type(forward)::view-transition-image-pair(root) { isolation: isolate; }
+
+/* In-page jumps (course tabs, #packages) glide instead of jumping */
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}

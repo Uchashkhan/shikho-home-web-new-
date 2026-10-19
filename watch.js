@@ -102,9 +102,15 @@
   const go = (i, push = true) => {
     player.id = clampId(i);
     if (push) history.pushState({ v: player.id }, '', href(player.id));
-    render();
-    window.scrollTo({ top: 0 });
-    main.querySelector('.pl-play').focus({ preventScroll: true });
+    const swap = () => {
+      render();
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      main.querySelector('.pl-play').focus({ preventScroll: true });
+    };
+    // next class slides in like opening a new page
+    if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      try { document.startViewTransition({ update: swap, types: ['forward'] }); } catch (err) { swap(); }
+    } else swap();
   };
   window.addEventListener('popstate', () => { player.id = clampId(new URLSearchParams(location.search).get('v')); render(); });
 

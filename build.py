@@ -98,6 +98,22 @@ def page(title, active, body, greeting=False, bar="Shikho", back="index.html", n
   <link rel="stylesheet" href="styles.css">
   <script src="data/user.js"></script>
   <script>
+    // App-like page transitions: tab ↔ tab crossfades, opening a page pushes it in, back slides it out
+    window.addEventListener('pagereveal', function (e) {{
+      var a = window.navigation && navigation.activation;
+      if (!e.viewTransition || !a || !a.from) return;
+      if (a.navigationType === 'reload') return e.viewTransition.skipTransition();
+      var TABS = ['index.html', 'courses.html', 'ai-chat.html', 'profile.html'];
+      var page = function (u) {{ var p = new URL(u).pathname.split('/').pop(); return p || 'index.html'; }};
+      var from = page(a.from.url), to = page(a.entry.url);
+      var type = TABS.indexOf(from) > -1 && TABS.indexOf(to) > -1 ? 'tab'
+        : a.navigationType === 'traverse' && a.entry.index < a.from.index ? 'back'
+        : TABS.indexOf(to) > -1 ? 'back' : 'forward';
+      e.viewTransition.types.add(type);
+      document.documentElement.dataset.navTransition = type; // which animation ran
+    }});
+  </script>
+  <script>
     // Paid (enrolled) or free homepage, decided before first paint. ?paid / ?free preview either.
     (function () {{
       var q = new URLSearchParams(location.search);
