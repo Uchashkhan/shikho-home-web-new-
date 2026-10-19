@@ -9,178 +9,386 @@ window.SHIKHO_VIDEOS = {
     null
    ],
    [
-    "রসায়ন",
-    "assets/p05-image-chemistry.png"
-   ],
-   [
-    "উচ্চতর গণিত",
-    "assets/p05-image-higher-math.png"
-   ],
-   [
     "পদার্থবিজ্ঞান",
-    "assets/p05-image-physics.png"
-   ],
-   [
-    "জীববিজ্ঞান",
-    "assets/p05-image-biology.png"
-   ],
-   [
-    "বাংলাদেশ ও বিশ্ব পরিচয়",
-    null
+    "assets/live/c-mvnkpxiyo49zwipalzm1.webp"
    ],
    [
     "বাংলা ১ম পত্র",
-    "assets/p05-image-bangla1st.png"
+    "assets/live/c-gihxnlgxvtzogl6hybkl.webp"
    ],
    [
     "বাংলা ২য় পত্র",
-    null
+    "assets/live/c-abtlbqrgeo2aketvq8p1.webp"
    ],
    [
-    "ইংরেজি ১ম পত্র",
-    "assets/p05-image-english1st-paper.png"
+    "তথ্য ও যোগাযোগ প্রযুক্তি",
+    "assets/live/c-sb0ovlai5r5tbx1thoqo.webp"
+   ],
+   [
+    "রসায়ন",
+    "assets/live/c-csxpgubuehsfwmzl0cmo.webp"
+   ],
+   [
+    "উচ্চতর গণিত",
+    "assets/live/c-j6pp7fvtna2rtlylwm48.webp"
+   ],
+   [
+    "জীববিজ্ঞান",
+    "assets/live/c-pdy5j1occ3qbhl3bo3qs.webp"
+   ],
+   [
+    "গণিত",
+    "assets/live/c-azwtgcspdcht8hxfqa9e.webp"
+   ],
+   [
+    "বাংলাদেশ ও বিশ্ব পরিচয়",
+    "assets/live/c-ewlnurils5napies2e5p.webp"
    ],
    [
     "ইংরেজি ২য় পত্র",
-    null
+    "assets/live/c-kazmfqokjg42mlvp8qlk.webp"
+   ],
+   [
+    "ইংরেজি ১ম পত্র",
+    "assets/live/c-fxkzmns7lzaslnsxmw5w.webp"
    ]
   ],
   "videos": [
-   {
-    "title": "পদার্থের অবস্থা পর্ব-১",
-    "duration": "1:04:42",
-    "teacher": "Shaown Reza",
-    "subject": "রসায়ন",
-    "thumb": "assets/s02-image.webp",
-    "avatar": "assets/s02-image-shaown-reza.webp"
-   },
-   {
-    "title": "পর্যায় সারণি পর্ব-১",
-    "duration": "1:18:28",
-    "teacher": "Md. Sabbir Hossain Shisir",
-    "subject": "রসায়ন",
-    "thumb": "assets/s02-image1.webp",
-    "avatar": "assets/s02-image-md-sabbir-hossain-shisir.webp"
-   },
-   {
-    "title": "সেট ও ফাংশন পর্ব-৪",
-    "duration": "1:14:32",
-    "teacher": "S. M. Emon",
-    "subject": "উচ্চতর গণিত",
-    "thumb": "assets/s02-image2.webp",
-    "avatar": "assets/s02-image-s-m-emon.webp"
-   },
-   {
-    "title": "বীজগাণিতিক রাশি পর্ব-৫",
-    "duration": "1:20:30",
-    "teacher": "S. M. Emon",
-    "subject": "উচ্চতর গণিত",
-    "thumb": "assets/s02-image3.webp",
-    "avatar": "assets/s02-image-s-m-emon.webp"
-   },
-   {
-    "title": "গতি পর্ব-৩",
-    "duration": "1:29:18",
-    "teacher": "Shariful Islam Shuvo",
-    "subject": "পদার্থবিজ্ঞান",
-    "thumb": "assets/s02-image4.webp",
-    "avatar": "assets/s02-image-shariful-islam-shuvo.webp"
-   },
-   {
-    "title": "বল পর্ব-৪",
-    "duration": "1:24:24",
-    "teacher": "Masud Javed Jimi",
-    "subject": "পদার্থবিজ্ঞান",
-    "thumb": "assets/s02-image5.webp",
-    "avatar": "assets/s02-image-masud-javed.webp"
-   },
    {
     "title": "কোষ বিভাজন পর্ব-২",
     "duration": "58:18",
     "teacher": "Mohammad Bin Touhid",
     "subject": "জীববিজ্ঞান",
-    "thumb": "assets/live/vid-duafurmppolz6twcl9of.jpg",
-    "avatar": "assets/live/ava-uuk7ymvcdml2tkyynl7u.jpg"
+    "thumb": "assets/live/v-duafurmppolz6twcl9of.webp",
+    "avatar": "assets/live/a-uuk7ymvcdml2tkyynl7u.webp"
    },
    {
-    "title": "জীবকোষ ও টিস্যু পর্ব-২",
-    "duration": "1:39:30",
-    "teacher": "Mahbir Ahmed Maheen",
-    "subject": "জীববিজ্ঞান",
-    "thumb": "assets/live/vid-k5kaummqq7g1hgyigsjg.jpg",
-    "avatar": "assets/live/ava-bicy3snl9vsfdgb8er60.jpg"
-   },
-   {
-    "title": "সৌরজগৎ ও ভূমণ্ডল পর্ব-২",
-    "duration": "1:12:24",
-    "teacher": "Kamrul Hasan Shahedin",
-    "subject": "বাংলাদেশ ও বিশ্ব পরিচয়",
-    "thumb": "assets/live/vid-tjuonparpdgfpsak78jq.jpg",
-    "avatar": "assets/live/ava-oozud4annb9ak9xjah5x.jpg"
-   },
-   {
-    "title": "সৌরজগৎ ও ভূমণ্ডল পর্ব-৩",
-    "duration": "1:15:46",
-    "teacher": "Kamrul Hasan Shahedin",
-    "subject": "বাংলাদেশ ও বিশ্ব পরিচয়",
-    "thumb": "assets/live/vid-c0qlrh7zbsobeyfwjf4c.jpg",
-    "avatar": "assets/live/ava-oozud4annb9ak9xjah5x.jpg"
-   },
-   {
-    "title": "সুভা",
-    "duration": "49:16",
-    "teacher": "Abdullah Al Mehedi",
-    "subject": "বাংলা ১ম পত্র",
-    "thumb": "assets/live/vid-cauyclmrwwqjupnaj4w3.jpg",
-    "avatar": "assets/live/ava-tiqdjc6xme5mmfaixjw6.jpg"
-   },
-   {
-    "title": "নিমগাছ + সেইদিন এই মাঠ",
-    "duration": "1:00:12",
-    "teacher": "Abdullah Al Mehedi",
-    "subject": "বাংলা ১ম পত্র",
-    "thumb": "assets/live/vid-pllavowypulwx5oazvyn.jpg",
-    "avatar": "assets/live/ava-tiqdjc6xme5mmfaixjw6.jpg"
-   },
-   {
-    "title": "ব্যাকরণ, ধ্বনি ও ভাষারীতি ১",
-    "duration": "1:12:14",
-    "teacher": "Hironmoy Bowali",
-    "subject": "বাংলা ২য় পত্র",
-    "thumb": "assets/live/vid-hnc1b2ntmhtwydkomhr2.jpg",
-    "avatar": "assets/live/ava-lwo7bknbxy1tzv73dqry.jpg"
-   },
-   {
-    "title": "সমাস-১",
-    "duration": "1:15:30",
-    "teacher": "Abdullah Al Mehedi",
-    "subject": "বাংলা ২য় পত্র",
-    "thumb": "assets/live/vid-ygmcw5ie2imaz0filbp2.jpg",
-    "avatar": "assets/live/ava-tiqdjc6xme5mmfaixjw6.jpg"
+    "title": "বল পর্ব-৫",
+    "duration": "2:36:36",
+    "teacher": "Masud Javed Jimi",
+    "subject": "পদার্থবিজ্ঞান",
+    "thumb": "assets/live/v-fsbkpolsnedm59ipz7sc.webp",
+    "avatar": "assets/live/a-spyjdiig6cad56deiwbi.webp"
    },
    {
     "title": "Unit-2: Lesson 3, 4 & 5",
     "duration": "1:11:02",
     "teacher": "Diba Chowdhury",
     "subject": "ইংরেজি ১ম পত্র",
-    "thumb": "assets/live/vid-hojtskhaw0jci1jz0awl.jpg",
-    "avatar": "assets/live/ava-hwzyhlotxjmpbt98ms40.jpg"
+    "thumb": "assets/live/v-hojtskhaw0jci1jz0awl.webp",
+    "avatar": "assets/live/a-hwzyhlotxjmpbt98ms40.webp"
+   },
+   {
+    "title": "বীজগাণিতিক রাশি পর্ব-৪",
+    "duration": "1:41:32",
+    "teacher": "Sourav Saha",
+    "subject": "উচ্চতর গণিত",
+    "thumb": "assets/live/v-iocm0pjv7eyckjqaphbd.webp",
+    "avatar": "assets/live/a-sgr4faua0l1notsb99is.webp"
+   },
+   {
+    "title": "বীজগাণিতিক রাশি পর্ব-৫",
+    "duration": "1:31:14",
+    "teacher": "Sourav Saha",
+    "subject": "উচ্চতর গণিত",
+    "thumb": "assets/live/v-bksurya6vxjnrzimvp0l.webp",
+    "avatar": "assets/live/a-sgr4faua0l1notsb99is.webp"
+   },
+   {
+    "title": "বল পর্ব-৪",
+    "duration": "1:37:58",
+    "teacher": "Shariful Islam Shuvo",
+    "subject": "পদার্থবিজ্ঞান",
+    "thumb": "assets/live/v-rcu6qtwyjyehyuxhjem1.webp",
+    "avatar": "assets/live/a-tsyverd0dkaj87w74v2z.webp"
+   },
+   {
+    "title": "পর্যায় সারণি পর্ব-১",
+    "duration": "1:13:12",
+    "teacher": "Shaown Reza",
+    "subject": "রসায়ন",
+    "thumb": "assets/live/v-bob5gi3zbaad9ryrmp9e.webp",
+    "avatar": "assets/live/a-aefougphzf8gloqd0zsx.webp"
+   },
+   {
+    "title": "পর্যায় সারণি পর্ব-২",
+    "duration": "1:11:32",
+    "teacher": "Shaown Reza",
+    "subject": "রসায়ন",
+    "thumb": "assets/live/v-i2tmzc643ic5r5azaa8k.webp",
+    "avatar": "assets/live/a-aefougphzf8gloqd0zsx.webp"
+   },
+   {
+    "title": "জীবকোষ ও টিস্যু পর্ব-২",
+    "duration": "1:39:30",
+    "teacher": "Mahbir Ahmed Maheen",
+    "subject": "জীববিজ্ঞান",
+    "thumb": "assets/live/v-k5kaummqq7g1hgyigsjg.webp",
+    "avatar": "assets/live/a-bicy3snl9vsfdgb8er60.webp"
+   },
+   {
+    "title": "সৌরজগৎ ও ভূমণ্ডল পর্ব-২",
+    "duration": "1:12:24",
+    "teacher": "Kamrul Hasan Shahedin",
+    "subject": "বাংলাদেশ ও বিশ্ব পরিচয়",
+    "thumb": "assets/live/v-tjuonparpdgfpsak78jq.webp",
+    "avatar": "assets/live/a-oozud4annb9ak9xjah5x.webp"
+   },
+   {
+    "title": "সৌরজগৎ ও ভূমণ্ডল পর্ব-৩",
+    "duration": "1:15:46",
+    "teacher": "Kamrul Hasan Shahedin",
+    "subject": "বাংলাদেশ ও বিশ্ব পরিচয়",
+    "thumb": "assets/live/v-c0qlrh7zbsobeyfwjf4c.webp",
+    "avatar": "assets/live/a-oozud4annb9ak9xjah5x.webp"
+   },
+   {
+    "title": "সুভা",
+    "duration": "49:16",
+    "teacher": "Abdullah Al Mehedi",
+    "subject": "বাংলা ১ম পত্র",
+    "thumb": "assets/live/v-cauyclmrwwqjupnaj4w3.webp",
+    "avatar": "assets/live/a-tiqdjc6xme5mmfaixjw6.webp"
+   },
+   {
+    "title": "নিমগাছ + সেইদিন এই মাঠ",
+    "duration": "1:00:12",
+    "teacher": "Abdullah Al Mehedi",
+    "subject": "বাংলা ১ম পত্র",
+    "thumb": "assets/live/v-pllavowypulwx5oazvyn.webp",
+    "avatar": "assets/live/a-tiqdjc6xme5mmfaixjw6.webp"
+   },
+   {
+    "title": "ব্যাকরণ, ধ্বনি ও ভাষারীতি ১",
+    "duration": "1:12:14",
+    "teacher": "Hironmoy Bowali",
+    "subject": "বাংলা ২য় পত্র",
+    "thumb": "assets/live/v-hnc1b2ntmhtwydkomhr2.webp",
+    "avatar": "assets/live/a-lwo7bknbxy1tzv73dqry.webp"
+   },
+   {
+    "title": "সমাস-১",
+    "duration": "1:15:30",
+    "teacher": "Abdullah Al Mehedi",
+    "subject": "বাংলা ২য় পত্র",
+    "thumb": "assets/live/v-ygmcw5ie2imaz0filbp2.webp",
+    "avatar": "assets/live/a-tiqdjc6xme5mmfaixjw6.webp"
    },
    {
     "title": "Writing Part Class",
     "duration": "1:00:54",
     "teacher": "Tashfikal Sami",
     "subject": "ইংরেজি ১ম পত্র",
-    "thumb": "assets/live/vid-mndjmvvga4o3ewivoftf.jpg",
-    "avatar": "assets/live/ava-trbr6ctqrukajut0th5z.jpg"
+    "thumb": "assets/live/v-mndjmvvga4o3ewivoftf.webp",
+    "avatar": "assets/live/a-trbr6ctqrukajut0th5z.webp"
    },
    {
-    "title": "Changing Sentences-03",
-    "duration": "1:15:24",
-    "teacher": "Abdullah Sadman Zamee",
+    "title": "সেট ও ফাংশন পর্ব-৩",
+    "duration": "1:43:12",
+    "teacher": "Sourav Saha",
+    "subject": "গণিত",
+    "thumb": "assets/live/v-d1lpelglvhoe3ytcwuf6.webp",
+    "avatar": "assets/live/a-sgr4faua0l1notsb99is.webp"
+   },
+   {
+    "title": "বীজগাণিতিক রাশি পর্ব-১",
+    "duration": "1:24:06",
+    "teacher": "Md. Abu Nayeem",
+    "subject": "গণিত",
+    "thumb": "assets/live/v-pk01yd87wg0tknah1t8d.webp",
+    "avatar": "assets/live/a-wwkeeqcc5jzl7kcb3a1h.webp"
+   },
+   {
+    "title": "আমার লেখালেখি ও হিসাব পর্ব-২",
+    "duration": "1:16:38",
+    "teacher": "Md. Ruman Khandoker",
+    "subject": "তথ্য ও যোগাযোগ প্রযুক্তি",
+    "thumb": "assets/live/v-ihz7s0y7owxmmf1xcxs7.webp",
+    "avatar": "assets/live/a-zchu4temoqlexowqsouf.webp"
+   },
+   {
+    "title": "লেখালেখি-হিসাব(Board Solve)",
+    "duration": "1:17:42",
+    "teacher": "Md. Ruman Khandoker",
+    "subject": "তথ্য ও যোগাযোগ প্রযুক্তি",
+    "thumb": "assets/live/v-zkhcxxekvtwlcgfacty5.webp",
+    "avatar": "assets/live/a-zchu4temoqlexowqsouf.webp"
+   },
+   {
+    "title": "বই পড়া",
+    "duration": "40:23",
+    "teacher": "Abdullah Al Mehedi",
+    "subject": "বাংলা ১ম পত্র",
+    "thumb": "assets/live/v-wl2a9cvn9wdhmvkxdwhj.webp",
+    "avatar": "assets/live/a-tiqdjc6xme5mmfaixjw6.webp"
+   },
+   {
+    "title": "কপোতাক্ষ নদ",
+    "duration": "30:24",
+    "teacher": "Abdullah Al Mehedi",
+    "subject": "বাংলা ১ম পত্র",
+    "thumb": "assets/live/v-tjcz2jbu2msyyiqx1ddz.webp",
+    "avatar": "assets/live/a-tiqdjc6xme5mmfaixjw6.webp"
+   },
+   {
+    "title": "Narration",
+    "duration": "43:42",
+    "teacher": "Diba Chowdhury",
     "subject": "ইংরেজি ২য় পত্র",
-    "thumb": "assets/live/vid-g2otv8jfbk8ftihfnksz.jpg",
-    "avatar": "assets/live/ava-mlu9yu69ieoylyg7cpej.jpg"
+    "thumb": "assets/live/v-zkhexhpuoggwzlyqc9g9.webp",
+    "avatar": "assets/live/a-hwzyhlotxjmpbt98ms40.webp"
+   },
+   {
+    "title": "Right form of Verbs",
+    "duration": "54:33",
+    "teacher": "Tashfikal Sami",
+    "subject": "ইংরেজি ২য় পত্র",
+    "thumb": "assets/live/v-i8qsdlydzdb4kfitudye.webp",
+    "avatar": "assets/live/a-trbr6ctqrukajut0th5z.webp"
+   },
+   {
+    "title": "ত্রিকোণমিতি পর্ব-০১",
+    "duration": "59:29",
+    "teacher": "Md. Abu Nayeem",
+    "subject": "গণিত",
+    "thumb": "assets/live/v-tqz4gw5lnzdlhmsunvgv.webp",
+    "avatar": "assets/live/a-wwkeeqcc5jzl7kcb3a1h.webp"
+   },
+   {
+    "title": "ত্রিকোণমিতি পর্ব-০২",
+    "duration": "59:51",
+    "teacher": "Md. Abu Nayeem",
+    "subject": "গণিত",
+    "thumb": "assets/live/v-nvghvt3muycewehlkl2q.webp",
+    "avatar": "assets/live/a-wwkeeqcc5jzl7kcb3a1h.webp"
+   },
+   {
+    "title": "ত্রিকোণমিতি পর্ব-০৩",
+    "duration": "1:06:31",
+    "teacher": "Md. Abu Nayeem",
+    "subject": "গণিত",
+    "thumb": "assets/live/v-yuj1t6yysaajyyigkrko.webp",
+    "avatar": "assets/live/a-wwkeeqcc5jzl7kcb3a1h.webp"
+   },
+   {
+    "title": "ত্রিকোণমিতি পর্ব-০৪",
+    "duration": "54:16",
+    "teacher": "Md. Abu Nayeem",
+    "subject": "গণিত",
+    "thumb": "assets/live/v-hg9poqxkvphjprcwpiqe.webp",
+    "avatar": "assets/live/a-wwkeeqcc5jzl7kcb3a1h.webp"
+   },
+   {
+    "title": "ত্রিকোণমিতি পর্ব-০৫",
+    "duration": "54:22",
+    "teacher": "Md. Abu Nayeem",
+    "subject": "গণিত",
+    "thumb": "assets/live/v-uwanom8n61rgnthvfecl.webp",
+    "avatar": "assets/live/a-wwkeeqcc5jzl7kcb3a1h.webp"
+   },
+   {
+    "title": "জীবকোষ ও টিস্যু পর্ব-০১",
+    "duration": "2:29:08",
+    "teacher": "Dr. Tanzim Ahmed Ontor",
+    "subject": "জীববিজ্ঞান",
+    "thumb": "assets/live/v-plt4cexx01tqq8jflqeg.webp",
+    "avatar": "assets/live/a-musfoudgzjym6rlzkzz9.webp"
+   },
+   {
+    "title": "জীবকোষ ও টিস্যু পর্ব-০২",
+    "duration": "1:17:26",
+    "teacher": "Dr. Tanzim Ahmed Ontor",
+    "subject": "জীববিজ্ঞান",
+    "thumb": "assets/live/v-c9wxyca3obgyspupnoh4.webp",
+    "avatar": "assets/live/a-musfoudgzjym6rlzkzz9.webp"
+   },
+   {
+    "title": "জীবকোষ ও টিস্যু পর্ব-০৩",
+    "duration": "52:25",
+    "teacher": "Dr. Tanzim Ahmed Ontor",
+    "subject": "জীববিজ্ঞান",
+    "thumb": "assets/live/v-jsbn2ohfldbuxujglwua.webp",
+    "avatar": "assets/live/a-musfoudgzjym6rlzkzz9.webp"
+   },
+   {
+    "title": "জীবকোষ ও টিস্যু পর্ব-০৪",
+    "duration": "1:53:06",
+    "teacher": "Dr. Tanzim Ahmed Ontor",
+    "subject": "জীববিজ্ঞান",
+    "thumb": "assets/live/v-wrz3duryx0yaacbnvhxb.webp",
+    "avatar": "assets/live/a-musfoudgzjym6rlzkzz9.webp"
+   },
+   {
+    "title": "সৌরজগৎ ও ভূমণ্ডল পর্ব-০১",
+    "duration": "51:05",
+    "teacher": "Kamrul Hasan Shahedin",
+    "subject": "বাংলাদেশ ও বিশ্ব পরিচয়",
+    "thumb": "assets/live/v-nx3hk5pfbx3huk4ip3q2.webp",
+    "avatar": "assets/live/a-oozud4annb9ak9xjah5x.webp"
+   },
+   {
+    "title": "সৌরজগৎ ও ভূমণ্ডল পর্ব-০২",
+    "duration": "43:45",
+    "teacher": "Kamrul Hasan Shahedin",
+    "subject": "বাংলাদেশ ও বিশ্ব পরিচয়",
+    "thumb": "assets/live/v-bewzgprs5aekendtlahg.webp",
+    "avatar": "assets/live/a-oozud4annb9ak9xjah5x.webp"
+   },
+   {
+    "title": "সৌরজগৎ ও ভূমণ্ডল পর্ব-০৩",
+    "duration": "1:06:44",
+    "teacher": "Kamrul Hasan Shahedin",
+    "subject": "বাংলাদেশ ও বিশ্ব পরিচয়",
+    "thumb": "assets/live/v-sjtzpnvm3gwfcsf2bbmb.webp",
+    "avatar": "assets/live/a-oozud4annb9ak9xjah5x.webp"
+   },
+   {
+    "title": "সৌরজগৎ ও ভূমণ্ডল পর্ব-০৪",
+    "duration": "1:00:29",
+    "teacher": "Kamrul Hasan Shahedin",
+    "subject": "বাংলাদেশ ও বিশ্ব পরিচয়",
+    "thumb": "assets/live/v-ibpolfuf7qakzujai1p1.webp",
+    "avatar": "assets/live/a-oozud4annb9ak9xjah5x.webp"
+   },
+   {
+    "title": "সৌরজগৎ ও ভূমণ্ডল পর্ব-০৫",
+    "duration": "40:12",
+    "teacher": "Kamrul Hasan Shahedin",
+    "subject": "বাংলাদেশ ও বিশ্ব পরিচয়",
+    "thumb": "assets/live/v-pso2v0euum4ziramsdee.webp",
+    "avatar": "assets/live/a-oozud4annb9ak9xjah5x.webp"
+   },
+   {
+    "title": "সৌরজগৎ ও ভূমণ্ডল পর্ব-০৬",
+    "duration": "53:35",
+    "teacher": "Kamrul Hasan Shahedin",
+    "subject": "বাংলাদেশ ও বিশ্ব পরিচয়",
+    "thumb": "assets/live/v-bhrkgzih54gaskpg1ncq.webp",
+    "avatar": "assets/live/a-oozud4annb9ak9xjah5x.webp"
+   },
+   {
+    "title": "বাংলাদেশের নদ-নদী ও প্রাকৃতিক সম্পদ পর্ব-০১",
+    "duration": "50:45",
+    "teacher": "Raihan A. R Khan",
+    "subject": "বাংলাদেশ ও বিশ্ব পরিচয়",
+    "thumb": "assets/live/v-da2lgm43jjnidxkja9gr.webp",
+    "avatar": "assets/live/a-jpe8fbuct9pr96fjxl0y.webp"
+   },
+   {
+    "title": "বাংলাদেশের নদ-নদী ও প্রাকৃতিক সম্পদ পর্ব-০২",
+    "duration": "19:16",
+    "teacher": "Raihan A. R Khan",
+    "subject": "বাংলাদেশ ও বিশ্ব পরিচয়",
+    "thumb": "assets/live/v-sz1ckxlcwrs2n7xbkley.webp",
+    "avatar": "assets/live/a-jpe8fbuct9pr96fjxl0y.webp"
+   },
+   {
+    "title": "বাংলাদেশের নদ-নদী ও প্রাকৃতিক সম্পদ পর্ব-০৩",
+    "duration": "21:32",
+    "teacher": "Raihan A. R Khan",
+    "subject": "বাংলাদেশ ও বিশ্ব পরিচয়",
+    "thumb": "assets/live/v-ikiqknyhneagm3fh93zl.webp",
+    "avatar": "assets/live/a-jpe8fbuct9pr96fjxl0y.webp"
    }
   ]
  },
@@ -190,132 +398,156 @@ window.SHIKHO_VIDEOS = {
   "chips": [],
   "videos": [
    {
-    "title": "ফ্লো স্টেট কীভাবে জীবন বদলায়?",
+    "title": "Quarter Final Exam দেওয়ার নিয়ম",
     "duration": "06:50",
+    "teacher": "Diba Chowdhury",
+    "subject": null,
+    "thumb": "assets/live/v-u1k5cdhyrbtrtcxltu9k.webp",
+    "avatar": "assets/live/a-hwzyhlotxjmpbt98ms40.webp"
+   },
+   {
+    "title": "রেজাল্ট খারাপ হলে কি জীবন শেষ?",
+    "duration": "05:42",
     "teacher": "Sourav Saha",
     "subject": null,
-    "thumb": "assets/s03-image2.webp",
-    "avatar": "assets/live/ava-sgr4faua0l1notsb99is.jpg"
+    "thumb": "assets/live/v-jmcmrtyifntzrnh5wo0l.webp",
+    "avatar": "assets/live/a-sgr4faua0l1notsb99is.webp"
    },
    {
-    "title": "পরীক্ষাভীতি কাটাবে কীভাবে?",
-    "duration": "07:15",
-    "teacher": "Sourav Saha",
+    "title": "পরীক্ষার শেষ ১০ মিনিটের গুরুত্ব!",
+    "duration": "02:25",
+    "teacher": "Adnan Shahed Arnob",
     "subject": null,
-    "thumb": "assets/s03-image3.webp",
-    "avatar": "assets/live/ava-sgr4faua0l1notsb99is.jpg"
-   },
-   {
-    "title": "ফ্যামিলি চাপ সামলে এগিয়ে চলো",
-    "duration": "07:23",
-    "teacher": "Sourav Saha",
-    "subject": null,
-    "thumb": "assets/s03-image4.webp",
-    "avatar": "assets/live/ava-sgr4faua0l1notsb99is.jpg"
-   },
-   {
-    "title": "স্ক্রিন আসক্তি কাটাবে কীভাবে?",
-    "duration": "12:27",
-    "teacher": "Sourav Saha",
-    "subject": null,
-    "thumb": "assets/s03-image5.webp",
-    "avatar": "assets/live/ava-sgr4faua0l1notsb99is.jpg"
-   },
-   {
-    "title": "মনোযোগ ধরে রাখার কৌশল!",
-    "duration": "09:08",
-    "teacher": "Sourav Saha",
-    "subject": null,
-    "thumb": "assets/live/vid-rsz_s95mzdyu121thynxkszn_mlohpj.jpg",
-    "avatar": "assets/live/ava-sgr4faua0l1notsb99is.jpg"
-   },
-   {
-    "title": "মনোযোগ ধরে রাখার উপায়",
-    "duration": "09:31",
-    "teacher": "Sourav Saha",
-    "subject": null,
-    "thumb": "assets/live/vid-vrnno88pevtxbculvvcc_fdnkul.jpg",
-    "avatar": "assets/live/ava-sgr4faua0l1notsb99is.jpg"
-   },
-   {
-    "title": "স্টাডি ডিস্ট্রাকশনস?",
-    "duration": "08:47",
-    "teacher": "Sourav Saha",
-    "subject": null,
-    "thumb": "assets/live/vid-yhpuxzewosi6co9hjroz_b67le7.jpg",
-    "avatar": "assets/live/ava-sgr4faua0l1notsb99is.jpg"
-   },
-   {
-    "title": "পড়ায় মনোযোগ কমার ৬ কারণ!",
-    "duration": "08:47",
-    "teacher": "Sourav Saha",
-    "subject": null,
-    "thumb": "assets/live/vid-ngsn4cpts0ofy5eruplw.jpg",
-    "avatar": "assets/live/ava-sgr4faua0l1notsb99is.jpg"
-   },
-   {
-    "title": "গ্রুপ স্টাডি: লাভ না লস?",
-    "duration": "01:50",
-    "teacher": "Abdullah Al Mehedi",
-    "subject": null,
-    "thumb": "assets/live/vid-hgtpt3nzlzd3lmw2a4on.jpg",
-    "avatar": "assets/live/ava-tiqdjc6xme5mmfaixjw6.jpg"
-   },
-   {
-    "title": "পড়া মনে রাখার সেরা টিপস!",
-    "duration": "07:46",
-    "teacher": "Abdullah Al Mehedi",
-    "subject": null,
-    "thumb": "assets/live/vid-aulwg0rhbxhjort2skh7.jpg",
-    "avatar": "assets/live/ava-tiqdjc6xme5mmfaixjw6.jpg"
-   },
-   {
-    "title": "সফল হতে চাইলে মনে রাখো!",
-    "duration": "03:35",
-    "teacher": "Abdullah Al Mehedi",
-    "subject": null,
-    "thumb": "assets/live/vid-ny6nax83gxjpilrlhrdg.jpg",
-    "avatar": "assets/live/ava-tiqdjc6xme5mmfaixjw6.jpg"
-   },
-   {
-    "title": "নতুন অভ্যাস গড়ার কৌশল!",
-    "duration": "03:45",
-    "teacher": "Abdullah Al Mehedi",
-    "subject": null,
-    "thumb": "assets/live/vid-ym8ibnvobwgkv1v4wpvj.jpg",
-    "avatar": "assets/live/ava-tiqdjc6xme5mmfaixjw6.jpg"
-   },
-   {
-    "title": "লিখার স্পিড বাড়ানোর ৪ টিপস!",
-    "duration": "05:52",
-    "teacher": "Dr. Tanzim Ahmed Ontor",
-    "subject": null,
-    "thumb": "assets/live/vid-qzfy2dgkl5icjxqhyjgw.jpg",
-    "avatar": "assets/live/ava-musfoudgzjym6rlzkzz9.jpg"
-   },
-   {
-    "title": "নোট খাতা বানানো জরুরি কেন?",
-    "duration": "03:47",
-    "teacher": "Sourav Saha",
-    "subject": null,
-    "thumb": "assets/live/vid-q5xieail6i5lqo3ckdwv.jpg",
-    "avatar": "assets/live/ava-sgr4faua0l1notsb99is.jpg"
-   },
-   {
-    "title": "কিভাবে বুঝব যে, আমি সামনের পরীক্ষার জন্য ১০০% প্রস্তুত?",
-    "duration": "09:58",
-    "teacher": "Kamrul Hasan Shahedin",
-    "subject": null,
-    "thumb": "assets/live/vid-ghdcmafbtgvxslbwyank.jpg",
-    "avatar": "assets/live/ava-myzlz9dmjgcce6hjtf4e.jpg"
+    "thumb": "assets/live/v-ku9ptol0fqngz3pvxvjs.webp",
+    "avatar": "assets/live/a-opmpjs5cggubvaxuipye.webp"
    },
    {
     "title": "পরীক্ষার হলে সময় বাঁচানোর ম্যাজিক ফর্মুলা",
     "duration": "10:50",
     "teacher": "Abdullah Al Mehedi",
     "subject": null,
-    "thumb": "assets/live/vid-savjfwx61oshbtamp0ft.jpg",
-    "avatar": "assets/live/ava-tiqdjc6xme5mmfaixjw6.jpg"
+    "thumb": "assets/live/v-savjfwx61oshbtamp0ft.webp",
+    "avatar": "assets/live/a-tiqdjc6xme5mmfaixjw6.webp"
+   },
+   {
+    "title": "ফ্লো স্টেট কীভাবে জীবন বদলায়?",
+    "duration": "06:50",
+    "teacher": "Sourav Saha",
+    "subject": null,
+    "thumb": "assets/live/v-aydzl22ppq00r9zzbkwb_sh5.webp",
+    "avatar": "assets/live/a-sgr4faua0l1notsb99is.webp"
+   },
+   {
+    "title": "পরীক্ষাভীতি কাটাবে কীভাবে?",
+    "duration": "07:15",
+    "teacher": "Sourav Saha",
+    "subject": null,
+    "thumb": "assets/live/v-zagl3rolax1vrytar94f_khc.webp",
+    "avatar": "assets/live/a-sgr4faua0l1notsb99is.webp"
+   },
+   {
+    "title": "ফ্যামিলি চাপ সামলে এগিয়ে চলো",
+    "duration": "07:23",
+    "teacher": "Sourav Saha",
+    "subject": null,
+    "thumb": "assets/live/v-dlqpp9fc3l0q6kogm3ls_1_3.webp",
+    "avatar": "assets/live/a-sgr4faua0l1notsb99is.webp"
+   },
+   {
+    "title": "স্ক্রিন আসক্তি কাটাবে কীভাবে?",
+    "duration": "12:27",
+    "teacher": "Sourav Saha",
+    "subject": null,
+    "thumb": "assets/live/v-rsz_bhrppxypclj27tapc1u0.webp",
+    "avatar": "assets/live/a-sgr4faua0l1notsb99is.webp"
+   },
+   {
+    "title": "মনোযোগ ধরে রাখার কৌশল!",
+    "duration": "09:08",
+    "teacher": "Sourav Saha",
+    "subject": null,
+    "thumb": "assets/live/v-rsz_s95mzdyu121thynxkszn.webp",
+    "avatar": "assets/live/a-sgr4faua0l1notsb99is.webp"
+   },
+   {
+    "title": "মনোযোগ ধরে রাখার উপায়",
+    "duration": "09:31",
+    "teacher": "Sourav Saha",
+    "subject": null,
+    "thumb": "assets/live/v-vrnno88pevtxbculvvcc_fdn.webp",
+    "avatar": "assets/live/a-sgr4faua0l1notsb99is.webp"
+   },
+   {
+    "title": "স্টাডি ডিস্ট্রাকশনস?",
+    "duration": "08:47",
+    "teacher": "Sourav Saha",
+    "subject": null,
+    "thumb": "assets/live/v-yhpuxzewosi6co9hjroz_b67.webp",
+    "avatar": "assets/live/a-sgr4faua0l1notsb99is.webp"
+   },
+   {
+    "title": "পড়ায় মনোযোগ কমার ৬ কারণ!",
+    "duration": "08:47",
+    "teacher": "Sourav Saha",
+    "subject": null,
+    "thumb": "assets/live/v-ngsn4cpts0ofy5eruplw.webp",
+    "avatar": "assets/live/a-sgr4faua0l1notsb99is.webp"
+   },
+   {
+    "title": "গ্রুপ স্টাডি: লাভ না লস?",
+    "duration": "01:50",
+    "teacher": "Abdullah Al Mehedi",
+    "subject": null,
+    "thumb": "assets/live/v-hgtpt3nzlzd3lmw2a4on.webp",
+    "avatar": "assets/live/a-tiqdjc6xme5mmfaixjw6.webp"
+   },
+   {
+    "title": "পড়া মনে রাখার সেরা টিপস!",
+    "duration": "07:46",
+    "teacher": "Abdullah Al Mehedi",
+    "subject": null,
+    "thumb": "assets/live/v-aulwg0rhbxhjort2skh7.webp",
+    "avatar": "assets/live/a-tiqdjc6xme5mmfaixjw6.webp"
+   },
+   {
+    "title": "সফল হতে চাইলে মনে রাখো!",
+    "duration": "03:35",
+    "teacher": "Abdullah Al Mehedi",
+    "subject": null,
+    "thumb": "assets/live/v-ny6nax83gxjpilrlhrdg.webp",
+    "avatar": "assets/live/a-tiqdjc6xme5mmfaixjw6.webp"
+   },
+   {
+    "title": "নতুন অভ্যাস গড়ার কৌশল!",
+    "duration": "03:45",
+    "teacher": "Abdullah Al Mehedi",
+    "subject": null,
+    "thumb": "assets/live/v-ym8ibnvobwgkv1v4wpvj.webp",
+    "avatar": "assets/live/a-tiqdjc6xme5mmfaixjw6.webp"
+   },
+   {
+    "title": "লিখার স্পিড বাড়ানোর ৪ টিপস!",
+    "duration": "05:52",
+    "teacher": "Dr. Tanzim Ahmed Ontor",
+    "subject": null,
+    "thumb": "assets/live/v-qzfy2dgkl5icjxqhyjgw.webp",
+    "avatar": "assets/live/a-musfoudgzjym6rlzkzz9.webp"
+   },
+   {
+    "title": "নোট খাতা বানানো জরুরি কেন?",
+    "duration": "03:47",
+    "teacher": "Sourav Saha",
+    "subject": null,
+    "thumb": "assets/live/v-q5xieail6i5lqo3ckdwv.webp",
+    "avatar": "assets/live/a-sgr4faua0l1notsb99is.webp"
+   },
+   {
+    "title": "কিভাবে বুঝব যে, আমি সামনের পরীক্ষার জন্য ১০০% প্রস্তুত?",
+    "duration": "09:58",
+    "teacher": "Kamrul Hasan Shahedin",
+    "subject": null,
+    "thumb": "assets/live/v-ghdcmafbtgvxslbwyank.webp",
+    "avatar": "assets/live/a-myzlz9dmjgcce6hjtf4e.webp"
    }
   ]
  }
