@@ -518,3 +518,29 @@ html { scroll-padding-top: 100px; }
 .video-card { border: 1px solid var(--video-card-stroke); border-radius: 12px; overflow: hidden; background: #fff; }
 .video-card .video-thumb { border-radius: 0; }
 .video-card .video-body { padding: 10px 12px 12px; }
+
+/* ফিচারস cards (Figma 164:16029): two equal columns, 188px tall, 12px gap */
+.feature-grid { display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 188px; gap: 12px; }
+.feature-card {
+  position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: flex-start;
+  padding: 14px; border-radius: 12px; color: #fff; text-decoration: none;
+}
+.feature-card > * { position: relative; }
+.feature-card .btn-light { margin-top: auto; }
+.feature-card--quiz {
+  background-image: linear-gradient(130.04deg, rgb(42, 56, 184) 0%, rgb(30, 43, 153) 55%, rgb(23, 32, 122) 100%);
+  box-shadow: inset 0 0 32px rgba(171, 179, 246, 0.55);
+}
+.feature-card--ai {
+  background-image: linear-gradient(130.04deg, rgb(226, 19, 110) 0%, rgb(196, 22, 143) 50%, rgb(110, 0, 255) 130%);
+  box-shadow: inset 0 0 32px rgba(255, 255, 255, 0.28);
+}
+.feature-title { margin: 8px 0 0; font: 600 16px/24px var(--font-fold); white-space: nowrap; }
+.feature-usage { display: flex; align-items: center; gap: 6px; margin: 6px 0 0; color: rgba(255, 255, 255, 0.9); font: 400 12px/18px var(--font-fold); white-space: nowrap; }
+.feature-dots { display: inline-flex; gap: 3px; }
+.feature-dots i { width: 6px; height: 6px; border-radius: 3px; background: #fff; }
+.feature-ai-logo { display: flex; align-items: center; gap: 6px; }
+.feature-text { margin: 10px 0 0; max-width: 130px; font: 400 12px/18px var(--font-fold); }
+.feature-sparkle { position: absolute !important; top: 0; right: -8px; width: 60px; height: 116px; overflow: hidden; pointer-events: none; }
+.feature-card { transition: transform 150ms ease; }
+.feature-card:active { transform: scale(0.97); }

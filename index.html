@@ -837,56 +837,50 @@
     </div>
       </section>
       <section data-section="features" data-plan="paid">
-<div class="flex flex-col gap-[16px] px-[16px]" data-name="Features">
+<!-- ফিচারস: practice quiz + Shikho AI cards (Figma 164:16029). Two equal columns, 188px tall. -->
+<div class="flex flex-col gap-[14px] px-[16px]" data-name="Features">
   <h2 class="m-0 font-fold font-semibold text-[18px] leading-[28px] text-[#202020]">ফিচারস</h2>
-  <div class="grid grid-cols-2 gap-[12px]" data-name="All Feature Cards">
+  <div class="feature-grid" data-name="All Feature Cards">
     <!-- Practice quiz -->
-    <a href="#" class="relative flex flex-col gap-[16px] min-h-[166px] p-[14px] rounded-[12px] overflow-hidden bg-[#202020] shadow-[inset_0px_0px_32px_0px_#505050] no-underline" data-route="practiceQuiz">
+    <a href="#" class="feature-card feature-card--quiz" data-route="practiceQuiz">
       <div class="relative shrink-0 size-[56px]" aria-hidden="true">
-        <div class="absolute h-[79.835px] left-[-31px] overflow-clip rounded-br-[7.341px] rounded-tr-[7.341px] top-[-12px] w-[117px]">
-          <div class="absolute flex h-[38.299px] items-center justify-center left-[14.76px] top-[16.87px] w-[37.001px]">
-            <div class="flex-none rotate-15">
-              <div class="blur-[2.753px] h-[31.659px] opacity-10 relative w-[29.824px]">
-                <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/feat-quiz-m6.png" width="30" height="32">
-              </div>
+        <div class="absolute flex h-[38.674px] items-center justify-center left-[-16.42px] top-[4.69px] w-[37.26px]">
+          <div class="flex-none rotate-15">
+            <div class="blur-[2.75px] h-[32px] opacity-10 relative w-[30px]">
+              <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" width="30" height="32" src="assets/feat-quiz-m6.png">
             </div>
-          </div>
-          <div class="absolute flex h-[41.656px] items-center justify-center left-[72.95px] top-[16.98px] w-[36.914px]">
-            <div class="-rotate-15 flex-none">
-              <div class="blur-[2.753px] h-[35.429px] opacity-64 relative w-[28.723px]">
-                <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/feat-quiz-m2.png" width="29" height="35">
-              </div>
-            </div>
-          </div>
-          <div class="-translate-y-1/2 absolute aspect-[1045/1500] left-[32.94%] right-[31.37%] top-1/2">
-            <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/feat-quiz-m1.png" width="42" height="60">
           </div>
         </div>
+        <div class="absolute flex h-[41.313px] items-center justify-center left-[41.9px] top-[5.13px] w-[37.071px]">
+          <div class="-rotate-15 flex-none">
+            <div class="blur-[2.75px] h-[35px] opacity-64 relative w-[29px]">
+              <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" width="29" height="35" src="assets/feat-quiz-m2.png">
+            </div>
+          </div>
+        </div>
+        <div class="absolute h-[60px] left-[7.5px] top-[-2px] w-[41.797px]">
+          <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" width="42" height="60" src="assets/feat-quiz-m1.png">
+        </div>
       </div>
-      <div class="flex flex-col gap-[4px] text-white">
-        <p class="m-0 font-fold font-semibold text-[16px] leading-[24px]">প্র্যাকটিস কুইজ</p>
-        <p class="m-0 font-fold font-normal text-[12px] leading-[18px]">বিষয়, অধ্যায় ও টপিক নির্বাচন করে কুইজ প্র্যাকটিস করো</p>
-      </div>
-      <p class="absolute m-0 right-[16px] top-[14px] font-fold font-semibold text-[12px] leading-[18px] text-white"><span aria-hidden="true">০৪/১০</span><span class="sr-only">১০টির মধ্যে ০৪টি</span></p>
+      <p class="feature-title">প্র্যাকটিস কুইজ</p>
+      <p class="feature-usage"><span class="feature-dots" aria-hidden="true"><i></i><i></i><i></i></span>৩টি ফ্রি কুইজ</p>
+      <span class="btn-light btn-sm w-full">কুইজ শুরু করো</span>
     </a>
 
     <!-- Shikho AI -->
-    <a href="#" class="relative flex flex-col justify-center min-h-[166px] p-[14px] rounded-[12px] overflow-hidden no-underline" style="background-image: linear-gradient(82.88deg, rgb(226, 19, 110) 0.54%, rgb(238, 113, 168) 99.41%)" data-route="ai">
-      <img loading="lazy" decoding="async" alt="" class="absolute h-[116px] right-0 top-0 w-[60px]" src="assets/feat-ai-deco.svg" width="60" height="116">
-      <div class="relative flex flex-1 flex-col justify-between gap-[16px]">
-        <div class="flex gap-[6px] items-center pl-[7px]" role="img" aria-label="Shikho AI">
-          <div class="h-[32px] relative shrink-0 w-[31.799px]">
-            <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/feat-ai-logo.svg" width="32" height="32">
-          </div>
-          <div class="h-[18px] relative shrink-0 w-[71px]">
-            <div class="absolute inset-[33.33%_0.51%_0.11%_-0.28%]">
-              <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/feat-ai-wordmark.svg" width="71" height="12">
-            </div>
-          </div>
-        </div>
-        <span class="btn-light btn-sm w-full">ডাউট সল্ভ করো</span>
-      </div>
-      <div class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_0px_32px_0px_rgba(201,201,201,0.72)]"></div>
+    <a href="#" class="feature-card feature-card--ai" data-route="ai">
+      <span class="feature-sparkle" aria-hidden="true">
+        <span class="absolute inset-[24.33%_-35.25%_16.25%_20.36%] mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[-12.219px_-28.217px] mask-size-[60px_116px]" style="mask-image: url(&quot;assets/feat-ai-sparkle-mask.svg&quot;)">
+          <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" width="69" height="69" src="assets/feat-ai-sparkle.svg">
+        </span>
+      </span>
+      <span class="feature-ai-logo" role="img" aria-label="Shikho AI">
+        <img loading="lazy" decoding="async" alt="" width="32" height="32" src="assets/feat-ai-mark.svg">
+        <img loading="lazy" decoding="async" alt="" width="71" height="12" src="assets/feat-ai-wordmark2.svg">
+      </span>
+      <p class="feature-text">আটকে গেলে <span class="whitespace-nowrap" translate="no">AI-কে</span> জিজ্ঞেস করো</p>
+      <p class="feature-usage feature-usage--ai"><span class="feature-dots" aria-hidden="true"><i></i><i></i><i></i></span>৩টি ফ্রি প্রশ্ন</p>
+      <span class="btn-light btn-sm w-full">ডাউট সল্ভ করো</span>
     </a>
   </div>
 </div>
@@ -4119,56 +4113,50 @@
     </div>
       </section>
       <section data-section="features" data-plan="free">
-<div class="flex flex-col gap-[16px] px-[16px]" data-name="Features">
+<!-- ফিচারস: practice quiz + Shikho AI cards (Figma 164:16029). Two equal columns, 188px tall. -->
+<div class="flex flex-col gap-[14px] px-[16px]" data-name="Features">
   <h2 class="m-0 font-fold font-semibold text-[18px] leading-[28px] text-[#202020]">ফিচারস</h2>
-  <div class="grid grid-cols-2 gap-[12px]" data-name="All Feature Cards">
+  <div class="feature-grid" data-name="All Feature Cards">
     <!-- Practice quiz -->
-    <a href="#" class="relative flex flex-col gap-[16px] min-h-[166px] p-[14px] rounded-[12px] overflow-hidden bg-[#202020] shadow-[inset_0px_0px_32px_0px_#505050] no-underline" data-route="practiceQuiz">
+    <a href="#" class="feature-card feature-card--quiz" data-route="practiceQuiz">
       <div class="relative shrink-0 size-[56px]" aria-hidden="true">
-        <div class="absolute h-[79.835px] left-[-31px] overflow-clip rounded-br-[7.341px] rounded-tr-[7.341px] top-[-12px] w-[117px]">
-          <div class="absolute flex h-[38.299px] items-center justify-center left-[14.76px] top-[16.87px] w-[37.001px]">
-            <div class="flex-none rotate-15">
-              <div class="blur-[2.753px] h-[31.659px] opacity-10 relative w-[29.824px]">
-                <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/feat-quiz-m6.png" width="30" height="32">
-              </div>
+        <div class="absolute flex h-[38.674px] items-center justify-center left-[-16.42px] top-[4.69px] w-[37.26px]">
+          <div class="flex-none rotate-15">
+            <div class="blur-[2.75px] h-[32px] opacity-10 relative w-[30px]">
+              <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" width="30" height="32" src="assets/feat-quiz-m6.png">
             </div>
-          </div>
-          <div class="absolute flex h-[41.656px] items-center justify-center left-[72.95px] top-[16.98px] w-[36.914px]">
-            <div class="-rotate-15 flex-none">
-              <div class="blur-[2.753px] h-[35.429px] opacity-64 relative w-[28.723px]">
-                <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/feat-quiz-m2.png" width="29" height="35">
-              </div>
-            </div>
-          </div>
-          <div class="-translate-y-1/2 absolute aspect-[1045/1500] left-[32.94%] right-[31.37%] top-1/2">
-            <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/feat-quiz-m1.png" width="42" height="60">
           </div>
         </div>
+        <div class="absolute flex h-[41.313px] items-center justify-center left-[41.9px] top-[5.13px] w-[37.071px]">
+          <div class="-rotate-15 flex-none">
+            <div class="blur-[2.75px] h-[35px] opacity-64 relative w-[29px]">
+              <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" width="29" height="35" src="assets/feat-quiz-m2.png">
+            </div>
+          </div>
+        </div>
+        <div class="absolute h-[60px] left-[7.5px] top-[-2px] w-[41.797px]">
+          <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" width="42" height="60" src="assets/feat-quiz-m1.png">
+        </div>
       </div>
-      <div class="flex flex-col gap-[4px] text-white">
-        <p class="m-0 font-fold font-semibold text-[16px] leading-[24px]">প্র্যাকটিস কুইজ</p>
-        <p class="m-0 font-fold font-normal text-[12px] leading-[18px]">বিষয়, অধ্যায় ও টপিক নির্বাচন করে কুইজ প্র্যাকটিস করো</p>
-      </div>
-      <p class="absolute m-0 right-[16px] top-[14px] font-fold font-semibold text-[12px] leading-[18px] text-white"><span aria-hidden="true">০৪/১০</span><span class="sr-only">১০টির মধ্যে ০৪টি</span></p>
+      <p class="feature-title">প্র্যাকটিস কুইজ</p>
+      <p class="feature-usage"><span class="feature-dots" aria-hidden="true"><i></i><i></i><i></i></span>৩টি ফ্রি কুইজ</p>
+      <span class="btn-light btn-sm w-full">কুইজ শুরু করো</span>
     </a>
 
     <!-- Shikho AI -->
-    <a href="#" class="relative flex flex-col justify-center min-h-[166px] p-[14px] rounded-[12px] overflow-hidden no-underline" style="background-image: linear-gradient(82.88deg, rgb(226, 19, 110) 0.54%, rgb(238, 113, 168) 99.41%)" data-route="ai">
-      <img loading="lazy" decoding="async" alt="" class="absolute h-[116px] right-0 top-0 w-[60px]" src="assets/feat-ai-deco.svg" width="60" height="116">
-      <div class="relative flex flex-1 flex-col justify-between gap-[16px]">
-        <div class="flex gap-[6px] items-center pl-[7px]" role="img" aria-label="Shikho AI">
-          <div class="h-[32px] relative shrink-0 w-[31.799px]">
-            <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/feat-ai-logo.svg" width="32" height="32">
-          </div>
-          <div class="h-[18px] relative shrink-0 w-[71px]">
-            <div class="absolute inset-[33.33%_0.51%_0.11%_-0.28%]">
-              <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/feat-ai-wordmark.svg" width="71" height="12">
-            </div>
-          </div>
-        </div>
-        <span class="btn-light btn-sm w-full">ডাউট সল্ভ করো</span>
-      </div>
-      <div class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_0px_32px_0px_rgba(201,201,201,0.72)]"></div>
+    <a href="#" class="feature-card feature-card--ai" data-route="ai">
+      <span class="feature-sparkle" aria-hidden="true">
+        <span class="absolute inset-[24.33%_-35.25%_16.25%_20.36%] mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[-12.219px_-28.217px] mask-size-[60px_116px]" style="mask-image: url(&quot;assets/feat-ai-sparkle-mask.svg&quot;)">
+          <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" width="69" height="69" src="assets/feat-ai-sparkle.svg">
+        </span>
+      </span>
+      <span class="feature-ai-logo" role="img" aria-label="Shikho AI">
+        <img loading="lazy" decoding="async" alt="" width="32" height="32" src="assets/feat-ai-mark.svg">
+        <img loading="lazy" decoding="async" alt="" width="71" height="12" src="assets/feat-ai-wordmark2.svg">
+      </span>
+      <p class="feature-text">আটকে গেলে <span class="whitespace-nowrap" translate="no">AI-কে</span> জিজ্ঞেস করো</p>
+      <p class="feature-usage feature-usage--ai"><span class="feature-dots" aria-hidden="true"><i></i><i></i><i></i></span>৩টি ফ্রি প্রশ্ন</p>
+      <span class="btn-light btn-sm w-full">ডাউট সল্ভ করো</span>
     </a>
   </div>
 </div>
