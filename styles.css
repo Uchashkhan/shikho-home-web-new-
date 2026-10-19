@@ -174,9 +174,23 @@ main:focus { outline: none; } /* programmatic focus target of the skip link only
   font: 500 12px/18px var(--font-fold);
   white-space: nowrap;
 }
-/* Active tab: Cerise icon and label */
+/* Active tab: Cerise icon and label, plus a 60x4 indicator on the bar's bottom edge (Figma 160:16006) */
 .bottom-nav-item.is-active,
 .bottom-nav-item.is-active .bottom-nav-label { color: var(--fold-cerise); }
+.bottom-nav-item { position: relative; }
+/* the Figma icons draw inactive state at 60% (Graphite 60%); the active icon is full Cerise */
+.bottom-nav-item.is-active svg [fill-opacity] { fill-opacity: 1; }
+.bottom-nav-item.is-active::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -12px; /* the bar's 12px bottom padding (above the phone's home indicator area) */
+  width: 60px;
+  height: 4px;
+  border-radius: 10px 10px 0 0;
+  background: var(--fold-cerise);
+  transform: translateX(-50%);
+}
 
 .bottom-nav-item:focus-visible { outline: 2px solid var(--fold-cerise); outline-offset: 2px; border-radius: 8px; }
 
