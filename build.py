@@ -17,7 +17,7 @@ frag = lambda n: open(os.path.join(SRC, n + ".html"), encoding="utf-8").read()
 # (the animated-lessons and standalone Shikho AI cards are replaced by "features")
 PLANS = {
     # paid (enrolled) student: Figma 130:3454 in the new layout
-    "paid": ["p01_routine", "p02_program", "p03_links", "features", "p05_important", "p06_guideline"],
+    "paid": ["p01_routine", "features", "p05_important", "p06_guideline"],
     # free student: original web homepage order
     "free": ["s02_important", "s03_guideline", "features", "s05_freetrial", "s07_courses"],
 }
