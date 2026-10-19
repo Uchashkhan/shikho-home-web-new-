@@ -312,8 +312,7 @@
       d.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goTo(); } });
     });
 
-    // Alternatives to swiping: arrow keys when the row is focused, and prev/next buttons
-    // (shown for mouse users; touch keeps the swipe)
+    // Keyboard alternative to swiping: arrow keys when the row is focused
     viewport.style.overscrollBehaviorX = 'contain';
     if (looping()) {
       const heading = viewport.closest('section')?.querySelector('h2, [data-name^="Heading"] p')?.textContent.trim();
@@ -326,17 +325,6 @@
         if (e.target !== viewport) return;
         if (e.key === 'ArrowRight') { e.preventDefault(); go(index + 1); }
         if (e.key === 'ArrowLeft') { e.preventDefault(); go(index - 1); }
-      });
-      const chev = (d) => `<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${d}"/></svg>`;
-      [['car-prev', 'আগের', 'm15 18-6-6 6-6', -1], ['car-next', 'পরের', 'm9 18 6-6-6-6', 1]].forEach(([cls, label, path, dir]) => {
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.className = `car-btn ${cls}`;
-        b.setAttribute('aria-label', label);
-        b.innerHTML = chev(path);
-        b.addEventListener('pointerdown', (e) => e.stopPropagation());
-        b.addEventListener('click', (e) => { e.stopPropagation(); go(index + dir); });
-        viewport.appendChild(b);
       });
     }
 

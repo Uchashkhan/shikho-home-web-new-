@@ -404,12 +404,7 @@ html { scroll-padding-top: 100px; }
 
 .course-title, .course-hero-title, .ai-hero-title, .video-title { text-wrap: balance; }
 
-/* Carousel arrows: tap/click alternative to swiping, shown for mouse users (touch keeps swipe) */
-.car-btn { position: absolute; top: 72px; z-index: 3; display: none; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: #fff; color: var(--fold-charcoal); box-shadow: 0 1px 4px rgba(0,0,0,0.18); }
-.car-btn::before { content: ''; position: absolute; inset: -4px; }
-.car-prev { left: 8px; } .car-next { right: 8px; }
-@media (hover: hover) and (pointer: fine) { .car-btn { display: grid; } }
-.car-btn:focus-visible, [data-carousel]:focus-visible { outline: 2px solid var(--fold-cerise); outline-offset: 2px; }
+[data-carousel]:focus-visible { outline: 2px solid var(--fold-cerise); outline-offset: 2px; }
 
 /* Confirmation before a destructive action (log out) */
 .confirm-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid var(--fold-grey); }
@@ -432,7 +427,6 @@ html { scroll-padding-top: 100px; }
   .page-main [role="group"] > :hover { background-color: var(--fold-bloom); }
   .page-main [data-name="Container:transform"] > div > div:hover { opacity: 0.92; }
   .page-main a[data-route]:hover { filter: brightness(0.97); }
-  .car-btn:hover { background: var(--fold-bloom); }
   .syllabus summary:hover, .faq summary:hover { color: var(--fold-cerise); }
 }
 
@@ -455,6 +449,6 @@ html { scroll-padding-top: 100px; }
 
 /* Homepage subject chips: icon and label share one vertical centre (the Figma frames pinned the
    label to the bottom and the icon to the top) */
-.page-main [role="group"] > button { align-items: center; }
+.page-main [role="group"] > button { align-items: center; width: auto; min-width: 44px; padding: 0 14px; } /* reference chip: 14px sides */
 .page-main [role="group"] > button > [data-name="Auto-added frame"] { height: auto; align-items: center; }
 .page-main [role="group"] > button [data-name="Text:margin"] { align-items: center; }
