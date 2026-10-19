@@ -217,24 +217,23 @@ def course_detail_page():
 # ---------- Prototype switch: ফ্রি / পেইড student ----------
 
 def review_switch():
-    """Fixed strip at the top of the homepage that switches between the free and paid
-    student views in place (main.js, [data-plan-set]). Not part of the product UI."""
+    """Prototype control (not part of the product UI): switches the homepage between the free
+    and paid student views in place (main.js, [data-plan-set]). Floats beside the phone-width
+    column; on a phone it sits at the left edge, vertically centred."""
     return '''<!-- Prototype switch (not part of the product UI) -->
 <style>
-  /* A slim strip fixed to the top of the mobile column; the page is pushed down by its height */
-  :root { --rs-h: 44px; }
-  /* the strip covers the notch area, so the pink bar below it needs no safe-area padding */
-  body { padding-top: calc(var(--rs-h) + env(safe-area-inset-top)); }
-  .page-nav { top: calc(var(--rs-h) + env(safe-area-inset-top)); height: var(--appbar-h); } /* pink app bar sticks just below this strip */
-  .page-nav .appbar { height: var(--appbar-h); padding-top: 0; }
-  .page-nav .appbar-back { top: 0; }
-  .review-switch { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: min(100vw, var(--page-width, 412px)); height: calc(var(--rs-h) + env(safe-area-inset-top)); padding-top: env(safe-area-inset-top) !important; z-index: 90; display: flex; align-items: center; justify-content: center; padding: 0 8px; background: #202020; font-family: 'Inter Tight', 'Noto Sans Bengali', sans-serif; }
-  .rs-seg { display: flex; padding: 2px; border-radius: 999px; background: rgba(255,255,255,0.1); }
-  .rs-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 52px; height: 32px; padding: 0 10px; border: 0; border-radius: 999px; background: none; color: #DDDDDD; font: 600 12px/32px 'Inter Tight', 'Noto Sans Bengali', sans-serif; cursor: pointer; touch-action: manipulation; }
+  .review-switch { position: fixed; z-index: 120; top: 50%; transform: translateY(-50%);
+    /* just outside the column's left edge when there is room, else hugging the screen edge */
+    left: max(8px, calc(50% - var(--page-width, 412px) / 2 - 72px));
+    padding: 4px; border-radius: 16px; background: #202020; box-shadow: 0 6px 20px rgba(0,0,0,.18); }
+  .rs-seg { display: flex; flex-direction: column; gap: 2px; }
+  .rs-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 52px; height: 36px; padding: 0 10px; border: 0; border-radius: 12px; background: none; color: #DDDDDD; font: 600 12px/36px 'Inter Tight', 'Noto Sans Bengali', sans-serif; cursor: pointer; }
   .rs-btn[aria-pressed="true"] { background: #fff; color: #202020; cursor: default; }
   .rs-btn:focus-visible { outline: 2px solid #E2136E; outline-offset: 2px; }
+  .rs-cap { display: block; margin: 2px 0 4px; color: #707070; font: 500 10px/14px 'Inter Tight', 'Noto Sans Bengali', sans-serif; text-align: center; }
 </style>
 <div class="review-switch">
+  <span class="rs-cap" aria-hidden="true">ভিউ</span>
   <div class="rs-seg" role="group" aria-label="শিক্ষার্থী (প্রোটোটাইপ)">
     <button type="button" class="rs-btn" data-plan-set="free">ফ্রি</button><button type="button" class="rs-btn" data-plan-set="paid">পেইড</button>
   </div>
