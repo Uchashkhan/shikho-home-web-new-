@@ -445,10 +445,12 @@
       list.querySelectorAll('.routine-card').forEach((c) => {
         const on = (!want.activity || c.dataset.activity === want.activity) && (!want.subject || c.dataset.subject === want.subject);
         c.hidden = !on;
+        c.classList.toggle('is-first', on && !shown); // no divider above the first visible row
         shown += on;
       });
       list.querySelector('.routine-empty').hidden = shown > 0;
     };
+    apply();
     const dds = [...section.querySelectorAll('.bk-dd')];
     const closeAll = (except) => dds.forEach((dd) => {
       if (dd === except) return;
