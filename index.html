@@ -4,8 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Shikho | ঘরে বসে SSC/HSC'র A+ প্রস্তুতির বিশ্বস্ত প্রতিষ্ঠান</title>
+  <meta name="theme-color" content="#E2136E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Noto+Sans+Bengali:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
   <link rel="stylesheet" href="styles.css">
@@ -21,14 +23,18 @@
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">মূল কন্টেন্টে যাও</a>
   <div class="page">
 <!-- Prototype switch (not part of the product UI) -->
 <style>
   /* A slim strip fixed to the top of the mobile column; the page is pushed down by its height */
   :root { --rs-h: 44px; }
-  body { padding-top: var(--rs-h); }
-  .page-nav { top: var(--rs-h); } /* pink app bar sticks just below this strip */
-  .review-switch { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: min(100vw, var(--page-width, 412px)); height: var(--rs-h); z-index: 90; display: flex; align-items: center; justify-content: center; padding: 0 8px; background: #202020; font-family: 'Inter Tight', 'Noto Sans Bengali', sans-serif; }
+  /* the strip covers the notch area, so the pink bar below it needs no safe-area padding */
+  body { padding-top: calc(var(--rs-h) + env(safe-area-inset-top)); }
+  .page-nav { top: calc(var(--rs-h) + env(safe-area-inset-top)); height: var(--appbar-h); } /* pink app bar sticks just below this strip */
+  .page-nav .appbar { height: var(--appbar-h); padding-top: 0; }
+  .page-nav .appbar-back { top: 0; }
+  .review-switch { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: min(100vw, var(--page-width, 412px)); height: calc(var(--rs-h) + env(safe-area-inset-top)); padding-top: env(safe-area-inset-top) !important; z-index: 90; display: flex; align-items: center; justify-content: center; padding: 0 8px; background: #202020; font-family: 'Inter Tight', 'Noto Sans Bengali', sans-serif; }
   .rs-seg { display: flex; padding: 2px; border-radius: 999px; background: rgba(255,255,255,0.1); }
   .rs-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 52px; height: 32px; padding: 0 10px; border: 0; border-radius: 999px; background: none; color: #DDDDDD; font: 600 12px/32px 'Inter Tight', 'Noto Sans Bengali', sans-serif; cursor: pointer; touch-action: manipulation; }
   .rs-btn[aria-pressed="true"] { background: #fff; color: #202020; cursor: default; }
@@ -44,7 +50,7 @@
       <a href="index.html" class="appbar-back" data-back data-back-optional hidden aria-label="ফিরে যাও">
         <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4"/><path d="m10 6-6 6 6 6"/></svg>
       </a>
-      <h1 class="appbar-title">Shikho</h1>
+      <h1 class="appbar-title" translate="no">Shikho</h1>
     </div>
     </header>
 <!-- Profile row under the app bar (reference: shikho-bkash .profile). Scrolls with the page. -->
@@ -71,17 +77,17 @@
   <a href="#" class="btn-primary btn-sm relative hit-44" data-route="login">লগইন</a>
 </div>
 
-    <main class="page-main">
+    <main id="main" tabindex="-1" class="page-main">
       <section data-section="p01_routine" data-plan="paid" data-first>
 <div class="bg-white content-stretch flex flex-col items-start px-[16px] py-[20px] relative size-full" data-name="Section">
       <div class="content-stretch flex items-center justify-between relative shrink-0 w-full">
         <h2 class="m-0 font-fold font-semibold leading-[28px] text-[#202020] text-[18px] whitespace-nowrap">আজকের রুটিন</h2>
-        <a href="#" data-route="routine" aria-label="রুটিন ক্যালেন্ডার" class="border border-[rgba(226, 19, 110,0.12)] border-solid drop-shadow-[0px_1px_0.5px_rgba(0,0,0,0.04),0px_3px_1.5px_rgba(0,0,0,0.04)] flex h-[32px] items-center justify-center p-[8px] relative rounded-[8px] shrink-0">
-          <div aria-hidden="true" class="absolute bg-[#F9D0E2] inset-0 pointer-events-none rounded-[8px]"></div>
+        <a href="#" data-route="routine" aria-label="রুটিন ক্যালেন্ডার" class="border border-[rgba(226, 19, 110,0.12)] border-solid flex h-[32px] items-center justify-center p-[8px] relative rounded-[6px] shrink-0 hit-44">
+          <div aria-hidden="true" class="absolute bg-[#F9D0E2] inset-0 pointer-events-none rounded-[6px]"></div>
           <div class="overflow-clip relative shrink-0 size-[18px]">
             <div class="absolute inset-[6.25%_12.5%_9.81%_12.5%]">
               <div class="absolute inset-[0_-22.22%_-39.71%_-22.22%]">
-                <img alt="" class="block max-w-none size-full" src="assets/p01-calendar.svg">
+                <img alt="" class="block max-w-none size-full" src="assets/p01-calendar.svg" width="18" height="18">
               </div>
             </div>
           </div>
@@ -89,24 +95,24 @@
       </div>
       <div class="content-stretch flex gap-[12px] h-[66px] items-start pb-[20px] pt-[12px] relative shrink-0 w-full">
         <div class="h-[34px] relative shrink-0 w-[126.891px]">
-          <a href="#" data-route="routine" class="absolute bg-[#EDEDED] content-stretch flex gap-[6px] items-center left-0 px-[12px] py-[8px] rounded-[28px] top-0 no-underline">
+          <a href="#" data-route="routine" class="absolute bg-[#EDEDED] content-stretch flex gap-[6px] items-center left-0 px-[12px] py-[8px] rounded-[10px] top-0 no-underline hit-44">
             <span class="font-fold font-semibold leading-[18px] text-[#505050] text-[12px] text-center whitespace-nowrap">সকল অ্যাক্টিভিটি</span>
             <div class="overflow-clip relative shrink-0 size-[16px]">
                 <div class="absolute inset-[36.98%_20.31%_28.65%_20.31%]">
                   <div class="absolute inset-[0_-21.05%_-72.73%_-21.05%]">
-                    <img alt="" class="block max-w-none size-full" src="assets/p01-chevron-down.svg">
+                    <img alt="" class="block max-w-none size-full" src="assets/p01-chevron-down.svg" width="16" height="16">
                   </div>
                 </div>
               </div>
           </a>
         </div>
         <div class="h-[34px] relative shrink-0 w-[100.844px]">
-          <a href="#" data-route="routine" class="absolute bg-[#EDEDED] content-stretch flex gap-[6px] items-center left-0 px-[12px] py-[8px] rounded-[28px] top-0 no-underline">
+          <a href="#" data-route="routine" class="absolute bg-[#EDEDED] content-stretch flex gap-[6px] items-center left-0 px-[12px] py-[8px] rounded-[10px] top-0 no-underline hit-44">
             <span class="font-fold font-semibold leading-[18px] text-[#505050] text-[12px] text-center whitespace-nowrap">সকল বিষয়</span>
             <div class="overflow-clip relative shrink-0 size-[16px]">
                 <div class="absolute inset-[36.98%_20.31%_28.65%_20.31%]">
                   <div class="absolute inset-[0_-21.05%_-72.73%_-21.05%]">
-                    <img alt="" class="block max-w-none size-full" src="assets/p01-chevron-down.svg">
+                    <img alt="" class="block max-w-none size-full" src="assets/p01-chevron-down.svg" width="16" height="16">
                   </div>
                 </div>
               </div>
@@ -141,8 +147,8 @@
         </a>
       </div>
       <div class="content-stretch flex flex-col items-start pt-[20px] relative shrink-0 w-full">
-        <a href="#" data-route="routine" class="border border-[rgba(226, 19, 110,0.12)] border-solid drop-shadow-[0px_1px_0.5px_rgba(0,0,0,0.04),0px_3px_1.5px_rgba(0,0,0,0.04)] flex gap-[8px] h-[40px] items-center justify-center px-[12px] py-[8px] relative rounded-[10px] shrink-0 w-full no-underline">
-          <div aria-hidden="true" class="absolute bg-[#F9D0E2] inset-0 pointer-events-none rounded-[10px]"></div>
+        <a href="#" data-route="routine" class="border border-[rgba(226, 19, 110,0.12)] border-solid flex gap-[8px] h-[40px] items-center justify-center px-[12px] py-[8px] relative rounded-[6px] shrink-0 w-full no-underline">
+          <div aria-hidden="true" class="absolute bg-[#F9D0E2] inset-0 pointer-events-none rounded-[6px]"></div>
           <span class="relative font-fold font-semibold leading-[20px] text-[#E2136E] text-[14px] text-center whitespace-nowrap">রুটিন ক্যালেন্ডার দেখো</span>
           <div class="relative shrink-0 size-[18px]">
             <div class="absolute flex items-center justify-center left-0 size-[18px] top-0">
@@ -150,7 +156,7 @@
                 <div class="overflow-clip relative size-[18px]">
                   <div class="absolute inset-[36.98%_20.31%_28.65%_20.31%]">
                     <div class="absolute inset-[0_-21.05%_-72.73%_-21.05%]">
-                      <img alt="" class="block max-w-none size-full" src="assets/p01-chevron.svg">
+                      <img alt="" class="block max-w-none size-full" src="assets/p01-chevron.svg" width="18" height="18">
                     </div>
                   </div>
                 </div>
@@ -797,7 +803,7 @@
                 <div class="overflow-clip relative size-[18px]">
                   <div class="absolute inset-[36.98%_20.31%_28.65%_20.31%]">
                     <div class="absolute inset-[0_-21.05%_-72.73%_-21.05%]">
-                      <img loading="lazy" decoding="async" alt="" class="block max-w-none size-full" src="assets/p03-chevron.svg">
+                      <img loading="lazy" decoding="async" alt="" class="block max-w-none size-full" src="assets/p03-chevron.svg" width="18" height="18">
                     </div>
                   </div>
                 </div>
@@ -819,7 +825,7 @@
                 <div class="overflow-clip relative size-[18px]">
                   <div class="absolute inset-[36.98%_20.31%_28.65%_20.31%]">
                     <div class="absolute inset-[0_-21.05%_-72.73%_-21.05%]">
-                      <img loading="lazy" decoding="async" alt="" class="block max-w-none size-full" src="assets/p03-chevron.svg">
+                      <img loading="lazy" decoding="async" alt="" class="block max-w-none size-full" src="assets/p03-chevron.svg" width="18" height="18">
                     </div>
                   </div>
                 </div>
@@ -841,19 +847,19 @@
           <div class="absolute flex h-[38.299px] items-center justify-center left-[14.76px] top-[16.87px] w-[37.001px]">
             <div class="flex-none rotate-15">
               <div class="blur-[2.753px] h-[31.659px] opacity-10 relative w-[29.824px]">
-                <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/feat-quiz-m6.png">
+                <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/feat-quiz-m6.png" width="30" height="32">
               </div>
             </div>
           </div>
           <div class="absolute flex h-[41.656px] items-center justify-center left-[72.95px] top-[16.98px] w-[36.914px]">
             <div class="-rotate-15 flex-none">
               <div class="blur-[2.753px] h-[35.429px] opacity-64 relative w-[28.723px]">
-                <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/feat-quiz-m2.png">
+                <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/feat-quiz-m2.png" width="29" height="35">
               </div>
             </div>
           </div>
           <div class="-translate-y-1/2 absolute aspect-[1045/1500] left-[32.94%] right-[31.37%] top-1/2">
-            <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/feat-quiz-m1.png">
+            <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/feat-quiz-m1.png" width="42" height="60">
           </div>
         </div>
       </div>
@@ -866,15 +872,15 @@
 
     <!-- Shikho AI -->
     <a href="#" class="relative flex flex-col justify-center min-h-[166px] p-[14px] rounded-[12px] overflow-hidden no-underline" style="background-image: linear-gradient(82.88deg, rgb(226, 19, 110) 0.54%, rgb(238, 113, 168) 99.41%)" data-route="ai">
-      <img loading="lazy" decoding="async" alt="" class="absolute h-[116px] right-0 top-0 w-[60px]" src="assets/feat-ai-deco.svg">
+      <img loading="lazy" decoding="async" alt="" class="absolute h-[116px] right-0 top-0 w-[60px]" src="assets/feat-ai-deco.svg" width="60" height="116">
       <div class="relative flex flex-1 flex-col justify-between gap-[16px]">
         <div class="flex gap-[6px] items-center pl-[7px]" role="img" aria-label="Shikho AI">
           <div class="h-[32px] relative shrink-0 w-[31.799px]">
-            <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/feat-ai-logo.svg">
+            <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/feat-ai-logo.svg" width="32" height="32">
           </div>
           <div class="h-[18px] relative shrink-0 w-[71px]">
             <div class="absolute inset-[33.33%_0.51%_0.11%_-0.28%]">
-              <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/feat-ai-wordmark.svg">
+              <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/feat-ai-wordmark.svg" width="71" height="12">
             </div>
           </div>
         </div>
@@ -2657,7 +2663,7 @@
                     <div class="h-0 relative shrink-0 w-full" data-name="Container">
                       <div class="absolute content-stretch flex items-center justify-center left-[124px] rounded-[24px] size-[48px] top-[-107.25px]" data-name="Container">
                         <div class="relative shrink-0 size-[32px]" data-name="Icon">
-                          <img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
+                          <img fetchpriority="high" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
                         </div>
                       </div>
                     </div>
@@ -2712,7 +2718,7 @@
                     <div class="h-0 relative shrink-0 w-full" data-name="Container">
                       <div class="absolute content-stretch flex items-center justify-center left-[124px] rounded-[24px] size-[48px] top-[-107.25px]" data-name="Container">
                         <div class="relative shrink-0 size-[32px]" data-name="Icon">
-                          <img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
+                          <img fetchpriority="high" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
                         </div>
                       </div>
                     </div>
@@ -2738,7 +2744,7 @@
                   <div class="content-stretch flex gap-[12px] h-[41px] items-center pt-[10px] relative shrink-0 w-[264px]" data-name="Container">
                     <div class="bg-[#EDEDED] border border-solid border-white content-stretch flex flex-col items-start overflow-clip relative rounded-[9999px] shrink-0 size-[24px]" data-name="Container">
                       <div class="h-[22px] relative shrink-0 w-full" data-name="Image (S. M. Emon)">
-                        <img alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/s02-image-s-m-emon.webp">
+                        <img fetchpriority="high" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/s02-image-s-m-emon.webp">
                       </div>
                     </div>
                     <div class="content-stretch flex flex-col h-[18px] items-start relative shrink-0 w-[142px]" data-name="Container:margin">
@@ -2762,12 +2768,12 @@
                 <div class="absolute content-stretch flex flex-col h-[167px] items-start left-0 overflow-clip rounded-[10px] top-0 w-[296px]" data-name="Container">
                   <div class="content-stretch flex flex-col h-[167px] items-start overflow-clip relative shrink-0 w-full" data-name="Container">
                     <div class="h-[167px] relative shrink-0 w-full" data-name="Image (সেট ও ফাংশন পর্ব-৪)">
-                      <img alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/s02-image2.webp">
+                      <img fetchpriority="high" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/s02-image2.webp">
                     </div>
                     <div class="h-0 relative shrink-0 w-full" data-name="Container">
                       <div class="absolute content-stretch flex items-center justify-center left-[124px] rounded-[24px] size-[48px] top-[-107.25px]" data-name="Container">
                         <div class="relative shrink-0 size-[32px]" data-name="Icon">
-                          <img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
+                          <img fetchpriority="high" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
                         </div>
                       </div>
                     </div>
@@ -2793,7 +2799,7 @@
                   <div class="content-stretch flex gap-[12px] h-[41px] items-center pt-[10px] relative shrink-0 w-[264px]" data-name="Container">
                     <div class="bg-[#EDEDED] border border-solid border-white content-stretch flex flex-col items-start overflow-clip relative rounded-[9999px] shrink-0 size-[24px]" data-name="Container">
                       <div class="h-[22px] relative shrink-0 w-full" data-name="Image (S. M. Emon)">
-                        <img alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/s02-image-s-m-emon.webp">
+                        <img fetchpriority="high" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/s02-image-s-m-emon.webp">
                       </div>
                     </div>
                     <div class="content-stretch flex flex-col h-[18px] items-start relative shrink-0 w-[142px]" data-name="Container:margin">
@@ -2817,12 +2823,12 @@
                 <div class="absolute content-stretch flex flex-col h-[167px] items-start left-0 overflow-clip rounded-[10px] top-0 w-[296px]" data-name="Container">
                   <div class="content-stretch flex flex-col h-[167px] items-start overflow-clip relative shrink-0 w-full" data-name="Container">
                     <div class="h-[167px] relative shrink-0 w-full" data-name="Image (বীজগাণিতিক রাশি পর্ব-৫)">
-                      <img alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/s02-image3.webp">
+                      <img fetchpriority="high" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/s02-image3.webp">
                     </div>
                     <div class="h-0 relative shrink-0 w-full" data-name="Container">
                       <div class="absolute content-stretch flex items-center justify-center left-[124px] rounded-[24px] size-[48px] top-[-107.25px]" data-name="Container">
                         <div class="relative shrink-0 size-[32px]" data-name="Icon">
-                          <img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
+                          <img fetchpriority="high" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
                         </div>
                       </div>
                     </div>
@@ -2877,7 +2883,7 @@
                     <div class="h-0 relative shrink-0 w-full" data-name="Container">
                       <div class="absolute content-stretch flex items-center justify-center left-[124px] rounded-[24px] size-[48px] top-[-107.25px]" data-name="Container">
                         <div class="relative shrink-0 size-[32px]" data-name="Icon">
-                          <img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
+                          <img fetchpriority="high" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
                         </div>
                       </div>
                     </div>
@@ -2934,7 +2940,7 @@
                     <div class="h-0 relative shrink-0 w-full" data-name="Container">
                       <div class="absolute content-stretch flex items-center justify-center left-[124px] rounded-[24px] size-[48px] top-[-107.25px]" data-name="Container">
                         <div class="relative shrink-0 size-[32px]" data-name="Icon">
-                          <img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
+                          <img fetchpriority="high" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
                         </div>
                       </div>
                     </div>
@@ -2989,7 +2995,7 @@
                     <div class="h-0 relative shrink-0 w-full" data-name="Container">
                       <div class="absolute content-stretch flex items-center justify-center left-[124px] rounded-[24px] size-[48px] top-[-107.25px]" data-name="Container">
                         <div class="relative shrink-0 size-[32px]" data-name="Icon">
-                          <img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
+                          <img fetchpriority="high" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
                         </div>
                       </div>
                     </div>
@@ -3044,7 +3050,7 @@
                     <div class="h-0 relative shrink-0 w-full" data-name="Container">
                       <div class="absolute content-stretch flex items-center justify-center left-[124px] rounded-[24px] size-[48px] top-[-107.25px]" data-name="Container">
                         <div class="relative shrink-0 size-[32px]" data-name="Icon">
-                          <img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
+                          <img fetchpriority="high" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
                         </div>
                       </div>
                     </div>
@@ -3099,7 +3105,7 @@
                     <div class="h-0 relative shrink-0 w-full" data-name="Container">
                       <div class="absolute content-stretch flex items-center justify-center left-[124px] rounded-[24px] size-[48px] top-[-107.25px]" data-name="Container">
                         <div class="relative shrink-0 size-[32px]" data-name="Icon">
-                          <img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
+                          <img fetchpriority="high" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
                         </div>
                       </div>
                     </div>
@@ -3154,7 +3160,7 @@
                     <div class="h-0 relative shrink-0 w-full" data-name="Container">
                       <div class="absolute content-stretch flex items-center justify-center left-[124px] rounded-[24px] size-[48px] top-[-107.25px]" data-name="Container">
                         <div class="relative shrink-0 size-[32px]" data-name="Icon">
-                          <img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
+                          <img fetchpriority="high" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
                         </div>
                       </div>
                     </div>
@@ -3209,7 +3215,7 @@
                     <div class="h-0 relative shrink-0 w-full" data-name="Container">
                       <div class="absolute content-stretch flex items-center justify-center left-[124px] rounded-[24px] size-[48px] top-[-107.25px]" data-name="Container">
                         <div class="relative shrink-0 size-[32px]" data-name="Icon">
-                          <img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
+                          <img fetchpriority="high" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
                         </div>
                       </div>
                     </div>
@@ -3266,7 +3272,7 @@
                     <div class="h-0 relative shrink-0 w-full" data-name="Container">
                       <div class="absolute content-stretch flex items-center justify-center left-[124px] rounded-[24px] size-[48px] top-[-107.25px]" data-name="Container">
                         <div class="relative shrink-0 size-[32px]" data-name="Icon">
-                          <img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
+                          <img fetchpriority="high" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
                         </div>
                       </div>
                     </div>
@@ -3321,7 +3327,7 @@
                     <div class="h-0 relative shrink-0 w-full" data-name="Container">
                       <div class="absolute content-stretch flex items-center justify-center left-[124px] rounded-[24px] size-[48px] top-[-107.25px]" data-name="Container">
                         <div class="relative shrink-0 size-[32px]" data-name="Icon">
-                          <img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
+                          <img fetchpriority="high" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
                         </div>
                       </div>
                     </div>
@@ -3376,7 +3382,7 @@
                     <div class="h-0 relative shrink-0 w-full" data-name="Container">
                       <div class="absolute content-stretch flex items-center justify-center left-[124px] rounded-[24px] size-[48px] top-[-107.25px]" data-name="Container">
                         <div class="relative shrink-0 size-[32px]" data-name="Icon">
-                          <img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
+                          <img fetchpriority="high" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s02-icon.svg">
                         </div>
                       </div>
                     </div>
@@ -4119,19 +4125,19 @@
           <div class="absolute flex h-[38.299px] items-center justify-center left-[14.76px] top-[16.87px] w-[37.001px]">
             <div class="flex-none rotate-15">
               <div class="blur-[2.753px] h-[31.659px] opacity-10 relative w-[29.824px]">
-                <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/feat-quiz-m6.png">
+                <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/feat-quiz-m6.png" width="30" height="32">
               </div>
             </div>
           </div>
           <div class="absolute flex h-[41.656px] items-center justify-center left-[72.95px] top-[16.98px] w-[36.914px]">
             <div class="-rotate-15 flex-none">
               <div class="blur-[2.753px] h-[35.429px] opacity-64 relative w-[28.723px]">
-                <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/feat-quiz-m2.png">
+                <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/feat-quiz-m2.png" width="29" height="35">
               </div>
             </div>
           </div>
           <div class="-translate-y-1/2 absolute aspect-[1045/1500] left-[32.94%] right-[31.37%] top-1/2">
-            <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/feat-quiz-m1.png">
+            <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/feat-quiz-m1.png" width="42" height="60">
           </div>
         </div>
       </div>
@@ -4144,15 +4150,15 @@
 
     <!-- Shikho AI -->
     <a href="#" class="relative flex flex-col justify-center min-h-[166px] p-[14px] rounded-[12px] overflow-hidden no-underline" style="background-image: linear-gradient(82.88deg, rgb(226, 19, 110) 0.54%, rgb(238, 113, 168) 99.41%)" data-route="ai">
-      <img loading="lazy" decoding="async" alt="" class="absolute h-[116px] right-0 top-0 w-[60px]" src="assets/feat-ai-deco.svg">
+      <img loading="lazy" decoding="async" alt="" class="absolute h-[116px] right-0 top-0 w-[60px]" src="assets/feat-ai-deco.svg" width="60" height="116">
       <div class="relative flex flex-1 flex-col justify-between gap-[16px]">
         <div class="flex gap-[6px] items-center pl-[7px]" role="img" aria-label="Shikho AI">
           <div class="h-[32px] relative shrink-0 w-[31.799px]">
-            <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/feat-ai-logo.svg">
+            <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/feat-ai-logo.svg" width="32" height="32">
           </div>
           <div class="h-[18px] relative shrink-0 w-[71px]">
             <div class="absolute inset-[33.33%_0.51%_0.11%_-0.28%]">
-              <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/feat-ai-wordmark.svg">
+              <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/feat-ai-wordmark.svg" width="71" height="12">
             </div>
           </div>
         </div>

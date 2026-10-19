@@ -47,20 +47,36 @@
   document.addEventListener('click', (e) => {
     const link = e.target.closest('[data-route]');
     if (!link) return;
+    // Destructive actions (log out) ask first, inline
+    if (link.dataset.confirm && !link.dataset.confirmed) { e.preventDefault(); askConfirm(link); return; }
     const route = ROUTES[link.dataset.route];
-    if (route?.local && !link.hasAttribute('aria-current')) {
-      if (link.tagName !== 'A') location.href = route.local; // e.g. the homepage "আরো দেখো" buttons
-      return;
-    }
+    if (route?.local && !link.hasAttribute('aria-current')) return; // real link: let the browser follow it
     e.preventDefault();
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (route?.local) window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
     else notify('এটি এখনো প্রোটোটাইপে চালু হয়নি');
   });
-  document.addEventListener('keydown', (e) => {
-    const link = e.target.closest?.('[data-route][role="link"]');
-    if (link && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); link.click(); }
-  });
+
+  const askConfirm = (link) => {
+    const row = document.createElement('div');
+    row.className = 'confirm-row';
+    row.setAttribute('role', 'group');
+    row.setAttribute('aria-label', link.dataset.confirm);
+    row.innerHTML = `<p>${link.dataset.confirm}</p><div class="confirm-actions">
+      <button type="button" class="btn-secondary btn-sm" data-no>না</button>
+      <button type="button" class="btn-danger" data-yes>হ্যাঁ, লগ আউট</button></div>`;
+    link.hidden = true;
+    link.after(row);
+    const close = () => { row.remove(); link.hidden = false; };
+    row.querySelector('[data-no]').addEventListener('click', () => { close(); link.focus(); });
+    row.querySelector('[data-yes]').addEventListener('click', () => {
+      close();
+      link.dataset.confirmed = '1';
+      link.click();
+      delete link.dataset.confirmed;
+    });
+    row.querySelector('[data-no]').focus();
+  };
 
   /* Homepage back arrow: only shown when there is a prototype page to go back to */
   const cameFromHere = document.referrer && new URL(document.referrer).origin === location.origin
@@ -75,13 +91,23 @@
     }
   }));
 
+  const bnNumber = new Intl.NumberFormat('bn-BD'); // Bangla digits for counts read to screen readers
+
+  /* The chosen subject filter is kept in the URL (?subject=…), so it can be shared and survives reload */
+  const subjectParam = new URLSearchParams(location.search).get('subject');
+  const setSubjectParam = (subject) => {
+    const url = new URL(location.href);
+    if (subject) url.searchParams.set('subject', subject); else url.searchParams.delete('subject');
+    history.replaceState(null, '', url.toString().replace(/=(?=&|$)/g, ''));
+  };
+
   /* List pages: subject chips filter the cards */
   document.querySelectorAll('.chip-row').forEach((row) => {
     const list = row.parentElement.querySelector('[data-filter-list]');
     const empty = row.parentElement.querySelector('.filter-empty');
     if (!list) return;
     const norm = (s) => (s || '').replace(/ী/g, 'ি').trim(); // ইংরেজী / ইংরেজি
-    row.querySelectorAll('[data-filter]').forEach((chip) => chip.addEventListener('click', () => {
+    const apply = (chip) => {
       row.querySelectorAll('[data-filter]').forEach((c) => {
         c.classList.toggle('is-active', c === chip);
         c.setAttribute('aria-pressed', String(c === chip));
@@ -94,13 +120,24 @@
         shown += on;
       });
       if (empty) empty.hidden = shown > 0;
+    };
+    row.querySelectorAll('[data-filter]').forEach((chip) => chip.addEventListener('click', () => {
+      apply(chip);
+      setSubjectParam(chip.dataset.filter);
     }));
+    const start = subjectParam && [...row.querySelectorAll('[data-filter]')].find((c) => norm(c.dataset.filter) === norm(subjectParam));
+    if (start) apply(start);
   });
 
   /* Course detail: section tabs follow the scroll position */
   const tabs = [...document.querySelectorAll('.course-tabs a')];
   if (tabs.length && 'IntersectionObserver' in window) {
-    const setTab = (id) => tabs.forEach((t) => t.classList.toggle('is-active', t.getAttribute('href') === `#${id}`));
+    const setTab = (id) => tabs.forEach((t) => {
+      const on = t.getAttribute('href') === `#${id}`;
+      t.classList.toggle('is-active', on);
+      if (on) t.setAttribute('aria-current', 'true'); else t.removeAttribute('aria-current');
+    });
+    setTab(tabs[0].getAttribute('href').slice(1));
     tabs.forEach((t) => t.addEventListener('click', () => setTab(t.getAttribute('href').slice(1))));
     const io = new IntersectionObserver((entries) => {
       entries.forEach((en) => { if (en.isIntersecting) setTab(en.target.id); });
@@ -264,10 +301,44 @@
     };
     carousels.set(track, { filter });
 
+    // Dots are keyboard buttons too
     dots.forEach((d, i) => {
+      const goTo = () => go(index + (i - mod(index + initialDot, dots.length)));
       d.style.cursor = 'pointer';
-      d.addEventListener('click', () => go(index + (i - mod(index + initialDot, dots.length))));
+      d.setAttribute('role', 'button');
+      d.tabIndex = 0;
+      d.setAttribute('aria-label', `স্লাইড ${bnNumber.format(i + 1)}`);
+      d.addEventListener('click', goTo);
+      d.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goTo(); } });
     });
+
+    // Alternatives to swiping: arrow keys when the row is focused, and prev/next buttons
+    // (shown for mouse users; touch keeps the swipe)
+    viewport.style.overscrollBehaviorX = 'contain';
+    if (looping()) {
+      const heading = viewport.closest('section')?.querySelector('h2, [data-name^="Heading"] p')?.textContent.trim();
+      viewport.dataset.carousel = '';
+      viewport.tabIndex = 0;
+      viewport.setAttribute('role', 'region');
+      viewport.setAttribute('aria-roledescription', 'ক্যারোসেল');
+      if (heading) viewport.setAttribute('aria-label', heading);
+      viewport.addEventListener('keydown', (e) => {
+        if (e.target !== viewport) return;
+        if (e.key === 'ArrowRight') { e.preventDefault(); go(index + 1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); go(index - 1); }
+      });
+      const chev = (d) => `<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${d}"/></svg>`;
+      [['car-prev', 'আগের', 'm15 18-6-6 6-6', -1], ['car-next', 'পরের', 'm9 18 6-6-6-6', 1]].forEach(([cls, label, path, dir]) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = `car-btn ${cls}`;
+        b.setAttribute('aria-label', label);
+        b.innerHTML = chev(path);
+        b.addEventListener('pointerdown', (e) => e.stopPropagation());
+        b.addEventListener('click', (e) => { e.stopPropagation(); go(index + dir); });
+        viewport.appendChild(b);
+      });
+    }
 
     // Swipe / drag
     let startX = null, dx = 0;
@@ -300,7 +371,15 @@
     row.classList.add('h-scroll');
     row.setAttribute('role', 'group');
     row.setAttribute('aria-label', 'বিষয় অনুযায়ী ফিল্টার');
-    const chips = [...row.children];
+    // Figma markup draws chips as <div>s: swap each for a real <button> with the same look and content
+    const chips = [...row.children].map((div) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      for (const a of div.attributes) b.setAttribute(a.name, a.value);
+      b.append(...div.childNodes);
+      div.replaceWith(b);
+      return b;
+    });
     const section = row.closest('section');
     const carousel = [...carousels].find(([track]) => section?.contains(track))?.[1];
     const isActive = (chip) => chip.classList.contains(CHIP_ACTIVE.border);
@@ -315,20 +394,21 @@
       label?.classList.toggle('font-medium', s !== CHIP_ACTIVE);
       chip.setAttribute('aria-pressed', String(s === CHIP_ACTIVE));
     };
+    const label = (chip) => chip.querySelector('p')?.textContent.trim();
     const select = (chip) => {
       chips.forEach((c) => setChip(c, c === chip ? CHIP_ACTIVE : CHIP_IDLE));
-      const subject = chip.querySelector('p')?.textContent.trim();
-      carousel?.filter(chip === chips[0] ? null : subject); // first chip is "সব"
+      carousel?.filter(chip === chips[0] ? null : label(chip)); // first chip is "সব"
     };
     chips.forEach((chip) => {
-      chip.setAttribute('role', 'button');
       chip.setAttribute('aria-pressed', String(isActive(chip)));
-      chip.tabIndex = 0;
-      chip.style.cursor = 'pointer';
-      chip.addEventListener('click', () => select(chip));
-      chip.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(chip); } });
+      chip.addEventListener('click', () => {
+        select(chip);
+        setSubjectParam(chip === chips[0] ? null : label(chip));
+      });
     });
     chips.forEach((c) => setChip(c, isActive(c) ? CHIP_ACTIVE : CHIP_IDLE)); // apply the weight to the initial chip
+    const start = subjectParam && chips.find((c) => label(c) === subjectParam);
+    if (start) select(start);
     row.scrollLeft = 0;
   });
 })();

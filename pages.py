@@ -32,7 +32,7 @@ def app_bar(title, back="index.html", optional_back=False):
       <a href="{back}" class="appbar-back" data-back{extra} aria-label="ফিরে যাও">
         <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4"/><path d="m10 6-6 6 6 6"/></svg>
       </a>
-      <h1 class="appbar-title">{e(title)}</h1>
+      <h1 class="appbar-title"{' translate="no"' if title.startswith("Shikho") else ""}>{e(title)}</h1>
     </div>'''
 
 
@@ -93,7 +93,7 @@ def course_card(c, compact=False):
     return f'''<article class="course-card{" course-card--compact" if compact else ""}">
           <img class="course-thumb" src="{c["thumb"]}" alt="" width="720" height="405" loading="lazy">
           <div class="course-body">
-            <h2 class="course-title">{e(c["title"])}</h2>
+            <{"h3" if compact else "h2"} class="course-title">{e(c["title"])}</{"h3" if compact else "h2"}>
             <p class="course-days">কোর্সের মেয়াদ {e(c["days"])} দিন</p>
           </div>
           <div class="course-foot">
@@ -159,19 +159,19 @@ def course_detail_page():
       </nav>
 
       <section id="features" class="{CARD} detail-card">
-        <h3 class="detail-heading">ফিচারসমূহ</h3>
+        <h2 class="detail-heading">ফিচারসমূহ</h2>
         <div class="flex flex-wrap gap-[8px]"><span class="tag-pill tag-pill--lg">Animated</span><span class="tag-pill tag-pill--lg">Course</span></div>
       </section>
 
       <section id="mentors" class="{CARD} detail-card">
-        <h3 class="detail-heading">আমাদের মেন্টর</h3>
+        <h2 class="detail-heading">আমাদের মেন্টর</h2>
         <div class="flex flex-col gap-[16px]">
             {"".join(mentor(*m) for m in mentors)}
         </div>
       </section>
 
       <section id="syllabus" class="{CARD} detail-card">
-        <h3 class="detail-heading">কোর্সের সিলেবাস</h3>
+        <h2 class="detail-heading">কোর্সের সিলেবাস</h2>
         <details class="syllabus" open>
           <summary>সাধারণ গণিত <span class="syllabus-count">১৭টি অধ্যায়</span>{CHEVRON}</summary>
           <ol class="chapter-list">
@@ -189,18 +189,18 @@ def course_detail_page():
       </section>
 
       <section id="details" class="{CARD} detail-card">
-        <h3 class="detail-heading">কোর্সের বিস্তারিত</h3>
+        <h2 class="detail-heading">কোর্সের বিস্তারিত</h2>
         <p class="detail-text">Animated course for SSC students</p>
       </section>
 
       <a href="#" class="{CARD} detail-card payment-help" data-route="paymentVideo">
         <span class="payment-video"><img src="assets/live/admission-video-play.jpg" alt="" width="1270" height="720" loading="lazy"><span class="video-play">{PLAY}</span></span>
         <span class="detail-heading">ভর্তির পেমেন্ট করবে কীভাবে?</span>
-        <span class="detail-text">শিখো'র কোর্সে ভর্তির জন্য কীভাবে পেমেন্ট করবে, তা জানতে ভিডিওটি দেখে নাও</span>
+        <span class="detail-text">শিখো’র কোর্সে ভর্তির জন্য কীভাবে পেমেন্ট করবে, তা জানতে ভিডিওটি দেখে নাও</span>
       </a>
 
       <section>
-        <h3 class="detail-heading px-[2px]">লেটেস্ট কোর্স</h3>
+        <h2 class="detail-heading px-[2px]">লেটেস্ট কোর্স</h2>
         <div class="course-row h-scroll">
           {latest_cards}
         </div>
@@ -235,7 +235,7 @@ def ai_page():
             <a href="#" class="{"btn-ai" if popular else "btn-secondary"}" data-route="aiPackage">{e(cta)}</a>
           </article>'''
     faq = [
-        ("Shikho AI কী?", "Shikho AI বাংলাদেশের প্রথম NCTB'র কারিকুলাম অনুযায়ী বিষয়ভিত্তিক শিক্ষা সহায়ক কৃত্রিম বুদ্ধিমত্তা (AI), যা একাডেমিক যেকোনো প্রশ্নের সহজ ও দ্রুত সমাধান দেয়।"),
+        ("Shikho AI কী?", "Shikho AI বাংলাদেশের প্রথম NCTB’র কারিকুলাম অনুযায়ী বিষয়ভিত্তিক শিক্ষা সহায়ক কৃত্রিম বুদ্ধিমত্তা (AI), যা একাডেমিক যেকোনো প্রশ্নের সহজ ও দ্রুত সমাধান দেয়।"),
         ("কী ধরনের প্রশ্ন করা যায়?", "NCTB সিলেবাস অনুযায়ী বিষয়ভিত্তিক যেকোনো প্রশ্নের উত্তর দেয়। আপাতত গণিত, পদার্থবিজ্ঞান, রসায়ন, জীববিজ্ঞান ও ইংরেজির প্রশ্নের উত্তর সম্পূর্ণ বাংলায় দিচ্ছে। আগামীতে নতুন নতুন বিষয় যুক্ত করা হবে।"),
         ("Shikho AI শুধু উত্তর দেয়, নাকি আরও কিছু?", "শুধু উত্তরই দেয় না, বরং সহজভাবে ব্যাখ্যা, উদাহরণসহ উত্তর, শর্টকাট মেথড, সবই বলে দেয় পুরোপুরি বাংলায়। প্রতিটা প্রশ্নের ক্ষেত্রে ১০টি করে কনভার্সেশন করতে পারবে।"),
         ("Shikho AI কি সবসময় ১০০% সঠিক উত্তর দেয়?", "Shikho AI চেষ্টা করে সর্বোচ্চ সঠিক, বাংলাদেশি কারিকুলামভিত্তিক উত্তর দিতে। তবে যেহেতু এটি একটি AI টুল, মাঝে মাঝে ভুল বা অসম্পূর্ণ উত্তর আসতে পারে। উত্তর ভুল মনে হলে উত্তরের পাশে থাকা “ডাউনভোট” বাটনে ট্যাপ করো।"),
@@ -260,7 +260,7 @@ def ai_page():
         <p class="ai-hero-title">প্রশ্ন? থাকতেই পারে!<br>উত্তর? সেকেন্ডেই!</p>
         <p class="ai-hero-sub">দেশের প্রথম সম্পূর্ণ বাংলায় AI; জাতীয় কারিকুলাম অনুযায়ী সকল প্রশ্নের ইনস্ট্যান্ট উত্তর।</p>
         <div class="flex gap-[8px]">
-          <a href="#" class="ai-hero-cta" data-route="aiChat">ফ্রি'তে ট্রাই করো</a>
+          <a href="#" class="ai-hero-cta" data-route="aiChat">ফ্রি’তে ট্রাই করো</a>
           <a href="#packages" class="ai-hero-cta ai-hero-cta--ghost">প্যাকেজ দেখো</a>
         </div>
       </section>
@@ -272,7 +272,7 @@ def ai_page():
       </ul>
 
       <section class="{CARD} detail-card">
-        <h3 class="detail-heading">কীভাবে প্রশ্ন করবে?</h3>
+        <h2 class="detail-heading">কীভাবে প্রশ্ন করবে?</h2>
         <ol class="ai-steps">
           {step_html}
         </ol>
@@ -281,7 +281,7 @@ def ai_page():
       </section>
 
       <section id="packages">
-        <h3 class="detail-heading px-[2px]">সহজ ও সাশ্রয়ী প্যাকেজ</h3>
+        <h2 class="detail-heading px-[2px]">সহজ ও সাশ্রয়ী প্যাকেজ</h2>
         <p class="detail-sub detail-sub--lead px-[2px]">প্রয়োজন অনুযায়ী প্যাকেজ বেছে নাও। সব প্যাকেজেই আছে Shikho AI ব্যবহারের সুবিধা।</p>
         <div class="pkg-row h-scroll">
           {"".join(pkg(*p) for p in packages)}
@@ -289,7 +289,7 @@ def ai_page():
       </section>
 
       <section class="{CARD} detail-card">
-        <h3 class="detail-heading">সচরাচর পাওয়া প্রশ্নসমূহ</h3>
+        <h2 class="detail-heading">সচরাচর পাওয়া প্রশ্নসমূহ</h2>
         {faqs}
       </section>
 
@@ -306,9 +306,12 @@ def review_switch():
 <style>
   /* A slim strip fixed to the top of the mobile column; the page is pushed down by its height */
   :root { --rs-h: 44px; }
-  body { padding-top: var(--rs-h); }
-  .page-nav { top: var(--rs-h); } /* pink app bar sticks just below this strip */
-  .review-switch { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: min(100vw, var(--page-width, 412px)); height: var(--rs-h); z-index: 90; display: flex; align-items: center; justify-content: center; padding: 0 8px; background: #202020; font-family: 'Inter Tight', 'Noto Sans Bengali', sans-serif; }
+  /* the strip covers the notch area, so the pink bar below it needs no safe-area padding */
+  body { padding-top: calc(var(--rs-h) + env(safe-area-inset-top)); }
+  .page-nav { top: calc(var(--rs-h) + env(safe-area-inset-top)); height: var(--appbar-h); } /* pink app bar sticks just below this strip */
+  .page-nav .appbar { height: var(--appbar-h); padding-top: 0; }
+  .page-nav .appbar-back { top: 0; }
+  .review-switch { position: fixed; top: 0; left: 50%; transform: translateX(-50%); width: min(100vw, var(--page-width, 412px)); height: calc(var(--rs-h) + env(safe-area-inset-top)); padding-top: env(safe-area-inset-top) !important; z-index: 90; display: flex; align-items: center; justify-content: center; padding: 0 8px; background: #202020; font-family: 'Inter Tight', 'Noto Sans Bengali', sans-serif; }
   .rs-seg { display: flex; padding: 2px; border-radius: 999px; background: rgba(255,255,255,0.1); }
   .rs-btn { display: inline-flex; align-items: center; justify-content: center; min-width: 52px; height: 32px; padding: 0 10px; border: 0; border-radius: 999px; background: none; color: #DDDDDD; font: 600 12px/32px 'Inter Tight', 'Noto Sans Bengali', sans-serif; cursor: pointer; touch-action: manipulation; }
   .rs-btn[aria-pressed="true"] { background: #fff; color: #202020; cursor: default; }

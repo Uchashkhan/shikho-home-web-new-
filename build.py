@@ -24,6 +24,30 @@ PLANS = {
 SHARED = ["s08_app", "s09_call", "s10_community"]
 
 
+def div_end(s, start):
+    """End index of the <div> element starting at `start` (balanced)."""
+    import re
+    depth = 0
+    for m in re.finditer(r'<div\b|</div>', s[start:]):
+        depth += 1 if m.group(0) == '<div' else -1
+        if depth == 0:
+            return start + m.end()
+    return len(s)
+
+
+def prioritize(html):
+    """Above the fold: carousel slides that start on screen get fetchpriority="high" images."""
+    import re
+    out, pos = [], 0
+    for m in re.finditer(r'<div class="absolute [^"]*\bleft-\[(-?[\d.]+)px\][^"]*"', html):
+        if m.start() < pos or not (-320 < float(m.group(1)) < 412):
+            continue
+        end = div_end(html, m.start())
+        out += [html[pos:m.start()], re.sub(r'<img(?![^>]*fetchpriority)', '<img fetchpriority="high"', html[m.start():end])]
+        pos = end
+    return ''.join(out) + html[pos:]
+
+
 def lazy(html):
     """Below-the-fold images load as they come near the screen (the first section stays eager)."""
     import re
@@ -33,7 +57,7 @@ def lazy(html):
 def section(n, plan=None, first=False):
     attrs = f' data-plan="{plan}"' if plan else ""
     attrs += " data-first" if first else ""
-    body = frag(n) if first else lazy(frag(n))
+    body = prioritize(frag(n)) if first else lazy(frag(n))
     return f'      <section data-section="{n}"{attrs}>\n{body}\n      </section>'
 
 
@@ -60,8 +84,10 @@ def page(title, active, body, greeting=False, bar="Shikho", back="index.html"):
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>{title}</title>
+  <meta name="theme-color" content="#E2136E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Noto+Sans+Bengali:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
   <link rel="stylesheet" href="styles.css">
@@ -77,13 +103,14 @@ def page(title, active, body, greeting=False, bar="Shikho", back="index.html"):
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">মূল কন্টেন্টে যাও</a>
   <div class="page">
 {pages.review_switch() if greeting else ""}
     <header class="page-nav">
 {pages.app_bar(bar, back, optional_back=greeting)}
     </header>
 {frag("greeting") if greeting else ""}
-{body}
+{body.replace("<main ", '<main id="main" tabindex="-1" ', 1)}
   </div>
 {nav}
   <script src="main.js"></script>

@@ -50,13 +50,13 @@ html, body {
   position: sticky;
   top: 0;
   z-index: 50;
-  height: var(--appbar-h);
+  height: calc(var(--appbar-h) + env(safe-area-inset-top));
 }
 
 /* Pink app bar on every page (reference: shikho-bkash .appbar): back arrow + centred title */
-.appbar { position: relative; height: var(--appbar-h); background: var(--fold-cerise); color: #fff; }
+.appbar { position: relative; height: calc(var(--appbar-h) + env(safe-area-inset-top)); padding-top: env(safe-area-inset-top); background: var(--fold-cerise); color: #fff; }
 .appbar-title { margin: 0; padding: 0 56px; text-align: center; font: 600 18px/44px var(--font-fold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.appbar-back { position: absolute; left: 6px; top: 0; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: #fff; }
+.appbar-back { position: absolute; left: 6px; top: env(safe-area-inset-top); width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: #fff; }
 .appbar-back:active { background: rgba(255,255,255,0.16); }
 .appbar-back:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
 
@@ -98,6 +98,7 @@ html[data-plan="free"] [data-plan="paid"] { display: none !important; }
   overflow-x: auto !important;
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
   /* snap to the 16px page inset, not the screen edge */
   scroll-padding-inline: 16px;
   -webkit-overflow-scrolling: touch;
@@ -109,7 +110,16 @@ button, a { cursor: pointer; }
 /* No double-tap-zoom delay on taps */
 a, button, [role="button"] { touch-action: manipulation; }
 [hidden] { display: none !important; }
-button { background: none; border: 0; padding: 0; font: inherit; color: inherit; }
+@layer base {
+  button { background: none; border: 0; padding: 0; font: inherit; color: inherit; }
+}
+/* Tap highlight set intentionally: every tappable item has its own :active feedback */
+a, button, [role="button"], summary { -webkit-tap-highlight-color: transparent; }
+
+/* Skip link: first thing keyboard users reach */
+.skip-link { position: absolute; left: 8px; top: -100px; z-index: 200; padding: 8px 12px; border-radius: 6px; background: var(--fold-charcoal); color: #fff; font: 600 14px/20px var(--font-fold); text-decoration: none; }
+.skip-link:focus-visible { top: 8px; outline: 2px solid var(--fold-cerise); outline-offset: 2px; }
+main:focus { outline: none; } /* programmatic focus target of the skip link only */
 
 /* Profile page action rows: one pattern for every row (icon, label, end mark) */
 .profile-row {
@@ -241,10 +251,10 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
 
 /* ===== Inner pages (important classes, guidelines, courses, course detail, Shikho AI) ===== */
 .subpage-main { display: flex; flex-direction: column; gap: 16px; padding: 16px 16px 32px; }
-.page-lead { margin: 0; color: var(--fold-charcoal); font: 600 18px/28px var(--font-fold); }
+.page-lead { margin: 0; color: var(--fold-charcoal); font: 600 18px/28px var(--font-fold); text-wrap: balance; }
 
 /* Chips: same look as the homepage subject chips */
-.chip-row { display: flex; gap: 8px; margin: 0 -16px; padding: 0 16px; }
+.chip-row { display: flex; gap: 8px; margin: 0 -16px; padding: 0 16px; overscroll-behavior-x: contain; }
 .chip {
   display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; height: 40px; padding: 0 14px;
   border: 1px solid var(--fold-grey); border-radius: 10px; background: #fff;
@@ -260,7 +270,7 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
 .video-card { display: flex; flex-direction: column; text-decoration: none; }
 .video-thumb { position: relative; display: block; overflow: hidden; aspect-ratio: 16 / 9; border-radius: 10px; background: var(--fold-slate); }
 .video-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.video-duration { position: absolute; top: 8px; right: 8px; padding: 0 6px; border-radius: 6px; background: rgba(0,0,0,0.6); color: #fff; font: 600 12px/18px var(--font-fold); }
+.video-duration { position: absolute; top: 8px; right: 8px; padding: 0 6px; border-radius: 6px; background: rgba(0,0,0,0.6); color: #fff; font: 600 12px/18px var(--font-fold); font-variant-numeric: tabular-nums; }
 .video-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 2px solid rgba(255,255,255,0.92); border-radius: 999px; background: var(--fold-overlay-black); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); }
 .video-body { display: flex; flex-direction: column; gap: 6px; padding: 10px 0 0; }
 .video-title { color: var(--fold-charcoal); font: 600 16px/24px var(--font-fold); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
@@ -278,7 +288,7 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
 .course-days { margin: 4px 0 0; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); }
 .course-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; background: var(--fold-bloom); }
 .course-price-wrap { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 6px; min-width: 0; }
-.course-price { color: var(--fold-charcoal); font: 600 16px/24px var(--font-fold); }
+.course-price { color: var(--fold-charcoal); font: 600 16px/24px var(--font-fold); font-variant-numeric: tabular-nums; }
 .course-from { color: var(--fold-dark); font: 500 12px/18px var(--font-fold); }
 .course-old { color: var(--fold-graphite); font: 500 12px/18px var(--font-fold); }
 .btn-primary {
@@ -289,7 +299,7 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
   display: flex; align-items: center; justify-content: center; height: 40px; padding: 0 12px; border: 1px solid var(--fold-grey); border-radius: 6px;
   background: #fff; color: var(--fold-charcoal); font: 600 14px/24px var(--font-fold); text-decoration: none;
 }
-.course-row { display: flex; gap: 12px; margin: 0 -16px; padding: 0 16px 8px; }
+.course-row { display: flex; gap: 12px; margin: 0 -16px; padding: 0 16px 8px; overscroll-behavior-x: contain; }
 .course-card--compact { flex: 0 0 260px; }
 .course-card--compact .course-title { font-size: 14px; line-height: 20px; }
 
@@ -301,9 +311,9 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
 .course-hero-title { margin: 0; font: 600 18px/28px var(--font-fold); }
 .course-hero-meta { display: flex; align-items: center; gap: 8px; margin: 6px 0 0; font: 500 12px/18px var(--font-fold); color: rgba(255,255,255,0.86); }
 .hero-tag { padding: 2px 8px; border-radius: 1000px; background: rgba(255,255,255,0.16); color: #fff; }
-.course-tabs { display: flex; gap: 6px; margin: 0 -16px; padding: 4px 16px; position: sticky; top: var(--appbar-h); z-index: 5; background: var(--page-bg); }
+.course-tabs { display: flex; gap: 6px; margin: 0 -16px; padding: 4px 16px; position: sticky; top: calc(var(--appbar-h) + env(safe-area-inset-top)); z-index: 5; background: var(--page-bg); }
 .detail-card { display: flex; flex-direction: column; padding: 16px; scroll-margin-top: 100px; text-decoration: none; }
-.detail-heading { margin: 0 0 12px; color: var(--fold-charcoal); font: 600 16px/24px var(--font-fold); }
+.detail-heading { margin: 0 0 12px; color: var(--fold-charcoal); font: 600 16px/24px var(--font-fold); text-wrap: balance; }
 .detail-sub { margin: 0; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); }
 .detail-sub--gap { margin-top: 16px; }
 .detail-sub--lead { margin-bottom: 12px; }
@@ -353,19 +363,19 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
 .ai-hero-cta--ghost { background: rgba(0,0,0,0.24); color: #fff; }
 .ai-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0; padding: 0; list-style: none; }
 .ai-stats li { display: flex; flex-direction: column; padding: 10px 8px; border-radius: 12px; background: #fff; border: 1px solid var(--fold-slate); color: var(--fold-dark); font: 500 12px/18px var(--font-fold); text-align: center; }
-.ai-stats b { color: var(--fold-charcoal); font-size: 15px; line-height: 22.5px; }
+.ai-stats b { color: var(--fold-charcoal); font-size: 16px; line-height: 24px; font-variant-numeric: tabular-nums; }
 .ai-steps { display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0; list-style: none; }
 .ai-step { display: flex; gap: 12px; align-items: flex-start; }
 .ai-step-no { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; flex-shrink: 0; border-radius: 999px; background: var(--fold-lotus); color: var(--fold-cerise); font: 600 14px/1 var(--font-fold); }
 .ai-step-title { display: block; color: var(--fold-charcoal); font: 600 14px/20px var(--font-fold); }
 .ai-step-sub { display: block; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); }
-.pkg-row { display: flex; gap: 12px; margin: 0 -16px; padding: 4px 16px 16px; }
+.pkg-row { display: flex; gap: 12px; margin: 0 -16px; padding: 4px 16px 16px; overscroll-behavior-x: contain; }
 .pkg { flex: 0 0 200px; display: flex; flex-direction: column; gap: 8px; padding: 16px; }
 .pkg--popular { outline: 2px solid var(--fold-cerise); }
 .pkg-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .pkg-name { color: var(--fold-dark); font: 600 14px/20px var(--font-fold); }
 .pkg-badge { padding: 2px 8px; border-radius: 1000px; background: var(--fold-lotus); color: var(--fold-cerise); font: 600 12px/18px var(--font-fold); }
-.pkg-price { margin: 0; color: var(--fold-charcoal); font: 600 24px/36px var(--font-fold); }
+.pkg-price { margin: 0; color: var(--fold-charcoal); font: 600 24px/36px var(--font-fold); font-variant-numeric: tabular-nums; }
 .pkg-feats { display: flex; flex-direction: column; gap: 6px; margin: 0 0 8px; padding: 0; list-style: none; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); }
 .pkg-feats li { display: flex; gap: 6px; align-items: flex-start; }
 .pkg-feats svg { flex-shrink: 0; margin-top: 1px; }
@@ -385,9 +395,43 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
 html { scroll-padding-top: 100px; }
 
 /* Pressed feedback for the remaining tappable items: homepage chips, class cards, light buttons */
-.page-main [role="group"] > [role="button"],
+.page-main [role="group"] > button,
 .page-main [data-name="Container:transform"] > div > div,
 .btn-light { transition: opacity 150ms ease; }
-.page-main [role="group"] > [role="button"]:active,
+.page-main [role="group"] > button:active,
 .btn-light:active { opacity: 0.7; }
 .page-main [data-name="Container:transform"] > div > div:active { opacity: 0.85; }
+
+.course-title, .course-hero-title, .ai-hero-title, .video-title { text-wrap: balance; }
+
+/* Carousel arrows: tap/click alternative to swiping, shown for mouse users (touch keeps swipe) */
+.car-btn { position: absolute; top: 72px; z-index: 3; display: none; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: #fff; color: var(--fold-charcoal); box-shadow: 0 1px 4px rgba(0,0,0,0.18); }
+.car-btn::before { content: ''; position: absolute; inset: -4px; }
+.car-prev { left: 8px; } .car-next { right: 8px; }
+@media (hover: hover) and (pointer: fine) { .car-btn { display: grid; } }
+.car-btn:focus-visible, [data-carousel]:focus-visible { outline: 2px solid var(--fold-cerise); outline-offset: 2px; }
+
+/* Confirmation before a destructive action (log out) */
+.confirm-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid var(--fold-grey); }
+.confirm-row p { margin: 0; color: var(--fold-charcoal); font: 600 14px/20px var(--font-fold); }
+.confirm-actions { display: flex; gap: 8px; }
+.btn-danger { display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 14px; border-radius: 6px; background: var(--fold-crimson); color: #fff; font: 600 12px/18px var(--font-fold); }
+
+/* Hover states (mouse/trackpad only): rest -> hover is a visible step up */
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover { background: var(--fold-magenta); }
+  .btn-secondary:hover, .btn-light:hover, .chip:hover { background: var(--fold-bloom); }
+  .btn-danger:hover { background: #B00217; }
+  .sec-link:hover, .ai-help a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .appbar-back:hover { background: rgba(255,255,255,0.16); }
+  .bottom-nav-item:not(.is-active):hover .bottom-nav-label { color: var(--fold-charcoal); }
+  .profile-row:hover .profile-row-label { text-decoration: underline; text-underline-offset: 3px; }
+  .video-card:hover .video-thumb img, .course-card:hover .course-thumb { opacity: 0.9; }
+  .course-card:hover { border-color: var(--fold-grey); }
+  .avatar-edit:hover .avatar { box-shadow: 0 0 0 2px var(--fold-carnation); }
+  .page-main [role="group"] > :hover { background-color: var(--fold-bloom); }
+  .page-main [data-name="Container:transform"] > div > div:hover { opacity: 0.92; }
+  .page-main a[data-route]:hover { filter: brightness(0.97); }
+  .car-btn:hover { background: var(--fold-bloom); }
+  .syllabus summary:hover, .faq summary:hover { color: var(--fold-cerise); }
+}

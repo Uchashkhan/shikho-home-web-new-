@@ -4,8 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>মোস্ট ইমপর্ট্যান্ট ক্লাস | Shikho</title>
+  <meta name="theme-color" content="#E2136E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Noto+Sans+Bengali:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
   <link rel="stylesheet" href="styles.css">
@@ -21,6 +23,7 @@
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">মূল কন্টেন্টে যাও</a>
   <div class="page">
 
     <header class="page-nav">
@@ -32,7 +35,7 @@
     </div>
     </header>
 
-<main class="subpage-main">
+<main id="main" tabindex="-1" class="subpage-main">
       <div class="chip-row h-scroll" role="group" aria-label="বিষয় অনুযায়ী ফিল্টার">
         <button type="button" class="chip is-active" data-filter="" aria-pressed="true">সব</button>
         <button type="button" class="chip" data-filter="পদার্থবিজ্ঞান" aria-pressed="false"><img src="assets/p05-image-physics.png" alt="" width="14" height="20">পদার্থবিজ্ঞান</button>
