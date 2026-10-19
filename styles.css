@@ -916,3 +916,7 @@ html:active-view-transition-type(back)::view-transition-new(root) { animation: 3
 .routine-box .bk-btn { background: var(--fold-bloom) !important; box-shadow: inset 0 0 0 1px var(--fold-lotus) !important; border-color: transparent !important; }
 /* More Shikho subject colours */
 .subject-chip[data-subject-chip="তথ্য ও যোগাযোগ প্রযুক্তি"] { border-color: #2EC4A5; background: #2EC4A5; color: #fff; }
+
+/* শিখো AI tab: grey like the other tabs; the Shikho AI gradient only when it is the selected tab */
+.bottom-nav-item[data-route="ai"] .bottom-nav-icon path[fill^="url"] { fill: currentColor; fill-opacity: .6; }
+.bottom-nav-item[data-route="ai"].is-active .bottom-nav-icon path[fill^="url"] { fill: url(#nav-ai-grad); fill-opacity: 1; }
