@@ -429,4 +429,59 @@
       });
     });
   }
+
+  /* Today's routine: activity + subject dropdowns (bKash menu) filter the cards */
+  document.querySelectorAll('[data-routine-list]').forEach((list) => {
+    const section = list.closest('section');
+    const want = { activity: '', subject: '' };
+    const apply = () => {
+      let shown = 0;
+      list.querySelectorAll('.routine-card').forEach((c) => {
+        const on = (!want.activity || c.dataset.activity === want.activity) && (!want.subject || c.dataset.subject === want.subject);
+        c.hidden = !on;
+        shown += on;
+      });
+      list.querySelector('.routine-empty').hidden = shown > 0;
+    };
+    const dds = [...section.querySelectorAll('.bk-dd')];
+    const closeAll = (except) => dds.forEach((dd) => {
+      if (dd === except) return;
+      dd.querySelector('.bk-menu').hidden = true;
+      dd.querySelector('.bk-select').setAttribute('aria-expanded', 'false');
+    });
+    dds.forEach((dd) => {
+      const btn = dd.querySelector('.bk-select');
+      const menu = dd.querySelector('.bk-menu');
+      const opts = [...menu.querySelectorAll('[role="option"]')];
+      const open = () => {
+        closeAll(dd);
+        menu.hidden = false;
+        btn.setAttribute('aria-expanded', 'true');
+        // keep the menu inside the page column
+        menu.classList.remove('align-right');
+        const col = document.querySelector('.page').getBoundingClientRect();
+        if (menu.getBoundingClientRect().right > col.right - 8) menu.classList.add('align-right');
+        (opts.find((o) => o.getAttribute('aria-selected') === 'true') || opts[0]).focus();
+      };
+      const pick = (o) => {
+        opts.forEach((x) => x.setAttribute('aria-selected', String(x === o)));
+        want[dd.dataset.filterKey] = o.dataset.value;
+        btn.querySelector('span').textContent = o.textContent;
+        btn.classList.toggle('is-set', !!o.dataset.value);
+        closeAll();
+        btn.focus();
+        apply();
+      };
+      btn.addEventListener('click', () => (menu.hidden ? open() : closeAll()));
+      opts.forEach((o) => o.addEventListener('click', () => pick(o)));
+      menu.addEventListener('keydown', (e) => {
+        const i = opts.indexOf(document.activeElement);
+        if (e.key === 'ArrowDown') { e.preventDefault(); opts[Math.min(opts.length - 1, i + 1)].focus(); }
+        if (e.key === 'ArrowUp') { e.preventDefault(); opts[Math.max(0, i - 1)].focus(); }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (i >= 0) pick(opts[i]); }
+        if (e.key === 'Escape' || e.key === 'Tab') { closeAll(); if (e.key === 'Escape') btn.focus(); }
+      });
+    });
+    document.addEventListener('click', (e) => { if (!e.target.closest('.bk-dd')) closeAll(); });
+  });
 })();

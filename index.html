@@ -94,35 +94,45 @@
         </a>
       </div>
       <div class="routine-filters">
-        <a href="#" data-route="routine" class="bk-select" aria-haspopup="listbox"><span>সকল অ্যাক্টিভিটি</span><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
-        <a href="#" data-route="routine" class="bk-select" aria-haspopup="listbox"><span>সকল বিষয়</span><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
+        <div class="bk-dd" data-filter-key="activity">
+          <button type="button" class="bk-select" aria-haspopup="listbox" aria-expanded="false" aria-label="অ্যাক্টিভিটি"><span>সকল অ্যাক্টিভিটি</span><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+          <ul class="bk-menu" role="listbox" aria-label="অ্যাক্টিভিটি" hidden><li role="option" tabindex="-1" aria-selected="true" data-value="">সকল অ্যাক্টিভিটি</li><li role="option" tabindex="-1" aria-selected="false" data-value="লাইভ ক্লাস">লাইভ ক্লাস</li><li role="option" tabindex="-1" aria-selected="false" data-value="মডেল টেস্ট">মডেল টেস্ট</li></ul>
+        </div>
+        <div class="bk-dd" data-filter-key="subject">
+          <button type="button" class="bk-select" aria-haspopup="listbox" aria-expanded="false" aria-label="বিষয়"><span>সকল বিষয়</span><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
+          <ul class="bk-menu" role="listbox" aria-label="বিষয়" hidden><li role="option" tabindex="-1" aria-selected="true" data-value="">সকল বিষয়</li><li role="option" tabindex="-1" aria-selected="false" data-value="ইংরেজী ১ম পত্র">ইংরেজী ১ম পত্র</li><li role="option" tabindex="-1" aria-selected="false" data-value="পদার্থবিজ্ঞান">পদার্থবিজ্ঞান</li><li role="option" tabindex="-1" aria-selected="false" data-value="রসায়ন">রসায়ন</li><li role="option" tabindex="-1" aria-selected="false" data-value="সাধারণ গণিত">সাধারণ গণিত</li><li role="option" tabindex="-1" aria-selected="false" data-value="উচ্চতর গণিত">উচ্চতর গণিত</li><li role="option" tabindex="-1" aria-selected="false" data-value="ভূগোল ও মহাকাশ">ভূগোল ও মহাকাশ</li><li role="option" tabindex="-1" aria-selected="false" data-value="ইসলাম ও নৈতিক শিক্ষা">ইসলাম ও নৈতিক শিক্ষা</li><li role="option" tabindex="-1" aria-selected="false" data-value="বাংলা ১ম পত্র">বাংলা ১ম পত্র</li><li role="option" tabindex="-1" aria-selected="false" data-value="জীববিজ্ঞান">জীববিজ্ঞান</li><li role="option" tabindex="-1" aria-selected="false" data-value="তথ্য ও যোগাযোগ প্রযুক্তি">তথ্য ও যোগাযোগ প্রযুক্তি</li></ul>
+        </div>
       </div>
-      <div class="content-stretch flex flex-col items-start pt-px relative shrink-0 w-full">
-        <a href="#" data-route="liveClass" class="content-stretch flex flex-col items-start p-px relative rounded-[12px] shrink-0 w-full no-underline" style="background-image: linear-gradient(61.95deg, rgb(226, 19, 110) 4.31%, rgb(238, 113, 168) 94.67%)">
-          <div class="bg-white content-stretch flex h-[80.5px] items-start px-[8px] py-[12px] relative rounded-[11px] shrink-0 w-full">
-            <div class="content-stretch flex flex-col gap-[8px] h-full items-start relative shrink-0 w-[72px]">
-              <div class="border border-[#DDDDDD] border-solid content-stretch flex items-end justify-center max-w-[72px] p-[6px] relative rounded-[1000px] shrink-0">
-                <div aria-hidden="true" class="absolute bg-[#39BCF7] inset-0 pointer-events-none rounded-[1000px]"></div>
-                <span class="relative font-fold font-medium leading-[18px] text-[12px] text-white whitespace-nowrap">রসায়ন</span>
-              </div>
-              <span class="font-fold font-semibold leading-[18px] text-[#505050] text-[12px] whitespace-nowrap">05:00 pm</span>
-            </div>
-            <div class="content-stretch flex h-full items-start px-[8px] relative shrink-0">
-              <div class="bg-[#DDDDDD] h-full relative shrink-0 w-px"></div>
-            </div>
-            <div class="content-stretch flex flex-col gap-[6px] h-full items-start relative min-w-0">
-              <div class="content-stretch flex gap-[6px] items-center relative shrink-0 w-full">
-                <div class="border border-[#DDDDDD] border-solid content-stretch flex gap-[2px] items-center justify-center p-[6px] relative rounded-[1000px] shrink-0">
-                  <img alt="" class="size-[14px] shrink-0" width="14" height="14" src="assets/p01-lecture.png">
-                  <span class="font-fold font-medium leading-[18px] text-[12px] text-black whitespace-nowrap">লেকচার</span>
-                  <img alt="" class="size-[14px] shrink-0" width="14" height="14" src="assets/p01-live-dot.svg">
-                </div>
-                <span class="font-fold font-semibold leading-[18px] text-[#505050] text-[12px] whitespace-nowrap">০১ ঘন্টা ২৭ মিনিট</span>
-              </div>
-              <p class="m-0 truncate max-w-full font-fold font-semibold leading-[20px] text-[#202020] text-[14px]">রসায়ন আমাদের জীবনে রসায়ন Live Class</p>
-            </div>
-          </div>
+      <div class="routine-list" data-routine-list>
+        <a data-route="liveClass" href="#" class="routine-card" data-activity="লাইভ ক্লাস" data-subject="ইংরেজী ১ম পত্র">
+          <span class="routine-when">
+            <span class="subject-chip" data-subject-chip="ইংরেজী ১ম পত্র">ইংরেজী ১ম পত্র</span>
+            <span class="routine-time">02:00 pm</span>
+          </span>
+          <span class="routine-body">
+            <span class="routine-meta"><span class="routine-kind"><img alt="" class="size-[14px] shrink-0" width="14" height="14" src="assets/p01-lecture.png">লেকচার</span><span class="routine-dur">০১ ঘন্টা</span></span>
+            <span class="routine-title">Reading Part Class - 3</span>
+          </span>
+        </a><a data-route="liveClass" href="#" class="routine-card routine-card--live" data-activity="লাইভ ক্লাস" data-subject="রসায়ন">
+          <span class="routine-when">
+            <span class="subject-chip" data-subject-chip="রসায়ন">রসায়ন</span>
+            <span class="routine-time">05:00 pm</span>
+          </span>
+          <span class="routine-body">
+            <span class="routine-meta"><span class="routine-kind"><img alt="" class="size-[14px] shrink-0" width="14" height="14" src="assets/p01-lecture.png">লেকচার<img alt="" class="size-[14px] shrink-0" width="14" height="14" src="assets/p01-live-dot.svg"></span><span class="routine-dur">০১ ঘন্টা ২৭ মিনিট</span></span>
+            <span class="routine-title">রসায়ন আমাদের জীবনে রসায়ন Live Class</span>
+          </span>
+        </a><a data-route="practiceQuiz" href="#" class="routine-card" data-activity="মডেল টেস্ট" data-subject="রসায়ন">
+          <span class="routine-when">
+            <span class="subject-chip" data-subject-chip="রসায়ন">রসায়ন</span>
+            <span class="routine-time">08:00 pm</span>
+          </span>
+          <span class="routine-body">
+            <span class="routine-meta"><span class="routine-kind"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#505050" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>মডেল টেস্ট</span><span class="routine-dur">৪০ মিনিট</span></span>
+            <span class="routine-title">পদার্থের গঠন</span>
+          </span>
         </a>
+        <p class="routine-empty" hidden>এই ফিল্টারে আজ কোনো ক্লাস বা টেস্ট নেই</p>
       </div>
       <div class="content-stretch flex flex-col items-start pt-[20px] relative shrink-0 w-full">
         <a href="#" data-route="routine" class="bk-btn bk-secondary bk-md border border-[rgba(226,19,110,0.12)] border-solid flex gap-[8px] h-[40px] items-center justify-center px-[12px] py-[8px] relative rounded-[6px] shrink-0 w-full no-underline">

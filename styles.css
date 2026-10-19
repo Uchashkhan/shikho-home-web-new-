@@ -795,3 +795,40 @@ body.no-nav:has(.exam) { background: var(--fold-ash); }
 .bk-select::before { content: ''; position: absolute; inset: -4px 0; } /* 44px tap height */
 .bk-select:active { background: var(--fold-ash); }
 @media (hover: hover) and (pointer: fine) { .bk-select:hover { border-color: var(--fold-graphite); } }
+
+/* Routine dropdown menu (bKash: white sheet, soft shadow, selected = Cerise + check) */
+.bk-dd { position: relative; }
+.bk-select[aria-expanded="true"] { border-color: var(--fold-cerise); }
+.bk-select[aria-expanded="true"] svg { transform: rotate(180deg); }
+.bk-select svg { transition: transform 150ms ease; }
+.bk-select.is-set { border-color: var(--fold-cerise); background: var(--fold-bloom); color: var(--fold-cerise); }
+.bk-select.is-set svg { color: var(--fold-cerise); }
+.bk-menu { position: absolute; top: calc(100% + 6px); left: 0; z-index: 40; min-width: 200px; max-height: 320px; overflow-y: auto; overscroll-behavior: contain; margin: 0; padding: 4px 16px; list-style: none; border-radius: 12px; background: #fff; box-shadow: 0 8px 24px rgba(32,32,32,.14), 0 1px 3px rgba(32,32,32,.08); }
+.bk-menu { scrollbar-width: none; }
+.bk-menu::-webkit-scrollbar { display: none; }
+.bk-menu[hidden] { display: none; }
+.bk-menu.align-right { left: auto; right: 0; }
+.bk-menu li { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 10px 0; color: var(--fold-charcoal); font: 400 14px/20px var(--font-fold); cursor: pointer; outline: none; }
+.bk-menu li + li { border-top: 1px solid var(--fold-slate); }
+.bk-menu li[aria-selected="true"] { color: var(--fold-cerise); font-weight: 600; }
+.bk-menu li[aria-selected="true"]::after { content: ""; flex: none; width: 18px; height: 18px; border-radius: 50%; background: var(--fold-emerald) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 12.5 4 4L18 8'/%3E%3C/svg%3E") center / 11px no-repeat; }
+.bk-menu li:focus-visible { background: var(--fold-ash); margin: 0 -16px; padding: 10px 16px; }
+@media (hover: hover) and (pointer: fine) { .bk-menu li:hover { color: var(--fold-cerise); } }
+
+/* Today's routine: one card per class/test; the live one gets the pink gradient border */
+.routine-list { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+.routine-card { display: flex; align-items: stretch; padding: 12px 8px; border: 1px solid var(--fold-slate); border-radius: 12px; background: #fff; text-decoration: none; }
+.routine-card--live { border: 1px solid transparent; background: linear-gradient(#fff, #fff) padding-box, linear-gradient(61.95deg, #E2136E 4.31%, #EE71A8 94.67%) border-box; }
+.routine-card[hidden] { display: none; }
+.routine-when { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; flex: none; width: 108px; padding-right: 8px; border-right: 1px solid var(--fold-grey); }
+.subject-chip { max-width: 100%; padding: 5px 8px; border: 1px solid var(--fold-grey); border-radius: 1000px; background: #fff; color: var(--fold-dark); font: 500 12px/18px var(--font-fold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.subject-chip[data-subject-chip="রসায়ন"] { border-color: #39BCF7; background: #39BCF7; color: #fff; } /* Shikho subject colour */
+.routine-time { color: var(--fold-dark); font: 600 12px/18px var(--font-fold); font-variant-numeric: tabular-nums; }
+.routine-body { display: flex; flex-direction: column; gap: 6px; min-width: 0; padding-left: 8px; }
+.routine-meta { display: flex; align-items: center; gap: 6px; }
+.routine-kind { display: inline-flex; align-items: center; gap: 2px; padding: 5px 6px; border: 1px solid var(--fold-grey); border-radius: 1000px; color: var(--fold-charcoal); font: 500 12px/18px var(--font-fold); white-space: nowrap; }
+.routine-dur { color: var(--fold-dark); font: 600 12px/18px var(--font-fold); white-space: nowrap; }
+.routine-title { color: var(--fold-charcoal); font: 600 14px/20px var(--font-fold); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.routine-empty { margin: 0; padding: 20px 12px; border: 1px dashed var(--fold-grey); border-radius: 12px; color: var(--fold-graphite); font: 400 14px/20px var(--font-fold); text-align: center; }
+.routine-empty[hidden] { display: none; }
+.routine-card:active { opacity: .7; }
