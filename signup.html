@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>প্রোফাইল তৈরি | Shikho</title>
+  <title>রেজিস্ট্রেশন | Shikho</title>
   <meta name="theme-color" content="#FFFFFF">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,6 +12,15 @@
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
   <link rel="stylesheet" href="styles.css">
   <script src="data/user.js"></script>
+  <script>
+    // Prototype: opening or refreshing any screen starts at registration (back/forward and in-app links don't)
+    (function () {
+      if (/signup\.html$/.test(location.pathname)) return;
+      var nav = performance.getEntriesByType('navigation')[0];
+      var fromApp = document.referrer && new URL(document.referrer).origin === location.origin;
+      if (nav && (nav.type === 'reload' || (nav.type === 'navigate' && !fromApp))) location.replace('signup.html');
+    })();
+  </script>
   <script>
     // App-like page transitions: tab ↔ tab crossfades, opening a page pushes it in, back slides it out
     window.addEventListener('pagereveal', function (e) {
@@ -54,7 +63,7 @@
       <a href="index.html" class="appbar-back" data-back aria-label="ফিরে যাও">
         <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg>
       </a>
-      <h1 class="appbar-title" translate="no">Shikho</h1>
+      <h1 class="appbar-title">রেজিস্ট্রেশন</h1>
       <div class="appbar-pill">
         <button type="button" class="appbar-pill-btn" data-appbar-more aria-label="আরও অপশন" aria-haspopup="dialog">
           <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>

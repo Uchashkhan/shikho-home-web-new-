@@ -18,7 +18,7 @@ frag = lambda n: open(os.path.join(SRC, n + ".html"), encoding="utf-8").read()
 # (the animated-lessons and standalone Shikho AI cards are replaced by "features")
 PLANS = {
     # paid (enrolled) student: Figma 130:3454 in the new layout
-    "paid": ["p01_routine", "features", "s02_important", "s03_guideline"],
+    "paid": ["p01_routine", "s02_important", "s03_guideline", "features"],
     # free student: original web homepage order
     "free": ["s02_important", "s03_guideline", "features", "s05_freetrial", "s07_courses"],
 }
@@ -98,6 +98,15 @@ def page(title, active, body, greeting=False, bar="Shikho", back="index.html", n
   <link rel="stylesheet" href="styles.css">
   <script src="data/user.js"></script>
   <script>
+    // Prototype: opening or refreshing any screen starts at registration (back/forward and in-app links don't)
+    (function () {{
+      if (/signup\.html$/.test(location.pathname)) return;
+      var nav = performance.getEntriesByType('navigation')[0];
+      var fromApp = document.referrer && new URL(document.referrer).origin === location.origin;
+      if (nav && (nav.type === 'reload' || (nav.type === 'navigate' && !fromApp))) location.replace('signup.html');
+    }})();
+  </script>
+  <script>
     // App-like page transitions: tab ↔ tab crossfades, opening a page pushes it in, back slides it out
     window.addEventListener('pagereveal', function (e) {{
       var a = window.navigation && navigation.activation;
@@ -160,7 +169,7 @@ open(os.path.join(ROOT, "data", "videos.js"), "w", encoding="utf-8").write(
     "window.SHIKHO_VIDEOS = " + json.dumps(videos, ensure_ascii=False, indent=1) + ";\n")
 
 for name, html in [
-    ("index.html", page("Shikho | ঘরে বসে SSC/HSC'র A+ প্রস্তুতির বিশ্বস্ত প্রতিষ্ঠান", "home", HOME, greeting=True)),
+    ("index.html", page("Shikho | ঘরে বসে SSC/HSC'র A+ প্রস্তুতির বিশ্বস্ত প্রতিষ্ঠান", "home", HOME, greeting=True, bar="হোম")),
     ("profile.html", page("প্রোফাইল | Shikho", "profile", frag("profile"), bar="প্রোফাইল")),
     # Pages behind the homepage links, with content from the live app
     ("important-classes.html", page("মোস্ট ইমপর্ট্যান্ট ক্লাস | Shikho", "home",
@@ -175,7 +184,7 @@ for name, html in [
                         nav_on=False, scripts=("watch.js",))),
     ("exam.html", page("প্র্যাকটিস কুইজ | Shikho", "home", pages.exam_page(), bar="প্র্যাকটিস কুইজ",
                        nav_on=False, scripts=("exam.js",))),
-    ("signup.html", page("প্রোফাইল তৈরি | Shikho", "home", pages.signup_page(), bar="Shikho",
+    ("signup.html", page("রেজিস্ট্রেশন | Shikho", "home", pages.signup_page(), bar="রেজিস্ট্রেশন",
                          nav_on=False, scripts=("signup.js",))),
     ("ai-chat.html", page("ডাউট সল্ভ | Shikho AI", "ai", pages.ai_chat_page(), bar="শিখো AI",
                           scripts=("ai-chat.js",))),

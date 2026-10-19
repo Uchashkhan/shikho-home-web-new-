@@ -13,6 +13,15 @@
   <link rel="stylesheet" href="styles.css">
   <script src="data/user.js"></script>
   <script>
+    // Prototype: opening or refreshing any screen starts at registration (back/forward and in-app links don't)
+    (function () {
+      if (/signup\.html$/.test(location.pathname)) return;
+      var nav = performance.getEntriesByType('navigation')[0];
+      var fromApp = document.referrer && new URL(document.referrer).origin === location.origin;
+      if (nav && (nav.type === 'reload' || (nav.type === 'navigate' && !fromApp))) location.replace('signup.html');
+    })();
+  </script>
+  <script>
     // App-like page transitions: tab ↔ tab crossfades, opening a page pushes it in, back slides it out
     window.addEventListener('pagereveal', function (e) {
       var a = window.navigation && navigation.activation;
@@ -71,7 +80,7 @@
       <a href="index.html" class="appbar-back" data-back data-back-optional hidden aria-label="ফিরে যাও">
         <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg>
       </a>
-      <h1 class="appbar-title" translate="no">Shikho</h1>
+      <h1 class="appbar-title">হোম</h1>
       <div class="appbar-pill">
         <button type="button" class="appbar-pill-btn" data-appbar-more aria-label="আরও অপশন" aria-haspopup="dialog">
           <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>
@@ -184,56 +193,6 @@
         </a>
       </div>
     </div>
-      </section>
-      <section data-section="features" data-plan="paid">
-<!-- ফিচারস: practice quiz (Figma 148:15946) + Shikho AI (Figma 148:15892) card looks, layout from 164:16029. -->
-<div class="flex flex-col gap-[14px] px-[16px]" data-name="Features">
-  <h2 class="m-0 font-fold font-semibold text-[18px] leading-[28px] text-[#202020]">ফিচারস</h2>
-  <div class="feature-grid" data-name="All Feature Cards">
-    <!-- Practice quiz -->
-    <a href="#" class="feature-card feature-card--quiz" data-route="practiceQuiz">
-      <!-- Mascot group as in Figma 148:15946 ("Component 61") -->
-      <div class="relative shrink-0 size-[56px]" aria-hidden="true">
-        <div class="absolute h-[79.835px] left-[-31px] overflow-clip rounded-br-[7.341px] rounded-tr-[7.341px] top-[-12px] w-[117px]">
-          <div class="absolute flex h-[38.299px] items-center justify-center left-[14.76px] top-[16.87px] w-[37.001px]">
-            <div class="flex-none rotate-15">
-              <div class="blur-[2.753px] h-[31.659px] opacity-10 relative w-[29.824px]">
-                <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" width="30" height="32" src="assets/feat-quiz-m6.png">
-              </div>
-            </div>
-          </div>
-          <div class="absolute flex h-[41.656px] items-center justify-center left-[72.95px] top-[16.98px] w-[36.914px]">
-            <div class="-rotate-15 flex-none">
-              <div class="blur-[2.753px] h-[35.429px] opacity-64 relative w-[28.723px]">
-                <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" width="29" height="35" src="assets/feat-quiz-m2.png">
-              </div>
-            </div>
-          </div>
-          <div class="-translate-y-1/2 absolute aspect-[1045/1500] left-[32.94%] right-[31.37%] top-1/2">
-            <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" width="42" height="60" src="assets/feat-quiz-m1.png">
-          </div>
-        </div>
-      </div>
-      <p class="feature-title">প্র্যাকটিস কুইজ</p>
-      <p class="feature-usage"><span class="feature-dots" aria-hidden="true"><i></i><i></i><i></i></span>৩টি ফ্রি কুইজ</p>
-      <span class="btn-light btn-sm w-full">কুইজ শুরু করো</span>
-    </a>
-
-    <!-- Shikho AI -->
-    <a href="#" class="feature-card feature-card--ai" data-route="aiChat">
-      <!-- Card look from Figma 148:15892: swoosh on the right edge, original Shikho AI logo -->
-      <img loading="lazy" decoding="async" class="feature-deco" alt="" width="60" height="116" src="assets/feat-ai-deco-card.svg">
-      <span class="feature-ai-logo" role="img" aria-label="Shikho AI">
-        <img loading="lazy" decoding="async" alt="" width="32" height="32" src="assets/feat-ai-logo-card.svg">
-        <span class="feature-ai-wordmark"><img loading="lazy" decoding="async" alt="" width="71" height="12" src="assets/feat-ai-wordmark.svg"></span>
-      </span>
-      <p class="feature-text">আটকে গেলে <span class="whitespace-nowrap" translate="no">AI-কে</span> জিজ্ঞেস করো</p>
-      <p class="feature-usage feature-usage--ai"><span class="feature-dots" aria-hidden="true"><i></i><i></i><i></i></span>৩টি ফ্রি প্রশ্ন</p>
-      <span class="btn-light btn-sm w-full">ডাউট সল্ভ করো</span>
-    </a>
-  </div>
-</div>
-
       </section>
       <section data-section="s02_important" data-plan="paid">
 <div class="content-stretch flex flex-col items-start pt-[32px] relative size-full" data-name="Section">
@@ -1823,6 +1782,56 @@
         </div>
       </div>
     </div>
+      </section>
+      <section data-section="features" data-plan="paid">
+<!-- ফিচারস: practice quiz (Figma 148:15946) + Shikho AI (Figma 148:15892) card looks, layout from 164:16029. -->
+<div class="flex flex-col gap-[14px] px-[16px]" data-name="Features">
+  <h2 class="m-0 font-fold font-semibold text-[18px] leading-[28px] text-[#202020]">ফিচারস</h2>
+  <div class="feature-grid" data-name="All Feature Cards">
+    <!-- Practice quiz -->
+    <a href="#" class="feature-card feature-card--quiz" data-route="practiceQuiz">
+      <!-- Mascot group as in Figma 148:15946 ("Component 61") -->
+      <div class="relative shrink-0 size-[56px]" aria-hidden="true">
+        <div class="absolute h-[79.835px] left-[-31px] overflow-clip rounded-br-[7.341px] rounded-tr-[7.341px] top-[-12px] w-[117px]">
+          <div class="absolute flex h-[38.299px] items-center justify-center left-[14.76px] top-[16.87px] w-[37.001px]">
+            <div class="flex-none rotate-15">
+              <div class="blur-[2.753px] h-[31.659px] opacity-10 relative w-[29.824px]">
+                <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" width="30" height="32" src="assets/feat-quiz-m6.png">
+              </div>
+            </div>
+          </div>
+          <div class="absolute flex h-[41.656px] items-center justify-center left-[72.95px] top-[16.98px] w-[36.914px]">
+            <div class="-rotate-15 flex-none">
+              <div class="blur-[2.753px] h-[35.429px] opacity-64 relative w-[28.723px]">
+                <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" width="29" height="35" src="assets/feat-quiz-m2.png">
+              </div>
+            </div>
+          </div>
+          <div class="-translate-y-1/2 absolute aspect-[1045/1500] left-[32.94%] right-[31.37%] top-1/2">
+            <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" width="42" height="60" src="assets/feat-quiz-m1.png">
+          </div>
+        </div>
+      </div>
+      <p class="feature-title">প্র্যাকটিস কুইজ</p>
+      <p class="feature-usage"><span class="feature-dots" aria-hidden="true"><i></i><i></i><i></i></span>৩টি ফ্রি কুইজ</p>
+      <span class="btn-light btn-sm w-full">কুইজ শুরু করো</span>
+    </a>
+
+    <!-- Shikho AI -->
+    <a href="#" class="feature-card feature-card--ai" data-route="aiChat">
+      <!-- Card look from Figma 148:15892: swoosh on the right edge, original Shikho AI logo -->
+      <img loading="lazy" decoding="async" class="feature-deco" alt="" width="60" height="116" src="assets/feat-ai-deco-card.svg">
+      <span class="feature-ai-logo" role="img" aria-label="Shikho AI">
+        <img loading="lazy" decoding="async" alt="" width="32" height="32" src="assets/feat-ai-logo-card.svg">
+        <span class="feature-ai-wordmark"><img loading="lazy" decoding="async" alt="" width="71" height="12" src="assets/feat-ai-wordmark.svg"></span>
+      </span>
+      <p class="feature-text">আটকে গেলে <span class="whitespace-nowrap" translate="no">AI-কে</span> জিজ্ঞেস করো</p>
+      <p class="feature-usage feature-usage--ai"><span class="feature-dots" aria-hidden="true"><i></i><i></i><i></i></span>৩টি ফ্রি প্রশ্ন</p>
+      <span class="btn-light btn-sm w-full">ডাউট সল্ভ করো</span>
+    </a>
+  </div>
+</div>
+
       </section>
       <section data-section="s02_important" data-plan="free" data-first>
 <div class="content-stretch flex flex-col items-start pt-[32px] relative size-full" data-name="Section">
