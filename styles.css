@@ -849,19 +849,26 @@ body.no-nav:has(.exam) { background: var(--fold-ash); }
    the real layout in the <head> script; these defaults match it). */
 :root { --vt-w: min(100vw, var(--page-width)); --vt-l: calc((100vw - var(--vt-w)) / 2); }
 
+/* A fixed clip on the image pair frames the slide; only transform animates, so it stays on the GPU */
+::view-transition-image-pair(root) { clip-path: inset(0 calc(100% - var(--vt-l) - var(--vt-w)) 0 var(--vt-l)); }
+
 @keyframes vt-fade-in { from { opacity: 0; } }
 @keyframes vt-fade-out { to { opacity: 0; } }
-@keyframes vt-push-in { from { transform: translateX(var(--vt-w)); clip-path: inset(0 calc(100% - var(--vt-l)) 0 max(0px, calc(var(--vt-l) - var(--vt-w)))); } to { transform: none; clip-path: inset(0 calc(100% - var(--vt-l) - var(--vt-w)) 0 var(--vt-l)); } }
-@keyframes vt-push-out { from { transform: none; clip-path: inset(0 calc(100% - var(--vt-l) - var(--vt-w)) 0 var(--vt-l)); } to { transform: translateX(calc(var(--vt-w) * -.28)); clip-path: inset(0 max(0px, calc(100% - var(--vt-l) - var(--vt-w) * 1.28)) 0 calc(var(--vt-l) + var(--vt-w) * .28)); opacity: .5; } }
-@keyframes vt-pop-in { from { transform: translateX(calc(var(--vt-w) * -.28)); clip-path: inset(0 max(0px, calc(100% - var(--vt-l) - var(--vt-w) * 1.28)) 0 calc(var(--vt-l) + var(--vt-w) * .28)); opacity: .5; } to { transform: none; clip-path: inset(0 calc(100% - var(--vt-l) - var(--vt-w)) 0 var(--vt-l)); } }
-@keyframes vt-pop-out { from { transform: none; clip-path: inset(0 calc(100% - var(--vt-l) - var(--vt-w)) 0 var(--vt-l)); } to { transform: translateX(var(--vt-w)); clip-path: inset(0 calc(100% - var(--vt-l)) 0 max(0px, calc(var(--vt-l) - var(--vt-w)))); } }
+@keyframes vt-from-right { from { transform: translateX(var(--vt-w)); } }
+@keyframes vt-to-left { to { transform: translateX(calc(var(--vt-w) * -1)); } }
+@keyframes vt-from-left { from { transform: translateX(calc(var(--vt-w) * -1)); } }
+@keyframes vt-to-right { to { transform: translateX(var(--vt-w)); } }
 
 html:active-view-transition-type(tab)::view-transition-old(root) { animation: 120ms ease-in both vt-fade-out; }
 html:active-view-transition-type(tab)::view-transition-new(root) { animation: 200ms ease-out 60ms both vt-fade-in; }
-html:active-view-transition-type(forward)::view-transition-old(root) { animation: 340ms cubic-bezier(.32,.72,0,1) both vt-push-out; }
-html:active-view-transition-type(forward)::view-transition-new(root) { animation: 340ms cubic-bezier(.32,.72,0,1) both vt-push-in; }
-html:active-view-transition-type(back)::view-transition-old(root) { animation: 300ms cubic-bezier(.32,.72,0,1) both vt-pop-out; z-index: 1; }
-html:active-view-transition-type(back)::view-transition-new(root) { animation: 300ms cubic-bezier(.32,.72,0,1) both vt-pop-in; }
+/* open a page: new one moves in from the right, current one moves out to the left */
+html:active-view-transition-type(forward)::view-transition-old(root) { animation: 320ms cubic-bezier(.2,.8,.2,1) both vt-to-left; }
+html:active-view-transition-type(forward)::view-transition-new(root) { animation: 320ms cubic-bezier(.2,.8,.2,1) both vt-from-right; }
+/* back: the reverse */
+html:active-view-transition-type(back)::view-transition-old(root) { animation: 320ms cubic-bezier(.2,.8,.2,1) both vt-to-right; }
+html:active-view-transition-type(back)::view-transition-new(root) { animation: 320ms cubic-bezier(.2,.8,.2,1) both vt-from-left; }
+
+::view-transition-old(root), ::view-transition-new(root) { mix-blend-mode: normal; }
 
 /* In-page jumps (course tabs, #packages) glide instead of jumping */
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
