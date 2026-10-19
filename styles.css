@@ -787,3 +787,11 @@ body.no-nav:has(.exam) { background: var(--fold-ash); }
   .ex-opt:hover { border-color: var(--fold-lotus); }
   .rel:hover .rel-title { text-decoration: underline; text-underline-offset: 3px; }
 }
+
+/* Routine filters: bKash outlined dropdown field (white, 1px Grey border, 8px corners, Graphite chevron) */
+.routine-filters { display: flex; gap: 8px; width: 100%; padding: 12px 0 16px; }
+.bk-select { position: relative; display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 10px 0 12px; border: 1px solid var(--fold-grey); border-radius: 8px; background: #fff; color: var(--fold-charcoal); font: 500 12px/18px var(--font-fold); text-decoration: none; white-space: nowrap; }
+.bk-select svg { flex: none; color: var(--fold-graphite); }
+.bk-select::before { content: ''; position: absolute; inset: -4px 0; } /* 44px tap height */
+.bk-select:active { background: var(--fold-ash); }
+@media (hover: hover) and (pointer: fine) { .bk-select:hover { border-color: var(--fold-graphite); } }
