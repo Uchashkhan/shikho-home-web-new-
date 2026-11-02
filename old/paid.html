@@ -70,9 +70,11 @@
     </header>
     <main class="page-main">
       <section data-section="p01_routine">
-<div class="bg-white content-stretch drop-shadow-[0px_1px_0.5px_rgba(0,0,0,0.04),0px_3px_1.5px_rgba(0,0,0,0.04),0px_24px_12px_rgba(0,0,0,0.04)] flex flex-col items-start px-[16px] py-[20px] relative size-full" data-name="Section">
+<!-- আজকের রুটিন (Figma 6166:38962): activity tabs over one card per class/test -->
+<div class="bg-white content-stretch flex flex-col gap-[16px] items-start p-[16px] relative size-full" data-name="Section">
+      <div class="content-stretch flex flex-col gap-[12px] items-start relative shrink-0 w-full" data-name="header">
       <div class="content-stretch flex items-center justify-between relative shrink-0 w-full">
-        <h2 class="m-0 font-['Noto_Sans_Bengali'] font-bold leading-[27px] text-[#0a0c11] text-[18px] whitespace-nowrap">আজকের রুটিন</h2>
+        <h2 class="m-0 font-['Noto_Sans_Bengali'] font-bold leading-[24px] text-[#0a0c11] text-[18px] whitespace-nowrap">আজকের রুটিন</h2>
         <a href="#" data-route="routine" aria-label="রুটিন ক্যালেন্ডার" class="border border-[rgba(84,104,255,0.12)] border-solid drop-shadow-[0px_1px_0.5px_rgba(0,0,0,0.04),0px_3px_1.5px_rgba(0,0,0,0.04)] flex h-[32px] items-center justify-center p-[8px] relative rounded-[8px] shrink-0">
           <div aria-hidden="true" class="absolute bg-[#d5e7ff] inset-0 pointer-events-none rounded-[8px]"></div>
           <div class="overflow-clip relative shrink-0 size-[18px]">
@@ -85,60 +87,63 @@
           <div class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_3px_4px_0px_rgba(255,255,255,0.56),inset_0px_0px_8px_0px_rgba(255,255,255,0.48)]"></div>
         </a>
       </div>
-      <div class="content-stretch flex gap-[12px] h-[66px] items-start pb-[20px] pt-[12px] relative shrink-0 w-full">
-        <div class="h-[34px] relative shrink-0 w-[126.891px]">
-          <a href="#" data-route="routine" class="absolute bg-[#f4f4f6] content-stretch flex gap-[6px] items-center left-0 px-[12px] py-[8px] rounded-[28px] top-0 no-underline">
-            <span class="font-['Noto_Sans_Bengali'] font-semibold leading-[18px] text-[#5b616d] text-[12px] text-center whitespace-nowrap">সকল অ্যাক্টিভিটি</span>
-            <div class="overflow-clip relative shrink-0 size-[16px]">
-                <div class="absolute inset-[36.98%_20.31%_28.65%_20.31%]">
-                  <div class="absolute inset-[0_-21.05%_-72.73%_-21.05%]">
-                    <img alt="" class="block max-w-none size-full" src="../assets/p01-chevron-down.svg">
-                  </div>
-                </div>
-              </div>
-          </a>
-        </div>
-        <div class="h-[34px] relative shrink-0 w-[100.844px]">
-          <a href="#" data-route="routine" class="absolute bg-[#f4f4f6] content-stretch flex gap-[6px] items-center left-0 px-[12px] py-[8px] rounded-[28px] top-0 no-underline">
-            <span class="font-['Noto_Sans_Bengali'] font-semibold leading-[18px] text-[#5b616d] text-[12px] text-center whitespace-nowrap">সকল বিষয়</span>
-            <div class="overflow-clip relative shrink-0 size-[16px]">
-                <div class="absolute inset-[36.98%_20.31%_28.65%_20.31%]">
-                  <div class="absolute inset-[0_-21.05%_-72.73%_-21.05%]">
-                    <img alt="" class="block max-w-none size-full" src="../assets/p01-chevron-down.svg">
-                  </div>
-                </div>
-              </div>
-          </a>
+        <div class="routine-tabs border-[#e5e8f0] border-b border-solid flex h-[40px] items-start overflow-clip relative shrink-0 w-full" role="tablist" aria-label="অ্যাক্টিভিটি" data-name="filters">
+        <button type="button" role="tab" aria-selected="true" data-activity="" class="routine-tab border-[#5452ff] border-b-2 border-solid flex flex-[1_0_0] flex-col h-full items-center justify-center min-w-px relative font-['Noto_Sans_Bengali'] font-semibold text-[14px] text-[#5468ff] whitespace-nowrap">সকল অ্যাক্টিভিটি</button>
+        <button type="button" role="tab" aria-selected="false" data-activity="class" class="routine-tab flex flex-[1_0_0] flex-col h-full items-center justify-center min-w-px relative font-['Noto_Sans_Bengali'] font-medium text-[14px] text-[#5b616d] whitespace-nowrap">ক্লাস</button>
+        <button type="button" role="tab" aria-selected="false" data-activity="exam" class="routine-tab flex flex-[1_0_0] flex-col h-full items-center justify-center min-w-px relative font-['Noto_Sans_Bengali'] font-medium text-[14px] text-[#5b616d] whitespace-nowrap">চ্যাপ্টার এক্সাম</button>
         </div>
       </div>
-      <div class="content-stretch flex flex-col items-start pt-px relative shrink-0 w-full">
-        <a href="#" data-route="liveClass" class="content-stretch flex flex-col items-start p-px relative rounded-[12px] shrink-0 w-full no-underline" style="background-image: linear-gradient(61.95deg, rgb(255, 55, 223) 4.31%, rgb(110, 0, 255) 94.67%)">
-          <div class="bg-white content-stretch flex h-[80.5px] items-start px-[8px] py-[12px] relative rounded-[12px] shrink-0 w-full">
-            <div class="content-stretch flex flex-col gap-[8px] h-full items-start relative shrink-0 w-[72px]">
-              <div class="border border-[#e5e7eb] border-solid content-stretch flex items-end justify-center max-w-[72px] p-[6px] relative rounded-[1000px] shrink-0 w-[44.031px]">
-                <div aria-hidden="true" class="absolute bg-[#39bcf7] inset-0 pointer-events-none rounded-[1000px]"></div>
-                <span class="relative font-['Noto_Sans_Bengali'] font-medium leading-[16.5px] text-[11px] text-white whitespace-nowrap">রসায়ন</span>
-              </div>
-              <span class="font-['Noto_Sans_Bengali'] font-semibold leading-[18px] text-[#5b616d] text-[12px] whitespace-nowrap">05:00 pm</span>
-            </div>
-            <div class="content-stretch flex h-full items-start px-[8px] relative shrink-0">
-              <div class="bg-[#ebecf0] h-full relative shrink-0 w-px"></div>
-            </div>
-            <div class="content-stretch flex flex-col gap-[6px] h-full items-start relative min-w-0">
-              <div class="content-stretch flex gap-[6px] items-center relative shrink-0 w-full">
-                <div class="border border-[#e5e7eb] border-solid content-stretch flex gap-[2px] items-center justify-center p-[6px] relative rounded-[1000px] shrink-0">
-                  <img alt="" class="size-[14px] shrink-0" width="14" height="14" src="../assets/p01-lecture.png">
-                  <span class="font-['Noto_Sans_Bengali'] font-medium leading-[16.5px] text-[11px] text-black whitespace-nowrap">লেকচার</span>
-                  <img alt="" class="size-[14px] shrink-0" width="14" height="14" src="../assets/p01-live-dot.svg">
-                </div>
-                <span class="font-['Noto_Sans_Bengali'] font-semibold leading-[18px] text-[#5b616d] text-[12px] whitespace-nowrap">০১ ঘন্টা ২৭ মিনিট</span>
-              </div>
-              <p class="m-0 truncate max-w-full font-['Noto_Sans_Bengali'] font-semibold leading-[19.5px] text-[#0a0c11] text-[13px]">রসায়ন আমাদের জীবনে রসায়ন Live Class</p>
-            </div>
-          </div>
+      <div class="routine-list flex flex-col gap-[10px] items-start relative shrink-0 w-full" data-routine-list data-name="routine-body">
+        <a href="#" data-route="liveClass" data-activity="class" class="routine-card bg-white border border-[#ebecf0] border-solid flex flex-col gap-[8px] items-start overflow-clip pl-[18px] pr-[16px] py-[16px] relative rounded-[14px] shadow-[0px_1px_1px_-0.5px_rgba(0,0,0,0.04),0px_3px_3px_-1.5px_rgba(0,0,0,0.04)] shrink-0 w-full no-underline" data-name="activity-card">
+          <span class="flex gap-[8px] items-center justify-between relative shrink-0 w-full" data-name="card-header">
+            <span class="border border-[rgba(0,0,0,0.04)] border-solid flex h-[20px] items-center justify-center min-w-0 overflow-clip px-[6px] py-[4px] relative rounded-[1000px]" style="background-color: #6070e9"><span class="relative px-[2px] truncate font-['Noto_Sans_Bengali'] font-medium leading-[16px] text-[11px] text-white">পদার্থবিজ্ঞান</span><span aria-hidden="true" class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_1px_3px_0px_rgba(255,255,255,0.04),inset_0px_-1px_3px_-2px_rgba(0,0,0,0.04)]"></span></span>
+            <span class="bg-white border border-[rgba(0,0,0,0.04)] border-solid flex h-[20px] items-center justify-center overflow-clip px-[6px] py-[4px] relative rounded-[1000px] shrink-0"><img alt="" class="relative block shrink-0 size-[14px]" width="14" height="14" src="../assets/p01-lecture.png"><span class="relative px-[2px] font-['Noto_Sans_Bengali'] font-medium leading-[16px] text-[#5b616d] text-[11px] whitespace-nowrap">লাইভ ক্লাস </span><img alt="লাইভ চলছে" class="relative block shrink-0 size-[14px]" width="14" height="14" src="../assets/routine/live-dot.svg"><span aria-hidden="true" class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_1px_3px_0px_rgba(255,255,255,0.04),inset_0px_-1px_3px_-2px_rgba(0,0,0,0.04)]"></span></span>
+          </span>
+          <span class="block font-['Noto_Sans_Bengali'] font-semibold leading-[20px] text-[#141429] text-[13px] w-full">তড়িৎচুম্বকত্ব ও ইলেকট্রনিক্স</span>
+          <span class="bg-[#edebfa] block h-px shrink-0 w-full" data-name="Content divider"></span>
+          <span class="flex gap-[10px] h-[24px] items-center overflow-clip relative shrink-0 w-full" data-name="Time and duration">
+            <span class="flex gap-[6px] h-[24px] items-center shrink-0">
+              <span class="bg-[#edf6ff] flex items-center justify-center rounded-[12px] shrink-0 size-[24px]"><img alt="" class="block size-[16px]" width="16" height="16" src="../assets/routine/clock.svg"></span>
+              <span class="font-['Noto_Sans_Bengali'] font-normal leading-[16px] text-[#141429] text-[12px] whitespace-nowrap">11:30 am</span>
+            </span>
+            <span class="bg-[#c9c2de] h-[16px] shrink-0 w-px"></span>
+            <span class="font-['Noto_Sans_Bengali'] font-normal leading-[16px] text-[#63667d] text-[12px] whitespace-nowrap">০১ ঘন্টা ২৭ মিনিট</span>
+          </span>
+        </a>
+        <a href="#" data-route="chapterExam" data-activity="exam" class="routine-card bg-white border border-[#ebecf0] border-solid flex flex-col gap-[8px] items-start overflow-clip pl-[18px] pr-[16px] py-[16px] relative rounded-[14px] shadow-[0px_1px_1px_-0.5px_rgba(0,0,0,0.04),0px_3px_3px_-1.5px_rgba(0,0,0,0.04)] shrink-0 w-full no-underline" data-name="activity-card">
+          <span class="flex gap-[8px] items-center justify-between relative shrink-0 w-full" data-name="card-header">
+            <span class="border border-[rgba(0,0,0,0.04)] border-solid flex h-[20px] items-center justify-center min-w-0 overflow-clip px-[6px] py-[4px] relative rounded-[1000px]" style="background-color: #ff7b33"><span class="relative px-[2px] truncate font-['Noto_Sans_Bengali'] font-medium leading-[16px] text-[11px] text-white">সাধারণ গণিত</span><span aria-hidden="true" class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_1px_3px_0px_rgba(255,255,255,0.04),inset_0px_-1px_3px_-2px_rgba(0,0,0,0.04)]"></span></span>
+            <span class="bg-white border border-[rgba(0,0,0,0.04)] border-solid flex h-[20px] items-center justify-center overflow-clip px-[6px] py-[4px] relative rounded-[1000px] shrink-0"><span class="overflow-clip relative block shrink-0 size-[14px]" aria-hidden="true"><span class="absolute inset-[3.33%_11.11%_9.04%_6.67%]"><img alt="" class="absolute block inset-0 max-w-none size-full" src="../assets/routine/mcq.svg"></span><span class="absolute bg-white inset-[65.89%_6.47%_3.33%_62.84%] overflow-clip rounded-[60px]"><img alt="" class="absolute block inset-0 max-w-none size-full" src="../assets/routine/mcq-live.svg"><span class="absolute inset-[35%]"><img alt="" class="absolute block inset-0 max-w-none size-full" src="../assets/routine/mcq-live-center.png"></span></span></span><span class="relative px-[2px] font-['Noto_Sans_Bengali'] font-medium leading-[16px] text-[#5b616d] text-[11px] whitespace-nowrap">চ্যাপ্টার এক্সাম</span><span aria-hidden="true" class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_1px_3px_0px_rgba(255,255,255,0.04),inset_0px_-1px_3px_-2px_rgba(0,0,0,0.04)]"></span></span>
+          </span>
+          <span class="block font-['Noto_Sans_Bengali'] font-semibold leading-[20px] text-[#141429] text-[13px] w-full">রেখা , কোণ ও ত্রিভুজ পর্ব-৩</span>
+          <span class="bg-[#edebfa] block h-px shrink-0 w-full" data-name="Content divider"></span>
+          <span class="flex gap-[10px] h-[24px] items-center overflow-clip relative shrink-0 w-full" data-name="Time and duration">
+            <span class="flex gap-[6px] h-[24px] items-center shrink-0">
+              <span class="bg-[#edf6ff] flex items-center justify-center rounded-[12px] shrink-0 size-[24px]"><img alt="" class="block size-[16px]" width="16" height="16" src="../assets/routine/clock.svg"></span>
+              <span class="font-['Noto_Sans_Bengali'] font-normal leading-[16px] text-[#141429] text-[12px] whitespace-nowrap">11:30 am</span>
+            </span>
+            <span class="bg-[#c9c2de] h-[16px] shrink-0 w-px"></span>
+            <span class="font-['Noto_Sans_Bengali'] font-normal leading-[16px] text-[#63667d] text-[12px] whitespace-nowrap">০১ ঘন্টা ২৭ মিনিট</span>
+          </span>
+        </a>
+        <a href="#" data-route="liveClass" data-activity="class" class="routine-card bg-white border border-[#ebecf0] border-solid flex flex-col gap-[8px] items-start overflow-clip pl-[18px] pr-[16px] py-[16px] relative rounded-[14px] shadow-[0px_1px_1px_-0.5px_rgba(0,0,0,0.04),0px_3px_3px_-1.5px_rgba(0,0,0,0.04)] shrink-0 w-full no-underline" data-name="activity-card">
+          <span class="flex gap-[8px] items-center justify-between relative shrink-0 w-full" data-name="card-header">
+            <span class="border border-[rgba(0,0,0,0.04)] border-solid flex h-[20px] items-center justify-center min-w-0 overflow-clip px-[6px] py-[4px] relative rounded-[1000px]" style="background-color: #30c4d8"><span class="relative px-[2px] truncate font-['Noto_Sans_Bengali'] font-medium leading-[16px] text-[11px] text-white">ইংরেজি</span><span aria-hidden="true" class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_1px_3px_0px_rgba(255,255,255,0.04),inset_0px_-1px_3px_-2px_rgba(0,0,0,0.04)]"></span></span>
+            <span class="bg-white border border-[rgba(0,0,0,0.04)] border-solid flex h-[20px] items-center justify-center overflow-clip px-[6px] py-[4px] relative rounded-[1000px] shrink-0"><img alt="" class="relative block shrink-0 size-[14px]" width="14" height="14" src="../assets/p01-lecture.png"><span class="relative px-[2px] font-['Noto_Sans_Bengali'] font-medium leading-[16px] text-[#5b616d] text-[11px] whitespace-nowrap">লাইভ ক্লাস </span><span aria-hidden="true" class="absolute inset-0 pointer-events-none rounded-[inherit] shadow-[inset_0px_1px_3px_0px_rgba(255,255,255,0.04),inset_0px_-1px_3px_-2px_rgba(0,0,0,0.04)]"></span></span>
+          </span>
+          <span class="block font-['Noto_Sans_Bengali'] font-semibold leading-[20px] text-[#141429] text-[13px] w-full">Reading Part Class - 2</span>
+          <span class="bg-[#edebfa] block h-px shrink-0 w-full" data-name="Content divider"></span>
+          <span class="flex gap-[10px] h-[24px] items-center overflow-clip relative shrink-0 w-full" data-name="Time and duration">
+            <span class="flex gap-[6px] h-[24px] items-center shrink-0">
+              <span class="bg-[#edf6ff] flex items-center justify-center rounded-[12px] shrink-0 size-[24px]"><img alt="" class="block size-[16px]" width="16" height="16" src="../assets/routine/clock.svg"></span>
+              <span class="font-['Noto_Sans_Bengali'] font-normal leading-[16px] text-[#141429] text-[12px] whitespace-nowrap">11:30 am</span>
+            </span>
+            <span class="bg-[#c9c2de] h-[16px] shrink-0 w-px"></span>
+            <span class="font-['Noto_Sans_Bengali'] font-normal leading-[16px] text-[#63667d] text-[12px] whitespace-nowrap">০১ ঘন্টা ২৭ মিনিট</span>
+          </span>
         </a>
       </div>
-      <div class="content-stretch flex flex-col items-start pt-[20px] relative shrink-0 w-full">
+      <div class="content-stretch flex flex-col items-start relative shrink-0 w-full">
         <a href="#" data-route="routine" class="border border-[rgba(84,104,255,0.12)] border-solid drop-shadow-[0px_1px_0.5px_rgba(0,0,0,0.04),0px_3px_1.5px_rgba(0,0,0,0.04)] flex gap-[8px] h-[40px] items-center justify-center px-[12px] py-[8px] relative rounded-[10px] shrink-0 w-full no-underline">
           <div aria-hidden="true" class="absolute bg-[#d5e7ff] inset-0 pointer-events-none rounded-[10px]"></div>
           <span class="relative font-['Noto_Sans_Bengali'] font-semibold leading-[24px] text-[#5468ff] text-[13px] text-center whitespace-nowrap">রুটিন ক্যালেন্ডার দেখো</span>
@@ -170,7 +175,7 @@
             Home Page Revamp V2 (English) updated
           </p>
         </div>
-        <div class="absolute content-stretch flex flex-col items-start left-[16px] top-[-0.25px] w-full" data-name="Container">
+        <div class="absolute content-stretch flex flex-col items-start left-[16px] right-[16px] top-[-0.25px]" data-name="Container">
           <p class="[word-break:break-word] font-['Noto_Sans_Bengali'] font-medium leading-[22.5px] relative shrink-0 text-[#5b616d] text-[15px] whitespace-nowrap" style="font-variation-settings: &quot;wdth&quot; 100">
             তোমার প্রোগ্রাম
           </p>
@@ -2671,12 +2676,12 @@
             </p>
           </div>
           <div class="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="Paragraph">
-            <p class="[word-break:break-word] font-['Noto_Sans_Bengali'] font-medium leading-[19.5px] relative shrink-0 text-[#5b616d] text-[13px] w-[348px]" style="font-variation-settings: &quot;wdth&quot; 100">
+            <p class="[word-break:break-word] font-['Noto_Sans_Bengali'] font-medium leading-[19.5px] relative shrink-0 text-[#5b616d] text-[13px] w-full" style="font-variation-settings: &quot;wdth&quot; 100">
               Shikho কমিউনিটিতে Join করে কোর্সগুলো সম্পর্কে আরো বিস্তারিত জানো
             </p>
           </div>
         </div>
-        <div class="content-stretch flex flex-col gap-[8px] h-[116px] items-start pt-[20px] relative shrink-0 w-[348px]" data-name="Container">
+        <div class="content-stretch flex flex-col gap-[8px] h-[116px] items-start pt-[20px] relative shrink-0 w-full" data-name="Container">
           <div class="bg-[#feecec] content-stretch flex items-center justify-between px-[10px] py-[6px] relative rounded-[9999px] shrink-0 w-full" data-name="Link">
             <div class="content-stretch flex gap-[8px] items-center relative shrink-0" data-name="Container">
               <div class="bg-white content-stretch flex items-center justify-center relative rounded-[9999px] shrink-0 size-[32px]" data-name="Container">
@@ -2775,7 +2780,7 @@
       </div>
       <div class="content-stretch flex flex-col items-start pt-[16px] relative shrink-0 w-full" data-name="Container:margin">
         <div class="border-[#414651] border-solid border-t content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="Container">
-          <div class="content-stretch flex flex-col h-[34px] items-center pt-[14px] relative shrink-0 w-[380px]" data-name="Heading 4">
+          <div class="content-stretch flex flex-col h-[34px] items-center pt-[14px] relative shrink-0 w-full" data-name="Heading 4">
             <p class="[word-break:break-word] font-['Noto_Sans_Bengali'] font-semibold leading-[19.5px] relative shrink-0 text-[13px] text-center text-white whitespace-nowrap" style="font-variation-settings: &quot;wdth&quot; 100">
               ২০২৬ শিখো টেকনোলজিস বাংলাদেশ লি.
             </p>

@@ -60,11 +60,17 @@ def page(title, active, body, greeting=False, bar=None, back="index.html"):
   <link rel="stylesheet" href="styles.css">
   <script src="data/user.js"></script>
   <script>
-    // Paid (enrolled) or free homepage, decided before first paint. ?paid / ?free preview either.
+    // Paid (enrolled) or free homepage, decided before first paint. ?paid / ?free preview either;
+    // the preview is remembered for this tab so a refresh or another page keeps it.
     (function () {{
       var q = new URLSearchParams(location.search);
       var user = q.has('guest') ? null : window.SHIKHO_USER;
-      var paid = q.has('paid') || (!q.has('free') && !!(user && user.enrolled));
+      var saved = null;
+      try {{
+        if (q.has('paid') || q.has('free')) sessionStorage.setItem('shikho-plan', q.has('paid') ? 'paid' : 'free');
+        saved = sessionStorage.getItem('shikho-plan');
+      }} catch (e) {{ /* storage blocked: URL and sample student only */ }}
+      var paid = q.has('paid') || (!q.has('free') && (saved ? saved === 'paid' : !!(user && user.enrolled)));
       document.documentElement.dataset.plan = paid ? 'paid' : 'free';
       if (q.has('embed')) document.documentElement.classList.add('is-embedded'); // inside compare.html
     }})();

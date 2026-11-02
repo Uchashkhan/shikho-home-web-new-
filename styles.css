@@ -361,3 +361,81 @@ button { background: none; border: 0; padding: 0; font: inherit; color: inherit;
 .course-card .btn-primary:active, .btn-secondary:active, .btn-ai:active, .btn-enroll:active, .ai-hero-cta:active, .chip:active { opacity: 0.7; }
 .subpage-main .filter-empty { margin: 0; }
 html { scroll-padding-top: 112px; }
+
+/* ---------- Small phones (360px, Figma 6158:41959): fluid widths instead of the 412px Figma pixels ---------- */
+/* তোমার প্রোগ্রাম: the slide fills the carousel window (294px card at 360, like the 360 Figma's 270px card + gap) */
+[data-section="p02_program"] [data-name="Container:transform"] > [data-name="Container"] { width: min(324px, 100vw - 66px); }
+[data-section="p02_program"] [data-name="Container:transform"] [data-name="Button"] { width: 100%; }
+/* App download: the text column takes what the QR leaves (360 Figma: title wraps to two lines beside the QR) */
+[data-section="s08_app"] [data-name="Section"] > [data-name="Container"]:first-child { flex: 1 1 0; min-width: 0; padding-right: 8px; }
+[data-section="s08_app"] [data-name="Section"] > [data-name="Container"]:first-child p { width: auto; white-space: normal; }
+/* Call: the girl sits on the card's right edge at any width (Figma left-[270px] assumed the 380px card) */
+[data-section="s09_call"] [data-name="Image (Shikho help section Model)"] { left: auto; right: 0; }
+/* Full-width card carousels (free trial, courses): one card fills the content width */
+[data-section="s05_freetrial"] [data-name="Container:transform"] > div,
+[data-section="s07_courses"] [data-name="Container:transform"] > div { width: min(380px, 100vw - 32px); }
+/* Video card rows: the 360 Figma's 248px card with a 140px thumbnail (the 412 card scaled; type sizes unchanged) */
+@media (max-width: 400px) {
+  :is([data-section="s02_important"], [data-section="s03_guideline"], [data-section="p05_important"], [data-section="p06_guideline"]) {
+    & [data-name="Container:transform"] > div { width: 260px; }
+    & :is([class*="w-[296px]"], [class*="w-[276px]"], [class*="w-[264px]"], [class*="w-[244px]"]) { width: 100%; }
+    & :is([class*="h-[167px]"], [class*="h-[155px]"]) { height: 140px; }
+    & [class*="size-[48px]"][class*="top-[-"] { left: calc(50% - 24px); top: -94px; } /* play button, centred on the thumbnail */
+    & [class*="h-[65px]"][class*="w-[106px]"] { left: auto; right: 0; } /* corner shade behind the duration */
+    & :is([class*="left-[246.83px]"], [class*="left-[236.96px]"]) { left: auto; right: 8px; } /* duration */
+    /* author row: the name takes the free space, the subject chip hugs its label */
+    & [class*="h-[41px]"] > [data-name="Container:margin"] { flex: 1 1 0; min-width: 0; width: auto; }
+    & [class*="h-[41px]"] > [data-name="Container:margin"] > [data-name="Container"] { width: calc(100% + 8px); }
+    & [class*="h-[41px]"] > [data-name="Container"]:last-child { width: auto; }
+    & [class*="h-[41px]"] > [data-name="Container"]:last-child > [data-name="Text"] { width: auto; }
+    & :is([class*="h-[279px]"], [class*="h-[267px]"]) { height: 252px; } /* carousel window: 140 thumbnail + 110 text + border */
+  }
+}
+/* Free trial card: its two buttons share the row (169px each assumed the 380px card) */
+[data-section="s05_freetrial"] [data-name="Container:transform"] [data-name="Button"][class*="w-[169px]"] { flex: 1 1 0; min-width: 0; width: auto; }
+[data-section="s07_courses"] [data-name="Container:transform"] [data-name="Button"][class*="w-[170px]"] { flex: 1 1 0; min-width: 0; width: auto; }
+
+/* Profile card: photo + name open profile edit; round pencil in Shikho blue (matches the avatar) */
+.profile-head { display: flex; align-items: center; gap: 16px; margin: -4px; padding: 4px; border-radius: 10px; color: inherit; text-decoration: none; transition: opacity 150ms ease; }
+.profile-head:active { opacity: 0.7; }
+.profile-head-edit { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: #eef1ff; color: #4d61f8; }
+@media (hover: hover) { .profile-head:hover .profile-head-edit { background: #d5e7ff; } }
+.profile-head:focus-visible { outline: 2px solid #5468ff; outline-offset: 2px; }
+
+/* আজকের রুটিন tabs (Figma 6166:38962): the selected tab is Shikho blue with a 2px underline */
+.routine-tab { margin: 0; padding: 0; border: 0; background: none; color: #5b616d; font-weight: 500; cursor: pointer; }
+.routine-tab[aria-selected="true"] { color: #5468ff; font-weight: 600; box-shadow: inset 0 -2px #5452ff; }
+.routine-tab:focus-visible { outline: 2px solid #5468ff; outline-offset: -4px; border-radius: 6px; }
+.routine-card[hidden] { display: none; }
+.routine-card { transition: opacity 150ms ease; }
+.routine-card:active { opacity: 0.7; }
+
+/* Profile: program switcher (live "তোমার প্রোগ্রাম"), Shikho colours */
+.program-switch { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 56px; margin: 0; padding: 8px 12px 8px 14px; border: 1px solid #e5e7eb; border-radius: 12px; background: #f9f9fa; text-align: left; cursor: pointer; transition: opacity 150ms ease; }
+.program-switch[hidden] { display: none; }
+.program-switch:active:not(:disabled) { opacity: 0.7; }
+.program-switch:disabled { cursor: default; }
+.program-switch:disabled .program-switch-end { display: none; }
+.program-switch:focus-visible { outline: 2px solid #5468ff; outline-offset: 2px; }
+.program-switch-text { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.program-switch-label { color: #5b616d; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
+.program-switch-name { color: #0a0c11; font: 600 14px/21px 'Noto Sans Bengali', sans-serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.program-switch-end { flex-shrink: 0; color: #5b616d; }
+@media (hover: hover) { .program-switch:hover:not(:disabled) { border-color: #c7cbd6; } }
+
+/* Bottom sheet for the switcher: white, 20px top corners, page width */
+html.sheet-open { overflow: hidden; }
+.sheet-backdrop { position: fixed; inset: 0; z-index: 300; display: flex; align-items: flex-end; justify-content: center; background: rgba(10, 12, 17, 0.5); }
+.sheet-backdrop[hidden] { display: none; }
+.sheet { width: 100%; max-width: var(--page-width); max-height: 88dvh; overflow-y: auto; padding-bottom: calc(24px + env(safe-area-inset-bottom)); background: #fff; border-radius: 20px 20px 0 0; outline: none; }
+.sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 56px; padding: 0 8px 0 16px; border-bottom: 1px solid #e5e7eb; }
+.sheet-title { margin: 0; color: #0a0c11; font: 700 16px/24px 'Noto Sans Bengali', sans-serif; }
+.sheet-close { display: grid; place-items: center; width: 44px; height: 44px; margin: 0; padding: 0; border: 0; border-radius: 50%; background: none; color: #5b616d; cursor: pointer; }
+.prog-opts { display: grid; gap: 8px; padding: 16px; }
+.prog-opt { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 64px; margin: 0; padding: 12px 14px; border: 1px solid #e5e7eb; border-radius: 12px; background: #fff; text-align: left; cursor: pointer; }
+.prog-opt[aria-checked="true"] { border-color: #5468ff; background: #eef1ff; }
+.prog-opt:focus-visible { outline: 2px solid #5468ff; outline-offset: 2px; }
+.prog-opt-text { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; color: #0a0c11; font: 600 14px/21px 'Noto Sans Bengali', sans-serif; }
+.tag-enrolled { padding: 0 8px; border-radius: 1000px; background: #35c220; color: #fff; font: 500 12px/18px 'Noto Sans Bengali', sans-serif; }
+.prog-radio { flex: none; width: 20px; height: 20px; border: 2px solid #c7cbd6; border-radius: 50%; background: #fff; }
+.prog-opt[aria-checked="true"] .prog-radio { border: 6px solid #5468ff; }

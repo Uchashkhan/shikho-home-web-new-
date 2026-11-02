@@ -10,4 +10,10 @@ window.SHIKHO_USER = {
   institution: null, // no sample school; the profile shows it as not provided
   enrolled: false, // true = paid student: the homepage shows routine, program and shortcuts
   avatarUrl: null,
+  // Programs a paid student is enrolled in (live: "তোমার প্রোগ্রাম"). More than one shows the
+  // profile's program switcher; a free student has none.
+  programs: [
+    { name: 'ক্লাস ৯ - SSC ’২৮ বিজ্ঞান' },
+    { name: 'ক্লাস ১০ - SSC ’২৭ বিজ্ঞান' },
+  ],
 };

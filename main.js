@@ -22,6 +22,7 @@
     practiceQuiz: { path: null, local: null }, // no quiz route confirmed on live
     routine: { path: '/student/routine', local: null },
     liveClass: { path: '/student/live-class', local: null },
+    chapterExam: { path: null, local: null }, // opened from আজকের রুটিন
     homework: { path: null, local: null },
     reportCard: { path: '/student/report-card', local: null },
     syllabus: { path: null, local: null },
@@ -123,6 +124,7 @@
   planButtons.forEach((b) => b.addEventListener('click', () => {
     if (document.documentElement.dataset.plan === b.dataset.planSet) return;
     showPlan(b.dataset.planSet);
+    try { sessionStorage.setItem('shikho-plan', b.dataset.planSet); } catch (err) { /* this page only */ }
     const url = new URL(location.href);
     url.searchParams.delete('paid');
     url.searchParams.delete('free');
@@ -187,9 +189,21 @@
   // Figma slots; the slide that wraps around jumps off-screen without animating.
   tracks.forEach((track) => {
     const all = [...track.children].filter((c) => leftOf(c) !== null).sort((a, b) => leftOf(a) - leftOf(b));
-    const slots = all.map(leftOf);
-    const own = new Map(all.map((s) => [s, leftOf(s)]));
-    const step = slots[1] - slots[0];
+    const design = all.map(leftOf);
+    const designStep = design[1] - design[0];
+    let slots = design, own = new Map(all.map((s) => [s, leftOf(s)])), step = designStep;
+    // Slides may be narrower than the 412px Figma on small phones (styles.css):
+    // space the slots by the slide's rendered width instead of the Figma offsets
+    const fit = () => {
+      const w = all[0].offsetWidth;
+      if (!w) return;
+      const k = w / designStep;
+      slots = design.map((x) => x * k);
+      own = new Map(all.map((s, i) => [s, slots[i]]));
+      step = w;
+      all.forEach((s, i) => { s.style.left = `${slots[i]}px`; });
+    };
+    fit();
     const viewport = track.parentElement;
     // First slot that shows on screen; slots before it sit off-screen to the left
     // (from the Figma offsets: layout may not be styled yet when this runs)
@@ -295,6 +309,88 @@
     viewport.addEventListener('click', (e) => { if (Math.abs(dx) > 5) e.preventDefault(); }, true);
     viewport.querySelectorAll('img').forEach((img) => (img.draggable = false));
     render();
+    // Tailwind styles arrive after this runs, and the width changes with the screen
+    new ResizeObserver(() => { fit(); render(index, true); }).observe(all[0]);
+  });
+
+  /* Profile: switch between the programs the student is enrolled in (live "তোমার প্রোগ্রাম").
+     Paid students only; the choice is kept in this browser. */
+  const switcher = document.querySelector('[data-program-switch]');
+  const programs = ((user && user.programs) || []).map((p) => p.name);
+  if (switcher && programs.length && document.documentElement.dataset.plan === 'paid') {
+    const KEY = 'shikho-program';
+    let current = 0;
+    try { current = Math.min(Number(localStorage.getItem(KEY)) || 0, programs.length - 1); } catch (err) { /* storage blocked: first program */ }
+    const show = () => document.querySelectorAll('[data-program="current"]').forEach((el) => { el.textContent = programs[current]; });
+    switcher.hidden = false;
+    switcher.disabled = programs.length < 2; // one program: nothing to switch to
+    show();
+
+    const backdrop = document.createElement('div');
+    backdrop.className = 'sheet-backdrop';
+    backdrop.hidden = true;
+    backdrop.innerHTML = `
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="program-sheet-title" tabindex="-1">
+        <div class="sheet-head">
+          <h2 class="sheet-title" id="program-sheet-title">প্রোগ্রাম পরিবর্তন</h2>
+          <button type="button" class="sheet-close" aria-label="বন্ধ করো" data-sheet-close>
+            <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div class="prog-opts" role="radiogroup" aria-label="তোমার প্রোগ্রাম"></div>
+      </div>`;
+    document.body.append(backdrop);
+    const sheet = backdrop.querySelector('.sheet');
+    const list = backdrop.querySelector('.prog-opts');
+    const close = () => {
+      backdrop.hidden = true;
+      document.documentElement.classList.remove('sheet-open');
+      switcher.focus();
+    };
+    const open = () => {
+      list.innerHTML = programs.map((name, i) => `
+        <button type="button" class="prog-opt" role="radio" aria-checked="${i === current}" data-pick="${i}">
+          <span class="prog-opt-text"><span class="tag-enrolled">ভর্তি হয়েছো</span><span></span></span>
+          <span class="prog-radio" aria-hidden="true"></span>
+        </button>`).join('');
+      list.querySelectorAll('.prog-opt-text > span:last-child').forEach((el, i) => { el.textContent = programs[i]; });
+      backdrop.hidden = false;
+      document.documentElement.classList.add('sheet-open');
+      (list.querySelector('[aria-checked="true"]') || sheet).focus();
+    };
+    switcher.addEventListener('click', open);
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop || e.target.closest('[data-sheet-close]')) return close();
+      const opt = e.target.closest('[data-pick]');
+      if (!opt) return;
+      const pick = Number(opt.dataset.pick);
+      close();
+      if (pick === current) return;
+      current = pick;
+      try { localStorage.setItem(KEY, String(pick)); } catch (err) { /* this page only */ }
+      show();
+      notify(`${programs[pick]}-এ পরিবর্তন হয়েছে`);
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !backdrop.hidden) close(); });
+  }
+
+  /* আজকের রুটিন: activity tabs filter the cards */
+  document.querySelectorAll('[data-routine-list]').forEach((list) => {
+    const tabs = [...list.closest('section').querySelectorAll('.routine-tab')];
+    const pick = (t) => {
+      tabs.forEach((x) => x.setAttribute('aria-selected', String(x === t)));
+      list.querySelectorAll('.routine-card').forEach((c) => { c.hidden = !!t.dataset.activity && c.dataset.activity !== t.dataset.activity; });
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => pick(t));
+      t.addEventListener('keydown', (e) => {
+        const step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+        if (!step) return;
+        const n = tabs[(i + step + tabs.length) % tabs.length];
+        n.focus();
+        pick(n);
+      });
+    });
   });
 
   /* Subject filter chips: scrollable row with a single active chip that filters the cards */
