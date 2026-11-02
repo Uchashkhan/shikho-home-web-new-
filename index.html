@@ -45,11 +45,14 @@
     });
   </script>
   <script>
-    // Paid (enrolled) or free homepage, decided before first paint. ?paid / ?free preview either.
+    // Paid (enrolled) or free student, decided before first paint. ?paid / ?free preview either;
+    // the homepage ফ্রি/পেইড switch is remembered for this visit so every screen follows it.
     (function () {
       var q = new URLSearchParams(location.search);
       var user = q.has('guest') ? null : window.SHIKHO_USER;
-      var paid = q.has('paid') || (!q.has('free') && !!(user && user.enrolled));
+      var saved = null;
+      try { saved = sessionStorage.getItem('shikho-plan'); } catch (e) { /* storage blocked */ }
+      var paid = q.has('paid') || (!q.has('free') && (saved ? saved === 'paid' : !!(user && user.enrolled)));
       document.documentElement.dataset.plan = paid ? 'paid' : 'free';
     })();
   </script>
@@ -118,10 +121,11 @@
 
     <main id="main" tabindex="-1" class="page-main">
       <section data-section="p01_routine" data-plan="paid" data-first>
+<!-- আজকের রুটিন: Figma 6158:46069 (Shikho portal) rebuilt in bKash colours; subject chips keep Shikho colours -->
 <div class="routine-box" data-name="Section">
       <div class="content-stretch flex items-center justify-between relative shrink-0 w-full">
         <h2 class="m-0 font-fold font-semibold leading-[28px] text-[#202020] text-[18px] whitespace-nowrap">আজকের রুটিন</h2>
-        <a href="#" data-route="routine" aria-label="রুটিন ক্যালেন্ডার" class="border border-[rgba(226,19,110,0.12)] border-solid flex h-[32px] items-center justify-center p-[8px] relative rounded-[6px] shrink-0 hit-44">
+        <a href="#" data-route="calendar" aria-label="রুটিন ক্যালেন্ডার" class="border border-[rgba(226,19,110,0.12)] border-solid flex h-[32px] items-center justify-center p-[8px] relative rounded-[6px] shrink-0 hit-44">
           <div aria-hidden="true" class="absolute bg-[#F9D0E2] inset-0 pointer-events-none rounded-[6px]"></div>
           <div class="overflow-clip relative shrink-0 size-[18px]">
             <div class="absolute inset-[6.25%_12.5%_9.81%_12.5%]">
@@ -132,48 +136,54 @@
           </div>
         </a>
       </div>
-      <div class="routine-filters">
-        <div class="bk-dd" data-filter-key="activity">
-          <button type="button" class="bk-select" aria-haspopup="listbox" aria-expanded="false" aria-label="অ্যাক্টিভিটি"><span>সকল অ্যাক্টিভিটি</span><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
-          <ul class="bk-menu" role="listbox" aria-label="অ্যাক্টিভিটি" hidden><li role="option" tabindex="-1" aria-selected="true" data-value="">সকল অ্যাক্টিভিটি</li><li role="option" tabindex="-1" aria-selected="false" data-value="লাইভ ক্লাস">লাইভ ক্লাস</li><li role="option" tabindex="-1" aria-selected="false" data-value="মডেল টেস্ট">মডেল টেস্ট</li></ul>
-        </div>
-        <div class="bk-dd" data-filter-key="subject">
-          <button type="button" class="bk-select" aria-haspopup="listbox" aria-expanded="false" aria-label="বিষয়"><span>সকল বিষয়</span><svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
-          <ul class="bk-menu" role="listbox" aria-label="বিষয়" hidden><li role="option" tabindex="-1" aria-selected="true" data-value="">সকল বিষয়</li><li role="option" tabindex="-1" aria-selected="false" data-value="ইংরেজী ১ম পত্র">ইংরেজী ১ম পত্র</li><li role="option" tabindex="-1" aria-selected="false" data-value="পদার্থবিজ্ঞান">পদার্থবিজ্ঞান</li><li role="option" tabindex="-1" aria-selected="false" data-value="রসায়ন">রসায়ন</li><li role="option" tabindex="-1" aria-selected="false" data-value="সাধারণ গণিত">সাধারণ গণিত</li><li role="option" tabindex="-1" aria-selected="false" data-value="উচ্চতর গণিত">উচ্চতর গণিত</li><li role="option" tabindex="-1" aria-selected="false" data-value="ভূগোল ও মহাকাশ">ভূগোল ও মহাকাশ</li><li role="option" tabindex="-1" aria-selected="false" data-value="ইসলাম ও নৈতিক শিক্ষা">ইসলাম ও নৈতিক শিক্ষা</li><li role="option" tabindex="-1" aria-selected="false" data-value="বাংলা ১ম পত্র">বাংলা ১ম পত্র</li><li role="option" tabindex="-1" aria-selected="false" data-value="জীববিজ্ঞান">জীববিজ্ঞান</li><li role="option" tabindex="-1" aria-selected="false" data-value="তথ্য ও যোগাযোগ প্রযুক্তি">তথ্য ও যোগাযোগ প্রযুক্তি</li></ul>
-        </div>
+      <div class="routine-tabs" role="tablist" aria-label="অ্যাক্টিভিটি">
+        <button type="button" class="routine-tab" role="tab" aria-selected="true" data-activity="">সকল অ্যাক্টিভিটি</button>
+        <button type="button" class="routine-tab" role="tab" aria-selected="false" data-activity="লেকচার ক্লাস">ক্লাস</button>
+        <button type="button" class="routine-tab" role="tab" aria-selected="false" data-activity="চ্যাপ্টার এক্সাম">চ্যাপ্টার এক্সাম</button>
       </div>
       <div class="routine-list" data-routine-list>
-        <a data-route="liveClass" href="#" class="routine-card" data-activity="লাইভ ক্লাস" data-subject="ইংরেজী ১ম পত্র">
-          <span class="routine-when">
+        <a href="watch.html?list=important&amp;v=2&amp;mode=class&amp;start=840" class="routine-card" data-activity="লেকচার ক্লাস" data-subject="ইংরেজী ১ম পত্র">
+          <span class="routine-top">
             <span class="subject-chip" data-subject-chip="ইংরেজী ১ম পত্র">ইংরেজী ১ম পত্র</span>
-            <span class="routine-time">02:00 pm</span>
+            <span class="routine-kind"><img alt="" width="14" height="14" src="assets/p01-lecture.png">লাইভ ক্লাস</span>
           </span>
-          <span class="routine-body">
-            <span class="routine-meta"><span class="routine-kind"><img alt="" class="size-[14px] shrink-0" width="14" height="14" src="assets/p01-lecture.png">লেকচার</span><span class="routine-dur">০১ ঘন্টা</span></span>
-            <span class="routine-title">Reading Part Class - 3</span>
-          </span>
-        </a><a data-route="liveClass" href="#" class="routine-card routine-card--live" data-activity="লাইভ ক্লাস" data-subject="রসায়ন">
+          <span class="routine-title">Reading Part Class - 3</span>
+          <span class="routine-rule" aria-hidden="true"></span>
           <span class="routine-when">
-            <span class="subject-chip" data-subject-chip="রসায়ন">রসায়ন</span>
-            <span class="routine-time">05:00 pm</span>
-          </span>
-          <span class="routine-body">
-            <span class="routine-meta"><span class="routine-kind"><img alt="" class="size-[14px] shrink-0" width="14" height="14" src="assets/p01-lecture.png">লেকচার<img alt="" class="size-[14px] shrink-0" width="14" height="14" src="assets/p01-live-dot.svg"></span><span class="routine-dur">০১ ঘন্টা ২৭ মিনিট</span></span>
-            <span class="routine-title">রসায়ন আমাদের জীবনে রসায়ন Live Class</span>
-          </span>
-        </a><a data-route="practiceQuiz" href="#" class="routine-card" data-activity="মডেল টেস্ট" data-subject="রসায়ন">
-          <span class="routine-when">
-            <span class="subject-chip" data-subject-chip="রসায়ন">রসায়ন</span>
-            <span class="routine-time">08:00 pm</span>
-          </span>
-          <span class="routine-body">
-            <span class="routine-meta"><span class="routine-kind"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#505050" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>মডেল টেস্ট</span><span class="routine-dur">৪০ মিনিট</span></span>
-            <span class="routine-title">পদার্থের গঠন</span>
+            <span class="routine-time"><span class="routine-clock"><img alt="" width="16" height="16" src="assets/routine/clock-cerise.svg"></span>02:00 pm</span>
+            <i aria-hidden="true"></i>
+            <span class="routine-dur">০১ ঘন্টা</span>
           </span>
         </a>
-        <p class="routine-empty" hidden>এই ফিল্টারে আজ কোনো ক্লাস বা টেস্ট নেই</p>
+        <a data-route="liveClass" href="#" class="routine-card" data-activity="লেকচার ক্লাস" data-subject="রসায়ন">
+          <span class="routine-top">
+            <span class="subject-chip" data-subject-chip="রসায়ন">রসায়ন</span>
+            <span class="routine-kind"><img alt="" width="14" height="14" src="assets/p01-lecture.png">লাইভ ক্লাস<img alt="লাইভ চলছে" class="live-blink" width="14" height="14" src="assets/routine/live-dot.svg"></span>
+          </span>
+          <span class="routine-title">রসায়ন আমাদের জীবনে রসায়ন Live Class</span>
+          <span class="routine-rule" aria-hidden="true"></span>
+          <span class="routine-when">
+            <span class="routine-time"><span class="routine-clock"><img alt="" width="16" height="16" src="assets/routine/clock-cerise.svg"></span>05:00 pm</span>
+            <i aria-hidden="true"></i>
+            <span class="routine-dur">০১ ঘন্টা ২৭ মিনিট</span>
+          </span>
+        </a>
+        <a data-route="chapterExam" href="#" class="routine-card" data-activity="চ্যাপ্টার এক্সাম" data-subject="রসায়ন">
+          <span class="routine-top">
+            <span class="subject-chip" data-subject-chip="রসায়ন">রসায়ন</span>
+            <span class="routine-kind"><span class="relative block size-[14px] shrink-0 overflow-clip" aria-hidden="true"><span class="absolute inset-[3.33%_11.11%_9.04%_6.67%]"><img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/routine/mcq.svg"></span><span class="absolute bg-white inset-[65.89%_6.47%_3.33%_62.84%] overflow-clip rounded-[60px]"><img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/routine/mcq-live.svg"><span class="absolute inset-[35%]"><img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/routine/mcq-live-center.png"></span></span></span>চ্যাপ্টার এক্সাম</span>
+          </span>
+          <span class="routine-title">পদার্থের গঠন</span>
+          <span class="routine-rule" aria-hidden="true"></span>
+          <span class="routine-when">
+            <span class="routine-time"><span class="routine-clock"><img alt="" width="16" height="16" src="assets/routine/clock-cerise.svg"></span>08:00 pm</span>
+            <i aria-hidden="true"></i>
+            <span class="routine-dur">৪০ মিনিট</span>
+          </span>
+        </a>
+        <p class="routine-empty" hidden>এই ট্যাবে আজ কোনো ক্লাস বা টেস্ট নেই</p>
       </div>
-      <div class="content-stretch flex flex-col items-start pt-[20px] relative shrink-0 w-full">
+      <div class="content-stretch flex flex-col items-start pt-[16px] relative shrink-0 w-full">
         <a href="#" data-route="routine" class="bk-btn bk-secondary bk-md border border-[rgba(226,19,110,0.12)] border-solid flex gap-[8px] h-[40px] items-center justify-center px-[12px] py-[8px] relative rounded-[6px] shrink-0 w-full no-underline">
           <div aria-hidden="true" class="absolute bg-[#F9D0E2] inset-0 pointer-events-none rounded-[6px]"></div>
           <span class="relative font-fold font-semibold leading-[20px] text-[#E2136E] text-[14px] text-center whitespace-nowrap">রুটিন ক্যালেন্ডার দেখো</span>
@@ -193,6 +203,40 @@
         </a>
       </div>
     </div>
+      </section>
+      <section data-section="p02_program" data-plan="paid">
+<!-- তোমার প্রোগ্রাম (paid): the program bought through bKash, its current quarter and the days left.
+     One card in the bKash layout (Slate-bordered, flat); the program name follows the profile's switcher
+     (sheet.js [data-program]), the days left come from the program's end date (main.js). -->
+<div class="prog-box" data-name="Section">
+      <p class="prog-label">তোমার প্রোগ্রাম</p>
+      <h2 class="prog-name" data-program="current">ক্লাস ৯ - SSC ’২৮ বিজ্ঞান</h2>
+      <article class="prog-card">
+        <span class="prog-tag"><img loading="lazy" decoding="async" alt="" width="17" height="16" src="assets/p02-icon3.svg">ভর্তি হয়েছো</span>
+        <div class="prog-card-row">
+          <div class="prog-icon h-[60px] overflow-clip relative shrink-0 w-[61px]" aria-hidden="true" data-name="Icon">
+                    <div class="absolute inset-[0_0.15%_0_1.49%]" data-name="Vector">
+                      <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/p02-vector.svg">
+                    </div>
+                    <div class="absolute contents inset-[23.33%_23.1%_23.33%_24.44%]" data-name="Clip path group">
+                      <div class="absolute inset-[25.78%_23.1%_25.78%_24.44%] mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[0px_-1.469px] mask-size-[32px_32px]" style="mask-image: url(&quot;assets/p02-group.svg&quot;)" data-name="Group">
+                        <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/p02-group1.svg">
+                      </div>
+                    </div>
+                    <div class="absolute inset-[0.04%_49.33%_0.04%_1.49%]" data-name="Mask group">
+                      <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/p02-mask-group.svg">
+                    </div>
+                  </div>
+          <div class="prog-card-text">
+            <h3>কোয়ার্টার ৩</h3>
+            <p>সেপ্টেম্বর’ ২৬ - ডিসেম্বর’ ২৬</p>
+          </div>
+        </div>
+        <a href="#" data-route="program" class="btn-primary btn-block prog-cta">শেখা চালিয়ে যাও<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></a>
+      </article>
+      <p class="prog-days"><img loading="lazy" decoding="async" alt="" width="20" height="20" src="assets/p02-image3-d-clock.png"><span>তোমার প্রোগ্রাম-এর মেয়াদ আর মাত্র <b data-program-days>৬৩ দিন!</b></span></p>
+    </div>
+
       </section>
       <section data-section="s02_important" data-plan="paid">
 <div class="content-stretch flex flex-col items-start pt-[32px] relative size-full" data-name="Section">
@@ -4824,77 +4868,60 @@
     </div>
       </section>
       <section data-section="s09_call">
+<!-- যেকোনো প্রয়োজনে কল করো: Shikho's own colours except the bKash button (user's request; Figma
+     "Portal Homepage Revamp (DH)" 6116:35151 "Help for 412"). -->
 <div class="content-stretch flex flex-col items-start px-[16px] relative size-full" data-name="Container">
-      <div class="border border-[#EDEDED] border-solid content-stretch flex flex-col items-start px-[20px] py-[24px] relative rounded-[12px] shrink-0 w-full" style="background-image: linear-gradient(105.72352920431915deg, rgb(254, 243, 248) 6.1733%, rgb(255, 238, 204) 94.361%)" data-name="Section">
-        <div class="content-stretch flex flex-col items-start relative shrink-0 w-[272px]" data-name="Container">
-          <div class="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="Heading 2">
-            <p class="[word-break:break-word] font-fold font-semibold leading-[28px] relative shrink-0 text-[#202020] text-[18px] whitespace-nowrap" style="font-variation-settings: &quot;wdth&quot; 100">
-              যেকোনো প্রয়োজনে কল করো
-            </p>
-          </div>
-          <div class="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="Paragraph">
-            <p class="[word-break:break-word] font-fold font-medium leading-[20px] relative shrink-0 text-[#505050] text-[14px] w-[272px]" style="font-variation-settings: &quot;wdth&quot; 100">Shikho'র কোর্স, তোমার পড়াশোনা, অফার অথবা যেকোনো জিজ্ঞাসায় কল করো</p>
-          </div>
-          <div class="content-stretch flex gap-[4px] h-[56px] items-center pb-[20px] pt-[12px] relative shrink-0 w-[272px]" data-name="Container">
-            <div class="bg-[#FFAB00] h-[24px] relative rounded-[12px] shrink-0 w-[4px]" data-name="Container"></div>
-            <div class="content-stretch flex flex-col items-start relative shrink-0" data-name="Heading 4">
-              <p class="[word-break:break-word] font-fold font-semibold leading-[20px] relative shrink-0 text-[#202020] text-[14px] whitespace-nowrap" style="font-variation-settings: &quot;wdth&quot; 100">
-                সকাল ৯ টা - রাত ১০ টা
-              </p>
+      <div class="overflow-clip px-[20px] py-[24px] relative rounded-[16px] shrink-0 w-full" style="background-image: linear-gradient(103.76587032039517deg, rgb(218, 246, 255) 0%, rgb(255, 229, 190) 100.61%)" data-name="Help for 412">
+        <div class="content-stretch flex flex-col gap-[20px] items-start relative">
+          <div class="content-stretch flex flex-col gap-[12px] items-start relative shrink-0 w-[256px]">
+            <div class="[word-break:break-word] content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-[256px]">
+              <h2 class="m-0 font-['Noto_Sans_Bengali'] font-bold leading-[24px] text-[#0a0c11] text-[18px]">যেকোনো প্রয়োজনে কল করো</h2>
+              <p class="m-0 font-['Noto_Sans_Bengali'] font-medium leading-[20px] text-[#5b616d] text-[13px]">Shikho'র কোর্স, তোমার পড়াশোনা, অফার অথবা যেকোনো জিজ্ঞাসায় কল করো</p>
+            </div>
+            <div class="content-stretch flex gap-[4.615px] items-center relative shrink-0">
+              <div class="bg-[#fcbf04] h-[24px] rounded-[17.308px] shrink-0 w-[3.462px]"></div>
+              <p class="m-0 font-['Noto_Sans_Bengali'] font-semibold leading-[20px] text-[#0a0c11] text-[13px] whitespace-nowrap">সকাল ৯ টা - রাত ১০ টা</p>
             </div>
           </div>
-          <div class="h-[48px] relative shrink-0 w-full" data-name="Container">
-            <div class="bk-btn bk-primary bk-md absolute border border-[rgba(0,0,0,0.12)] border-solid content-stretch drop-shadow-[0px_1px_0.5px_rgba(0,0,0,0.04),0px_3px_1.5px_rgba(0,0,0,0.04)] flex gap-[8px] h-[40px] items-center justify-center left-0 px-[12px] py-[8px] rounded-[6px] top-0 w-[148px]" data-name="Button">
-              <div aria-hidden="true" class="absolute bg-[#E2136E] inset-0 pointer-events-none rounded-[6px]"></div>
-              <div class="content-stretch flex flex-col items-start relative shrink-0" data-name="Text">
-                <div class="overflow-clip relative shrink-0 size-[18px]" data-name="Icon">
-                  <div class="absolute contents inset-0" data-name="Clip path group">
-                    <div class="absolute contents inset-[12.5%_12.5%_9.38%_9.38%]" data-name="Group">
-                      <div class="absolute inset-[12.5%_12.5%_9.38%_9.38%] mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[-1.688px_-2.25px] mask-size-[18px_18px]" style="mask-image: url(&quot;assets/s09-call-mask.svg&quot;)" data-name="Group">
-                        <div class="absolute inset-[0_-21.33%_-42.67%_-21.33%]">
-                          <img loading="lazy" decoding="async" alt="" class="block max-w-none size-full" src="assets/s09-call-phone.svg">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="content-stretch flex flex-col items-center relative shrink-0" data-name="Text">
-                <p class="[word-break:break-word] font-fold font-semibold leading-[20px] relative shrink-0 text-[14px] text-center text-white whitespace-nowrap" style="font-variation-settings: &quot;wdth&quot; 100">
-                  কল করো
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="Paragraph">
-            <p class="[word-break:break-word] font-fold font-medium leading-[20px] relative shrink-0 text-[#505050] text-[14px] whitespace-nowrap" style="font-variation-settings: &quot;wdth&quot; 100">
-              *যেকোনো নাম্বার থেকে সাধারণ কল রেট
-            </p>
+          <div class="content-stretch flex flex-col gap-[8px] items-start justify-center relative shrink-0">
+            <!-- The button alone is bKash primary (user's request) -->
+            <a href="#" data-route="helpCall" class="bk-btn bk-primary bk-md shrink-0 w-[148px]" data-name="Button">
+              <img loading="lazy" decoding="async" alt="" class="block shrink-0 size-[18px]" width="18" height="18" src="assets/s09-phone-call.svg">
+              <span>কল করো</span>
+            </a>
+            <p class="m-0 font-['Noto_Sans_Bengali'] font-medium leading-[16px] text-[#5b616d] text-[11px] whitespace-nowrap">*যেকোনো নম্বর থেকে সাধারণ কল রেট</p>
           </div>
         </div>
-        <div class="absolute h-[138px] left-[270px] rounded-[12px] top-[99.5px] w-[110px]" data-name="Image (Shikho help section Model)">
-          <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none rounded-[12px] size-full" src="assets/s09-call-model.png">
+        <div class="absolute bottom-[0.25px] h-[138.75px] overflow-clip right-0 w-[108px]" aria-hidden="true">
+          <div class="absolute bottom-0 h-[138.75px] left-[10.16px] w-[97.837px] overflow-hidden -scale-x-100">
+            <img loading="lazy" decoding="async" alt="" class="absolute h-[103.89%] left-[-44.47%] max-w-none top-[-3.89%] w-[144.89%]" src="assets/s09-girl.png">
+          </div>
+          <div class="absolute inset-[58.69%_90.28%_33.34%_0]">
+            <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s09-signal.svg">
+          </div>
         </div>
       </div>
     </div>
+
       </section>
       <section data-section="s10_community">
+<!-- Shikho কমিউনিটি: Shikho's own colours (Figma "Portal Homepage Revamp (DH)" 6116:35169), not the bKash theme -->
 <div class="content-stretch flex flex-col items-start px-[16px] relative size-full" data-name="Container">
-      <div class="border border-[#EDEDED] border-solid bg-white content-stretch flex flex-col items-start px-[16px] py-[30px] relative rounded-[12px] shrink-0 w-full" data-name="Section">
-        <div class="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="Container">
+      <div class="bg-white border border-[#EDEDED] border-solid content-stretch flex flex-col gap-[20px] items-start p-[16px] relative rounded-[20px] shrink-0 w-full" data-name="Section">
+        <div class="content-stretch flex flex-col gap-[4px] items-start relative shrink-0 w-full" data-name="Container">
           <div class="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="Heading 2">
-            <p class="[word-break:break-word] font-fold font-semibold leading-[28px] relative shrink-0 text-[#202020] text-[18px] whitespace-nowrap" style="font-variation-settings: &quot;wdth&quot; 100">
+            <p class="[word-break:break-word] font-['Noto_Sans_Bengali'] font-bold leading-[24px] relative shrink-0 text-[#0a0c11] text-[18px] whitespace-nowrap" style="font-variation-settings: &quot;wdth&quot; 100">
               Shikho কমিউনিটিতে জয়েন করো
             </p>
           </div>
           <div class="content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="Paragraph">
-            <p class="[word-break:break-word] font-fold font-medium leading-[20px] relative shrink-0 text-[#505050] text-[14px] w-[348px]" style="font-variation-settings: &quot;wdth&quot; 100">
+            <p class="[word-break:break-word] font-['Noto_Sans_Bengali'] font-medium leading-[20px] relative shrink-0 text-[#5b616d] text-[13px] w-full" style="font-variation-settings: &quot;wdth&quot; 100">
               Shikho কমিউনিটিতে Join করে কোর্সগুলো সম্পর্কে আরো বিস্তারিত জানো
             </p>
           </div>
         </div>
-        <div class="content-stretch flex flex-col gap-[8px] h-[116px] items-start pt-[20px] relative shrink-0 w-[348px]" data-name="Container">
-          <div class="bg-[#FDF2F4] content-stretch flex items-center justify-between px-[10px] py-[6px] relative rounded-[9999px] shrink-0 w-full" data-name="Link">
+        <div class="content-stretch flex flex-col gap-[12px] items-start relative shrink-0 w-full" data-name="Container">
+          <div class="bg-[#feecec] content-stretch flex items-center justify-between px-[10px] py-[6px] relative rounded-[30px] shrink-0 w-full" data-name="Link">
             <div class="content-stretch flex gap-[8px] items-center relative shrink-0" data-name="Container">
               <div class="bg-white content-stretch flex items-center justify-center relative rounded-[9999px] shrink-0 size-[32px]" data-name="Container">
                 <div class="relative shrink-0 size-[20px]" data-name="Icon">
@@ -4902,7 +4929,7 @@
                 </div>
               </div>
               <div class="content-stretch flex flex-col items-start relative shrink-0" data-name="Heading 4">
-                <p class="[word-break:break-word] font-fold font-semibold leading-[20px] relative shrink-0 text-[#202020] text-[14px] whitespace-nowrap" style="font-variation-settings: &quot;wdth&quot; 100">
+                <p class="[word-break:break-word] font-['Noto_Sans_Bengali'] font-semibold leading-[20px] relative shrink-0 text-[#0a0c11] text-[13px] whitespace-nowrap" style="font-variation-settings: &quot;wdth&quot; 100">
                   সাবস্ক্রাইব করো
                 </p>
               </div>
@@ -4913,7 +4940,7 @@
                   <div class="overflow-clip relative size-[24px]" data-name="Icon">
                     <div class="absolute inset-[20.75%_12.5%_20.76%_16.67%]" data-name="Group">
                       <div class="absolute inset-[0_-17.65%_-42.74%_-17.65%]">
-                        <img loading="lazy" decoding="async" alt="" class="block max-w-none size-full" src="assets/s10-com-arrow.svg">
+                        <img loading="lazy" decoding="async" alt="" class="block max-w-none size-full opacity-[0.35]" src="assets/s10-com-arrow.svg">
                       </div>
                     </div>
                   </div>
@@ -4921,7 +4948,7 @@
               </div>
             </div>
           </div>
-          <div class="bg-[#FEF3F8] content-stretch flex items-center justify-between px-[10px] py-[6px] relative rounded-[9999px] shrink-0 w-full" data-name="Link">
+          <div class="bg-[#f7fbff] content-stretch flex items-center justify-between px-[10px] py-[6px] relative rounded-[30px] shrink-0 w-full" data-name="Link">
             <div class="content-stretch flex gap-[8px] items-center relative shrink-0" data-name="Container">
               <div class="bg-white content-stretch flex items-center justify-center relative rounded-[9999px] shrink-0 size-[32px]" data-name="Container">
                 <div class="relative shrink-0 size-[20px]" data-name="Icon">
@@ -4929,8 +4956,8 @@
                 </div>
               </div>
               <div class="content-stretch flex flex-col items-start relative shrink-0" data-name="Heading 4">
-                <p class="[word-break:break-word] font-fold font-semibold leading-[20px] relative shrink-0 text-[#202020] text-[14px] whitespace-nowrap" style="font-variation-settings: &quot;wdth&quot; 100">
-                  ৫ লক্ষ+ মেম্বারের গ্রুপে জয়েন করো
+                <p class="[word-break:break-word] font-['Noto_Sans_Bengali'] font-semibold leading-[20px] relative shrink-0 text-[#0a0c11] text-[13px] whitespace-nowrap" style="font-variation-settings: &quot;wdth&quot; 100">
+                  জয়েন করো প্রায় ৩ লক্ষ মেম্বারের গ্ৰুপে
                 </p>
               </div>
             </div>
@@ -4940,7 +4967,7 @@
                   <div class="overflow-clip relative size-[24px]" data-name="Icon">
                     <div class="absolute inset-[20.75%_12.5%_20.76%_16.67%]" data-name="Group">
                       <div class="absolute inset-[0_-17.65%_-42.74%_-17.65%]">
-                        <img loading="lazy" decoding="async" alt="" class="block max-w-none size-full" src="assets/s10-com-arrow.svg">
+                        <img loading="lazy" decoding="async" alt="" class="block max-w-none size-full opacity-[0.35]" src="assets/s10-com-arrow.svg">
                       </div>
                     </div>
                   </div>
@@ -4953,54 +4980,6 @@
     </div>
       </section>
     </main>
-    <footer>
-<div class="bg-[#202020] content-stretch flex flex-col items-start p-[16px] relative size-full" data-name="Footer">
-      <div class="content-stretch flex items-center justify-between relative shrink-0 w-full" data-name="Container">
-        <div class="h-[30px] relative shrink-0 w-[66px]" data-name="Image (Shikho white logo)">
-          <img loading="lazy" decoding="async" alt="" class="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src="assets/s11-foot-logo.png">
-        </div>
-        <div class="content-stretch flex gap-[16px] items-center relative shrink-0" data-name="Container">
-          <div class="content-stretch flex flex-col items-start relative shrink-0" data-name="Link">
-            <div class="overflow-clip relative shrink-0 size-[24px]" data-name="Icon">
-              <div class="absolute inset-[8.04%_13.09%_17.88%_12.84%]" data-name="Group">
-                <div class="absolute inset-[0_-15%_-30%_-15%]">
-                  <img loading="lazy" decoding="async" alt="" class="block max-w-none size-full" src="assets/s11-foot-facebook.svg">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="content-stretch flex flex-col items-start relative shrink-0" data-name="Link">
-            <div class="relative shrink-0 size-[24px]" data-name="Icon">
-              <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s11-foot-youtube.svg">
-            </div>
-          </div>
-          <div class="content-stretch flex flex-col items-start relative shrink-0" data-name="Link">
-            <div class="overflow-clip relative shrink-0 size-[24px]" data-name="Icon">
-              <div class="absolute inset-[8.04%_13.09%_17.88%_12.84%]" data-name="Group">
-                <div class="absolute inset-[0_-15%_-30%_-15%]">
-                  <img loading="lazy" decoding="async" alt="" class="block max-w-none size-full" src="assets/s11-foot-instagram.svg">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="content-stretch flex flex-col items-start relative shrink-0" data-name="Link">
-            <div class="relative shrink-0 size-[24px]" data-name="Icon">
-              <img loading="lazy" decoding="async" alt="" class="absolute block inset-0 max-w-none size-full" src="assets/s11-foot-linkedin.svg">
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="content-stretch flex flex-col items-start pt-[16px] relative shrink-0 w-full" data-name="Container:margin">
-        <div class="border-[#505050] border-solid border-t content-stretch flex flex-col items-start relative shrink-0 w-full" data-name="Container">
-          <div class="content-stretch flex flex-col h-[34px] items-center pt-[14px] relative shrink-0 w-[380px]" data-name="Heading 4">
-            <p class="[word-break:break-word] font-fold font-semibold leading-[20px] relative shrink-0 text-[14px] text-center text-white whitespace-nowrap" style="font-variation-settings: &quot;wdth&quot; 100">
-              ২০২৬ শিখো টেকনোলজিস বাংলাদেশ লি.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-    </footer>
   </div>
 <!-- Primary mobile navigation (Figma 158:15958): frosted bar, 4 tabs, active tab in Cerise -->
 <nav class="bottom-nav" aria-label="প্রধান নেভিগেশন">

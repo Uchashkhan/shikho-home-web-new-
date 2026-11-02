@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>তোমার প্রোগ্রাম | Shikho</title>
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Noto+Sans+Bengali:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="data/user.js"></script>
+  <script>
+    // Prototype: opening or refreshing any screen starts at registration (back/forward and in-app links don't)
+    (function () {
+      if (/signup\.html$/.test(location.pathname)) return;
+      var nav = performance.getEntriesByType('navigation')[0];
+      var fromApp = document.referrer && new URL(document.referrer).origin === location.origin;
+      if (nav && (nav.type === 'reload' || (nav.type === 'navigate' && !fromApp))) location.replace('signup.html');
+    })();
+  </script>
+  <script>
+    // App-like page transitions: tab ↔ tab crossfades, opening a page pushes it in, back slides it out
+    window.addEventListener('pagereveal', function (e) {
+      var a = window.navigation && navigation.activation;
+      if (!e.viewTransition || !a || !a.from) return;
+      if (a.navigationType === 'reload') return e.viewTransition.skipTransition();
+      var TABS = ['index.html', 'courses.html', 'ai-chat.html', 'profile.html'];
+      var page = function (u) { var p = new URL(u).pathname.split('/').pop(); return p || 'index.html'; };
+      var from = page(a.from.url), to = page(a.entry.url);
+      var type = TABS.indexOf(from) > -1 && TABS.indexOf(to) > -1 ? 'tab'
+        : a.navigationType === 'traverse' && a.entry.index < a.from.index ? 'back'
+        : TABS.indexOf(to) > -1 ? 'back' : 'forward';
+      e.viewTransition.types.add(type);
+      document.documentElement.dataset.navTransition = type; // which animation ran
+      // clip the slide to the page column's real edges (scrollbar-safe)
+      var col = document.querySelector('.page');
+      if (col) {
+        var r = col.getBoundingClientRect();
+        document.documentElement.style.setProperty('--vt-l', r.left + 'px');
+        document.documentElement.style.setProperty('--vt-w', r.width + 'px');
+      }
+    });
+  </script>
+  <script>
+    // Paid (enrolled) or free student, decided before first paint. ?paid / ?free preview either;
+    // the homepage ফ্রি/পেইড switch is remembered for this visit so every screen follows it.
+    (function () {
+      var q = new URLSearchParams(location.search);
+      var user = q.has('guest') ? null : window.SHIKHO_USER;
+      var saved = null;
+      try { saved = sessionStorage.getItem('shikho-plan'); } catch (e) { /* storage blocked */ }
+      var paid = q.has('paid') || (!q.has('free') && (saved ? saved === 'paid' : !!(user && user.enrolled)));
+      document.documentElement.dataset.plan = paid ? 'paid' : 'free';
+    })();
+  </script>
+</head>
+<body class="no-nav">
+  <a class="skip-link" href="#main">মূল কন্টেন্টে যাও</a>
+  <div class="page">
+
+    <header class="page-nav">
+<div class="appbar">
+      <a href="index.html" class="appbar-back" data-back aria-label="ফিরে যাও">
+        <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg>
+      </a>
+      <h1 class="appbar-title">তোমার প্রোগ্রাম</h1>
+      <div class="appbar-pill">
+        <button type="button" class="appbar-pill-btn" data-appbar-more aria-label="আরও অপশন" aria-haspopup="dialog">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>
+        </button>
+        <span class="appbar-pill-sep" aria-hidden="true"></span>
+        <button type="button" class="appbar-pill-btn" data-appbar-close aria-label="বন্ধ করো">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6m0-6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+    </header>
+
+<main id="main" tabindex="-1" class="subpage-main qp-page">
+      <section class="qp-head" aria-labelledby="qp-quarter">
+        <div class="h-[60px] overflow-clip relative shrink-0 w-[61px]" aria-hidden="true" data-name="Icon">
+          <div class="absolute inset-[0_0.15%_0_1.49%]"><img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/p02-vector.svg"></div>
+          <div class="absolute contents inset-[23.33%_23.1%_23.33%_24.44%]">
+            <div class="absolute inset-[25.78%_23.1%_25.78%_24.44%] mask-alpha mask-intersect mask-no-clip mask-no-repeat mask-position-[0px_-1.469px] mask-size-[32px_32px]" style="mask-image: url(&quot;assets/p02-group.svg&quot;)"><img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/p02-group1.svg"></div>
+          </div>
+          <div class="absolute inset-[0.04%_49.33%_0.04%_1.49%]"><img alt="" class="absolute block inset-0 max-w-none size-full" src="assets/p02-mask-group.svg"></div>
+        </div>
+        <div class="qp-head-text">
+          <div class="qp-title"><h2 id="qp-quarter">কোয়ার্টার ৩</h2><span class="qp-tag"><i aria-hidden="true"></i>পড়ানো হচ্ছে</span></div>
+          <p>সেপ্টেম্বর’ ২৬ - ডিসেম্বর’ ২৬</p>
+        </div>
+      </section>
+
+      <section class="qp-section" aria-labelledby="qp-subjects">
+        <h2 class="qp-h" id="qp-subjects">যেকোনো একটি বিষয় সিলেক্ট করো</h2>
+        <nav class="rc-box profile-list qp-list" aria-labelledby="qp-subjects">
+          <a href="#" class="profile-row qp-row" data-route="programSubject">
+            <span class="qp-tile" style="background:#30C4D8"><img src="assets/subjects/english1.svg" alt="" width="37" height="37" loading="lazy"></span>
+            <span class="profile-row-label">ইংরেজী ১ম পত্র</span><svg class="profile-row-end" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 15.19 10.69" fill="currentColor" style="transform: rotate(-90deg)"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 0.25C2.83 -0.08 3.36 -0.08 3.69 0.25L7.59 4.15L11.5 0.25C11.83 -0.08 12.36 -0.08 12.69 0.25C13.02 0.58 13.02 1.11 12.69 1.44L8.19 5.94C7.86 6.27 7.33 6.27 7 5.94L2.5 1.44C2.17 1.11 2.17 0.58 2.5 0.25Z"/></svg>
+          </a>
+          <a href="#" class="profile-row qp-row" data-route="programSubject">
+            <span class="qp-tile" style="background:#6070E9"><img src="assets/subjects/physics.svg" alt="" width="37" height="37" loading="lazy"></span>
+            <span class="profile-row-label">পদার্থবিজ্ঞান</span><svg class="profile-row-end" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 15.19 10.69" fill="currentColor" style="transform: rotate(-90deg)"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 0.25C2.83 -0.08 3.36 -0.08 3.69 0.25L7.59 4.15L11.5 0.25C11.83 -0.08 12.36 -0.08 12.69 0.25C13.02 0.58 13.02 1.11 12.69 1.44L8.19 5.94C7.86 6.27 7.33 6.27 7 5.94L2.5 1.44C2.17 1.11 2.17 0.58 2.5 0.25Z"/></svg>
+          </a>
+          <a href="#" class="profile-row qp-row" data-route="programSubject">
+            <span class="qp-tile" style="background:#39BCF7"><img src="assets/subjects/chemistry.svg" alt="" width="37" height="37" loading="lazy"></span>
+            <span class="profile-row-label">রসায়ন</span><svg class="profile-row-end" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 15.19 10.69" fill="currentColor" style="transform: rotate(-90deg)"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 0.25C2.83 -0.08 3.36 -0.08 3.69 0.25L7.59 4.15L11.5 0.25C11.83 -0.08 12.36 -0.08 12.69 0.25C13.02 0.58 13.02 1.11 12.69 1.44L8.19 5.94C7.86 6.27 7.33 6.27 7 5.94L2.5 1.44C2.17 1.11 2.17 0.58 2.5 0.25Z"/></svg>
+          </a>
+          <a href="#" class="profile-row qp-row" data-route="programSubject">
+            <span class="qp-tile" style="background:#FF7B33"><img src="assets/subjects/math.svg" alt="" width="37" height="37" loading="lazy"></span>
+            <span class="profile-row-label">সাধারণ গণিত</span><svg class="profile-row-end" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 15.19 10.69" fill="currentColor" style="transform: rotate(-90deg)"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 0.25C2.83 -0.08 3.36 -0.08 3.69 0.25L7.59 4.15L11.5 0.25C11.83 -0.08 12.36 -0.08 12.69 0.25C13.02 0.58 13.02 1.11 12.69 1.44L8.19 5.94C7.86 6.27 7.33 6.27 7 5.94L2.5 1.44C2.17 1.11 2.17 0.58 2.5 0.25Z"/></svg>
+          </a>
+          <a href="#" class="profile-row qp-row" data-route="programSubject">
+            <span class="qp-tile" style="background:#9736E3"><img src="assets/subjects/higher-math.svg" alt="" width="37" height="37" loading="lazy"></span>
+            <span class="profile-row-label">উচ্চতর গণিত</span><svg class="profile-row-end" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 15.19 10.69" fill="currentColor" style="transform: rotate(-90deg)"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 0.25C2.83 -0.08 3.36 -0.08 3.69 0.25L7.59 4.15L11.5 0.25C11.83 -0.08 12.36 -0.08 12.69 0.25C13.02 0.58 13.02 1.11 12.69 1.44L8.19 5.94C7.86 6.27 7.33 6.27 7 5.94L2.5 1.44C2.17 1.11 2.17 0.58 2.5 0.25Z"/></svg>
+          </a>
+          <a href="#" class="profile-row qp-row" data-route="programSubject">
+            <span class="qp-tile" style="background:#397077"><img src="assets/subjects/geography.png" alt="" width="37" height="37" loading="lazy"></span>
+            <span class="profile-row-label">ভূগোল ও মহাকাশ</span><svg class="profile-row-end" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 15.19 10.69" fill="currentColor" style="transform: rotate(-90deg)"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 0.25C2.83 -0.08 3.36 -0.08 3.69 0.25L7.59 4.15L11.5 0.25C11.83 -0.08 12.36 -0.08 12.69 0.25C13.02 0.58 13.02 1.11 12.69 1.44L8.19 5.94C7.86 6.27 7.33 6.27 7 5.94L2.5 1.44C2.17 1.11 2.17 0.58 2.5 0.25Z"/></svg>
+          </a>
+          <a href="#" class="profile-row qp-row" data-route="programSubject">
+            <span class="qp-tile" style="background:#397077"><img src="assets/subjects/islam.svg" alt="" width="37" height="37" loading="lazy"></span>
+            <span class="profile-row-label">ইসলাম ও নৈতিক শিক্ষা</span><svg class="profile-row-end" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 15.19 10.69" fill="currentColor" style="transform: rotate(-90deg)"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 0.25C2.83 -0.08 3.36 -0.08 3.69 0.25L7.59 4.15L11.5 0.25C11.83 -0.08 12.36 -0.08 12.69 0.25C13.02 0.58 13.02 1.11 12.69 1.44L8.19 5.94C7.86 6.27 7.33 6.27 7 5.94L2.5 1.44C2.17 1.11 2.17 0.58 2.5 0.25Z"/></svg>
+          </a>
+          <a href="#" class="profile-row qp-row" data-route="programSubject">
+            <span class="qp-tile" style="background:#E74D4F"><img src="assets/subjects/bangla1.svg" alt="" width="37" height="37" loading="lazy"></span>
+            <span class="profile-row-label">বাংলা ১ম পত্র</span><svg class="profile-row-end" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 15.19 10.69" fill="currentColor" style="transform: rotate(-90deg)"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 0.25C2.83 -0.08 3.36 -0.08 3.69 0.25L7.59 4.15L11.5 0.25C11.83 -0.08 12.36 -0.08 12.69 0.25C13.02 0.58 13.02 1.11 12.69 1.44L8.19 5.94C7.86 6.27 7.33 6.27 7 5.94L2.5 1.44C2.17 1.11 2.17 0.58 2.5 0.25Z"/></svg>
+          </a>
+          <a href="#" class="profile-row qp-row" data-route="programSubject">
+            <span class="qp-tile" style="background:#99563F"><img src="assets/subjects/biology.svg" alt="" width="37" height="37" loading="lazy"></span>
+            <span class="profile-row-label">জীববিজ্ঞান</span><svg class="profile-row-end" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 15.19 10.69" fill="currentColor" style="transform: rotate(-90deg)"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 0.25C2.83 -0.08 3.36 -0.08 3.69 0.25L7.59 4.15L11.5 0.25C11.83 -0.08 12.36 -0.08 12.69 0.25C13.02 0.58 13.02 1.11 12.69 1.44L8.19 5.94C7.86 6.27 7.33 6.27 7 5.94L2.5 1.44C2.17 1.11 2.17 0.58 2.5 0.25Z"/></svg>
+          </a>
+          <a href="#" class="profile-row qp-row" data-route="programSubject">
+            <span class="qp-tile" style="background:#43D1B9"><img src="assets/subjects/ict.svg" alt="" width="37" height="37" loading="lazy"></span>
+            <span class="profile-row-label">তথ্য ও যোগাযোগ প্রযুক্তি</span><svg class="profile-row-end" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 15.19 10.69" fill="currentColor" style="transform: rotate(-90deg)"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 0.25C2.83 -0.08 3.36 -0.08 3.69 0.25L7.59 4.15L11.5 0.25C11.83 -0.08 12.36 -0.08 12.69 0.25C13.02 0.58 13.02 1.11 12.69 1.44L8.19 5.94C7.86 6.27 7.33 6.27 7 5.94L2.5 1.44C2.17 1.11 2.17 0.58 2.5 0.25Z"/></svg>
+          </a>
+        </nav>
+      </section>
+
+      <nav class="rc-box profile-list qp-list" aria-label="প্রোগ্রামের সাহায্য">
+        <a href="#" class="profile-row qp-row" data-route="quarterSyllabus">
+          <span class="qp-ic"><img src="assets/subjects/quarter-syllabus.svg" alt="" width="35" height="40"></span>
+          <span class="profile-row-label">কোয়ার্টারের সিলেবাস দেখে নাও</span><svg class="profile-row-end" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 15.19 10.69" fill="currentColor" style="transform: rotate(-90deg)"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 0.25C2.83 -0.08 3.36 -0.08 3.69 0.25L7.59 4.15L11.5 0.25C11.83 -0.08 12.36 -0.08 12.69 0.25C13.02 0.58 13.02 1.11 12.69 1.44L8.19 5.94C7.86 6.27 7.33 6.27 7 5.94L2.5 1.44C2.17 1.11 2.17 0.58 2.5 0.25Z"/></svg>
+        </a>
+        <a href="#" class="profile-row qp-row" data-route="supportGroup">
+          <span class="qp-ic"><img src="assets/subjects/facebook.svg" alt="" width="32" height="32"></span>
+          <span class="profile-row-label">এই কোর্সের Facebook সাপোর্ট গ্রুপে জয়েন করে সব তথ্য জেনে নাও</span><svg class="profile-row-end" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 15.19 10.69" fill="currentColor" style="transform: rotate(-90deg)"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 0.25C2.83 -0.08 3.36 -0.08 3.69 0.25L7.59 4.15L11.5 0.25C11.83 -0.08 12.36 -0.08 12.69 0.25C13.02 0.58 13.02 1.11 12.69 1.44L8.19 5.94C7.86 6.27 7.33 6.27 7 5.94L2.5 1.44C2.17 1.11 2.17 0.58 2.5 0.25Z"/></svg>
+        </a>
+      </nav>
+    </main>
+  </div>
+<div id="proto-toast" class="proto-toast" role="status" aria-live="polite"></div>
+
+  <script src="data/videos.js"></script>
+  <script src="main.js"></script>
+  <script src="sheet.js"></script>
+</body>
+</html>

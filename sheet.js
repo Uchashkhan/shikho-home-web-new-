@@ -103,6 +103,7 @@
         <p>${text}</p>
       </div>
       ${cta}`;
+  window.ShikhoSheet.successView = successView; // also used by the profile edit (profile-info.js)
 
   // ---------- Views ----------
   // Course page: one course, one price
@@ -186,6 +187,39 @@
     }));
   }
 
+  // Profile: switch between the programs the student is enrolled in (live "তোমার প্রোগ্রাম")
+  const programs = ((user && user.programs) || []).map((p) => p.name);
+  const PROGRAM_KEY = 'shikho-program';
+  let currentProgram = 0;
+  try { currentProgram = Math.min(Number(localStorage.getItem(PROGRAM_KEY)) || 0, Math.max(programs.length - 1, 0)); } catch (err) { /* storage blocked: first program */ }
+  const switcher = document.querySelector('[data-sheet="switch-program"]');
+  const showProgram = () => {
+    document.querySelectorAll('[data-program="current"]').forEach((el) => { el.textContent = programs[currentProgram] || ''; });
+  };
+  // Paid students only: a free student is not enrolled in any program
+  if (switcher && programs.length && document.documentElement.dataset.plan === 'paid' && !new URLSearchParams(location.search).has('guest')) {
+    switcher.hidden = false;
+    switcher.disabled = programs.length < 2;
+    showProgram();
+  }
+  function switchProgram() {
+    open('প্রোগ্রাম পরিবর্তন', `
+      <div class="pass-opts" role="radiogroup" aria-label="তোমার প্রোগ্রাম">${programs.map((name, i) => `
+        <button type="button" class="pass-opt prog-opt" role="radio" aria-checked="${i === currentProgram}" data-program-pick="${i}">
+          <span class="prog-opt-text"><span class="tag-enrolled">ভর্তি হয়েছো</span>${esc(name)}</span>
+          <span class="prog-radio" aria-hidden="true"></span>
+        </button>`).join('')}</div>`);
+    body.querySelectorAll('[data-program-pick]').forEach((b) => b.addEventListener('click', () => {
+      const pick = Number(b.dataset.programPick);
+      if (pick === currentProgram) return close();
+      currentProgram = pick;
+      try { localStorage.setItem(PROGRAM_KEY, String(pick)); } catch (err) { /* this page only */ }
+      showProgram();
+      close();
+      window.ShikhoToast?.(`${programs[pick]}-এ পরিবর্তন হয়েছে`);
+    }));
+  }
+
   // ---------- Triggers ----------
   document.addEventListener('click', (e) => {
     const el = e.target.closest('[data-sheet]');
@@ -193,6 +227,7 @@
     e.preventDefault();
     const kind = el.dataset.sheet;
     if (kind === 'enroll') enroll(el);
+    if (kind === 'switch-program') switchProgram();
     if (kind === 'ai-package') aiPackage(Number(el.dataset.package ?? 2));
     if ((kind === 'program' || kind === 'trial') && el.closest('[data-title]')) {
       const c = el.closest('[data-title]').dataset;

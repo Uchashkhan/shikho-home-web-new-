@@ -12,19 +12,26 @@
     importantClasses: { path: '/student/videos/PopularVideo', local: 'important-classes.html' },
     guidelines: { path: '/student/videos/GuidelineVideo', local: 'guidelines.html' },
     course: { path: '/student/courses/[id]', local: 'course.html' },
+    program: { path: '/student/my-courses/[id]?type=academic&phaseId=[id]', local: 'program.html' }, // current quarter's subjects
+    programSubject: { path: '/student/my-courses/[id]?type=academic&phaseId=[id]&subId=[id]', local: null },
+    quarterSyllabus: { path: '/student/my-courses/[id]?type=academic&phaseId=[id]&showSyllabus=yes', local: null },
+    supportGroup: { path: 'facebook.com/groups/1295699510805542', local: null },
     courseOther: { path: '/student/courses/[id]', local: null }, // only one course detail is built
     video: { path: '/student/watch', local: 'watch.html' },
     paymentVideo: { path: null, local: null },
+    helpCall: { path: 'tel:', local: null }, // homepage কল করো; the prototype doesn't dial
     aiChat: { path: 'ai.shikho.com/doubt-solving', local: 'ai-chat.html' },
-    admission: { path: '/student/admission', local: null },
-    practiceQuiz: { path: null, local: 'exam.html' }, // no quiz route confirmed on live; journey from the reference
-    routine: { path: '/student/routine', local: null },
-    liveClass: { path: '/student/live-class', local: null },
+    admission: { path: '/student/profile?selected=2', local: 'profile-info.html?tab=admission' },
+    practiceQuiz: { path: null, local: 'quiz.html' }, // build the quiz first (Figma 180:18267), then exam.html
+    chapterExam: { path: null, local: 'exam.html?type=chapter' }, // same test journey, opened from the routine
+    routine: { path: '/student/routine', local: 'routine.html' },
+    calendar: { path: '/student/calendar', local: 'calendar.html' },
+    liveClass: { path: '/student/live-class', local: 'live.html' },
     homework: { path: null, local: null },
     reportCard: { path: '/student/report-card', local: null },
-    syllabus: { path: null, local: null },
+    syllabus: { path: '/student/profile?selected=1', local: 'profile-info.html?tab=syllabus' },
     login: { path: null, local: 'signup.html' }, // sign-up / profile setup from the reference
-    editProfile: { path: null, local: null }, // edit flow not confirmed on live
+    editProfile: { path: '/student/profile', local: 'profile-info.html' }, // তোমার তথ্য tabs
     logout: { path: null, local: 'signup.html' }, // prototype: forget the saved profile, start again
   };
 
@@ -150,6 +157,7 @@
   const planButtons = document.querySelectorAll('[data-plan-set]');
   const showPlan = (plan) => {
     document.documentElement.dataset.plan = plan;
+    try { sessionStorage.setItem('shikho-plan', plan); } catch (err) { /* this page only */ }
     planButtons.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.planSet === plan)));
   };
   planButtons.forEach((b) => b.addEventListener('click', () => {
@@ -436,60 +444,44 @@
     });
   }
 
-  /* Today's routine: activity + subject dropdowns (bKash menu) filter the cards */
+  /* তোমার প্রোগ্রাম: days left until the current program ends (the program picked on the profile) */
+  document.querySelectorAll('[data-program-days]').forEach((el) => {
+    let pick = 0;
+    try { pick = Number(localStorage.getItem('shikho-program')) || 0; } catch (err) { /* first program */ }
+    const programs = (user && user.programs) || [];
+    const p = programs[Math.min(pick, programs.length - 1)];
+    if (!p?.ends) return;
+    const [y, m, d] = p.ends.split('-').map(Number);
+    const now = new Date();
+    const days = Math.max(0, Math.ceil((new Date(y, m - 1, d) - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / 864e5));
+    el.textContent = `${String(days).replace(/\d/g, (n) => '০১২৩৪৫৬৭৮৯'[n])} দিন!`;
+  });
+
+  /* Today's routine: activity tabs filter the cards */
   document.querySelectorAll('[data-routine-list]').forEach((list) => {
-    const section = list.closest('section');
-    const want = { activity: '', subject: '' };
-    const apply = () => {
+    const tabs = [...list.closest('section').querySelectorAll('.routine-tab')];
+    const apply = (activity) => {
       let shown = 0;
       list.querySelectorAll('.routine-card').forEach((c) => {
-        const on = (!want.activity || c.dataset.activity === want.activity) && (!want.subject || c.dataset.subject === want.subject);
+        const on = !activity || c.dataset.activity === activity;
         c.hidden = !on;
-        c.classList.toggle('is-first', on && !shown); // no divider above the first visible row
         shown += on;
       });
       list.querySelector('.routine-empty').hidden = shown > 0;
     };
-    apply();
-    const dds = [...section.querySelectorAll('.bk-dd')];
-    const closeAll = (except) => dds.forEach((dd) => {
-      if (dd === except) return;
-      dd.querySelector('.bk-menu').hidden = true;
-      dd.querySelector('.bk-select').setAttribute('aria-expanded', 'false');
-    });
-    dds.forEach((dd) => {
-      const btn = dd.querySelector('.bk-select');
-      const menu = dd.querySelector('.bk-menu');
-      const opts = [...menu.querySelectorAll('[role="option"]')];
-      const open = () => {
-        closeAll(dd);
-        menu.hidden = false;
-        btn.setAttribute('aria-expanded', 'true');
-        // keep the menu inside the page column
-        menu.classList.remove('align-right');
-        const col = document.querySelector('.page').getBoundingClientRect();
-        if (menu.getBoundingClientRect().right > col.right - 8) menu.classList.add('align-right');
-        (opts.find((o) => o.getAttribute('aria-selected') === 'true') || opts[0]).focus();
-      };
-      const pick = (o) => {
-        opts.forEach((x) => x.setAttribute('aria-selected', String(x === o)));
-        want[dd.dataset.filterKey] = o.dataset.value;
-        btn.querySelector('span').textContent = o.textContent;
-        btn.classList.toggle('is-set', !!o.dataset.value);
-        closeAll();
-        btn.focus();
-        apply();
-      };
-      btn.addEventListener('click', () => (menu.hidden ? open() : closeAll()));
-      opts.forEach((o) => o.addEventListener('click', () => pick(o)));
-      menu.addEventListener('keydown', (e) => {
-        const i = opts.indexOf(document.activeElement);
-        if (e.key === 'ArrowDown') { e.preventDefault(); opts[Math.min(opts.length - 1, i + 1)].focus(); }
-        if (e.key === 'ArrowUp') { e.preventDefault(); opts[Math.max(0, i - 1)].focus(); }
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (i >= 0) pick(opts[i]); }
-        if (e.key === 'Escape' || e.key === 'Tab') { closeAll(); if (e.key === 'Escape') btn.focus(); }
+    const pick = (t) => {
+      tabs.forEach((x) => x.setAttribute('aria-selected', String(x === t)));
+      apply(t.dataset.activity);
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => pick(t));
+      t.addEventListener('keydown', (e) => {
+        const step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+        if (!step) return;
+        const n = tabs[(i + step + tabs.length) % tabs.length];
+        n.focus();
+        pick(n);
       });
     });
-    document.addEventListener('click', (e) => { if (!e.target.closest('.bk-dd')) closeAll(); });
   });
 })();

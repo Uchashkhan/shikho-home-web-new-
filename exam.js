@@ -7,6 +7,18 @@
   const { bn, open: openSheet, close: closeSheet } = window.ShikhoSheet;
 
   const META = { subject: 'রসায়ন', chapter: 'পদার্থের গঠন', count: 10, minutes: 10 };
+  // Opened from the routine it is that day's চ্যাপ্টার এক্সাম; from ফিচারস it stays প্র্যাকটিস কুইজ
+  const type = new URLSearchParams(location.search).get('type');
+  if (type === 'chapter') {
+    document.querySelector('.appbar-title').textContent = 'চ্যাপ্টার এক্সাম';
+    document.title = 'চ্যাপ্টার এক্সাম | Shikho';
+  }
+  // A quiz built in quiz.html: its count, time and subjects; it starts straight away
+  let built = null;
+  if (type === 'quiz') { try { built = JSON.parse(sessionStorage.getItem('shikho-quiz')); } catch (e) { /* sample quiz */ } }
+  if (built) {
+    Object.assign(META, { count: built.count, minutes: built.minutes, subject: built.subjects.join(', '), chapter: `${bn(built.chapters)}টি অধ্যায়` });
+  }
   const POOL = [
     { q: 'পরমাণুর নিউক্লিয়াসে কোন কণাগুলো থাকে?', o: ['ইলেকট্রন ও প্রোটন', 'প্রোটন ও নিউট্রন', 'নিউট্রন ও ইলেকট্রন', 'শুধু প্রোটন'], a: 1 },
     { q: 'কোনো মৌলের পারমাণবিক সংখ্যা কিসের সমান?', o: ['নিউট্রন সংখ্যা', 'প্রোটন সংখ্যা', 'ভর সংখ্যা', 'শক্তিস্তরের সংখ্যা'], a: 1 },
@@ -176,4 +188,5 @@
   }, true);
 
   render();
+  if (built) { exam.timer = setInterval(tickTimer, 1000); setStep('q'); }
 })();

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>তোমার তথ্য | Shikho</title>
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Noto+Sans+Bengali:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="data/user.js"></script>
+  <script>
+    // Prototype: opening or refreshing any screen starts at registration (back/forward and in-app links don't)
+    (function () {
+      if (/signup\.html$/.test(location.pathname)) return;
+      var nav = performance.getEntriesByType('navigation')[0];
+      var fromApp = document.referrer && new URL(document.referrer).origin === location.origin;
+      if (nav && (nav.type === 'reload' || (nav.type === 'navigate' && !fromApp))) location.replace('signup.html');
+    })();
+  </script>
+  <script>
+    // App-like page transitions: tab ↔ tab crossfades, opening a page pushes it in, back slides it out
+    window.addEventListener('pagereveal', function (e) {
+      var a = window.navigation && navigation.activation;
+      if (!e.viewTransition || !a || !a.from) return;
+      if (a.navigationType === 'reload') return e.viewTransition.skipTransition();
+      var TABS = ['index.html', 'courses.html', 'ai-chat.html', 'profile.html'];
+      var page = function (u) { var p = new URL(u).pathname.split('/').pop(); return p || 'index.html'; };
+      var from = page(a.from.url), to = page(a.entry.url);
+      var type = TABS.indexOf(from) > -1 && TABS.indexOf(to) > -1 ? 'tab'
+        : a.navigationType === 'traverse' && a.entry.index < a.from.index ? 'back'
+        : TABS.indexOf(to) > -1 ? 'back' : 'forward';
+      e.viewTransition.types.add(type);
+      document.documentElement.dataset.navTransition = type; // which animation ran
+      // clip the slide to the page column's real edges (scrollbar-safe)
+      var col = document.querySelector('.page');
+      if (col) {
+        var r = col.getBoundingClientRect();
+        document.documentElement.style.setProperty('--vt-l', r.left + 'px');
+        document.documentElement.style.setProperty('--vt-w', r.width + 'px');
+      }
+    });
+  </script>
+  <script>
+    // Paid (enrolled) or free student, decided before first paint. ?paid / ?free preview either;
+    // the homepage ফ্রি/পেইড switch is remembered for this visit so every screen follows it.
+    (function () {
+      var q = new URLSearchParams(location.search);
+      var user = q.has('guest') ? null : window.SHIKHO_USER;
+      var saved = null;
+      try { saved = sessionStorage.getItem('shikho-plan'); } catch (e) { /* storage blocked */ }
+      var paid = q.has('paid') || (!q.has('free') && (saved ? saved === 'paid' : !!(user && user.enrolled)));
+      document.documentElement.dataset.plan = paid ? 'paid' : 'free';
+    })();
+  </script>
+</head>
+<body class="no-nav">
+  <a class="skip-link" href="#main">মূল কন্টেন্টে যাও</a>
+  <div class="page">
+
+    <header class="page-nav">
+<div class="appbar">
+      <a href="profile.html" class="appbar-back" data-back aria-label="ফিরে যাও">
+        <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg>
+      </a>
+      <h1 class="appbar-title">তোমার তথ্য</h1>
+      <div class="appbar-pill">
+        <button type="button" class="appbar-pill-btn" data-appbar-more aria-label="আরও অপশন" aria-haspopup="dialog">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>
+        </button>
+        <span class="appbar-pill-sep" aria-hidden="true"></span>
+        <button type="button" class="appbar-pill-btn" data-appbar-close aria-label="বন্ধ করো">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6m0-6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+    </header>
+
+<main id="main" tabindex="-1" class="pi-main" data-profile-info>
+      <div class="pi-tabbar">
+        <div class="pi-tabs h-scroll" role="tablist" aria-label="তোমার তথ্য"><button type="button" class="pi-tab" role="tab" id="tab-info" aria-controls="panel-info" aria-selected="false" tabindex="-1" data-tab="info"><svg aria-hidden="true" class="pi-tab-icon" fill="currentColor" width="24" height="24" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><path d="M15.9993 0C7.16394 0 0 7.16394 0 15.9993C0 24.8347 7.16394 32 15.9993 32C24.8347 32 32 24.8347 32 15.9993C32 7.16394 24.8347 0 15.9993 0ZM19.33 24.7968C18.5065 25.1219 17.8509 25.3684 17.3592 25.539C16.8689 25.7097 16.2987 25.795 15.6499 25.795C14.653 25.795 13.8768 25.5512 13.3242 25.065C12.7716 24.5787 12.4966 23.9624 12.4966 23.2134C12.4966 22.9222 12.5169 22.6242 12.5575 22.3208C12.5995 22.0174 12.6659 21.676 12.7567 21.2927L13.7874 17.6518C13.8782 17.3023 13.9567 16.9705 14.019 16.6617C14.0814 16.3501 14.1112 16.0643 14.1112 15.8043C14.1112 15.341 14.015 15.016 13.824 14.8331C13.6303 14.6502 13.2659 14.5608 12.7228 14.5608C12.4573 14.5608 12.1837 14.6001 11.9033 14.6828C11.6257 14.7681 11.3846 14.8453 11.1868 14.9211L11.459 13.7996C12.1336 13.5247 12.7797 13.289 13.396 13.0939C14.0123 12.8962 14.5947 12.7986 15.1433 12.7986C16.1334 12.7986 16.8974 13.0397 17.4351 13.5165C17.9701 13.9947 18.2397 14.6164 18.2397 15.3803C18.2397 15.5388 18.2207 15.8178 18.1841 16.216C18.1476 16.6156 18.0785 16.98 17.9782 17.3145L16.9529 20.9446C16.8689 21.2358 16.7944 21.569 16.7267 21.9415C16.6603 22.314 16.6278 22.5984 16.6278 22.7894C16.6278 23.2716 16.7348 23.6008 16.9515 23.7755C17.1655 23.9502 17.5407 24.0383 18.0717 24.0383C18.3223 24.0383 18.6027 23.9936 18.9196 23.9069C19.2339 23.8202 19.4614 23.743 19.605 23.6766L19.33 24.7968ZM19.1485 10.0626C18.6704 10.5068 18.0947 10.729 17.4215 10.729C16.7497 10.729 16.17 10.5068 15.6878 10.0626C15.2083 9.61829 14.9658 9.07784 14.9658 8.44665C14.9658 7.8168 15.2097 7.275 15.6878 6.82667C16.17 6.37697 16.7497 6.15348 17.4215 6.15348C18.0947 6.15348 18.6717 6.37697 19.1485 6.82667C19.6267 7.275 19.8664 7.8168 19.8664 8.44665C19.8664 9.0792 19.6267 9.61829 19.1485 10.0626Z"></path></svg><span>তোমার তথ্য</span></button><button type="button" class="pi-tab" role="tab" id="tab-syllabus" aria-controls="panel-syllabus" aria-selected="false" tabindex="-1" data-tab="syllabus"><svg aria-hidden="true" class="pi-tab-icon" width="17" height="26" viewBox="0 0 17 26" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.50533 3.24251V3.20086C7.50533 2.7509 7.87199 2.38423 8.32195 2.38423C8.77192 2.38423 9.13858 2.7509 9.13858 3.20086V3.24251C9.70042 3.29314 10.2443 3.3993 10.7718 3.54874V3.20086C10.7718 1.85016 9.67266 0.750977 8.32195 0.750977C6.97125 0.750977 5.87207 1.85016 5.87207 3.20086V3.54874C6.39961 3.3993 6.9443 3.29314 7.50533 3.24251Z" fill="currentColor"></path><path d="M1.13958 6.81309C2.20447 5.39297 3.6744 4.29951 5.38197 3.70582L4.91404 1.96477C4.69028 1.11466 3.79036 0.570785 2.91738 0.804341L1.33639 1.22735C0.913377 1.33923 0.560594 1.61035 0.342554 1.99008C0.123698 2.37145 0.0681671 2.81488 0.184128 3.23217L1.13958 6.81309Z" fill="currentColor"></path><path d="M15.5061 6.81261L16.4591 3.23986C16.5775 2.81521 16.5219 2.37178 16.3031 1.99042C16.085 1.61069 15.7323 1.33957 15.3125 1.22851L13.725 0.803042C12.87 0.57602 11.9545 1.11499 11.7324 1.96102L11.2637 3.70615C12.9704 4.29984 14.4412 5.39331 15.5061 6.81261Z" fill="currentColor"></path><path d="M8.32155 4.01758C3.81867 4.01758 0.155273 7.68097 0.155273 12.1839V23.6166C0.155273 24.5174 0.887789 25.2499 1.78853 25.2499H14.8546C15.7553 25.2499 16.4878 24.5174 16.4878 23.6166V12.1839C16.4878 7.68097 12.8244 4.01758 8.32155 4.01758ZM5.87167 8.10072C5.87167 7.64994 6.23752 7.28409 6.6883 7.28409H9.95481C10.4056 7.28409 10.7714 7.64994 10.7714 8.10072V10.5506C10.7714 11.0014 10.4056 11.3672 9.95481 11.3672H6.6883C6.23752 11.3672 5.87167 11.0014 5.87167 10.5506V8.10072ZM13.6296 21.1668C13.6296 21.8421 13.08 22.3917 12.4047 22.3917H4.23841C3.56306 22.3917 3.01347 21.8421 3.01347 21.1668V15.4504C3.01347 14.775 3.56306 14.2254 4.23841 14.2254H12.4047C13.08 14.2254 13.6296 14.775 13.6296 15.4504V21.1668Z" fill="currentColor"></path><path d="M4.5 6.875H12.375V12.125H4.5V6.875Z" fill="currentColor"></path><path d="M3.83008 21.167C3.83008 21.3924 4.013 21.5753 4.23839 21.5753H12.4047C12.6301 21.5753 12.813 21.3924 12.813 21.167V17.4922H3.83008V21.167Z" fill="currentColor"></path><path d="M12.4047 15.042H4.23839C4.013 15.042 3.83008 15.2249 3.83008 15.4503V16.6752H12.813V15.4503C12.813 15.2249 12.6301 15.042 12.4047 15.042Z" fill="currentColor"></path></svg><span>সিলেবাস</span></button><button type="button" class="pi-tab" role="tab" id="tab-admission" aria-controls="panel-admission" aria-selected="false" tabindex="-1" data-tab="admission"><svg aria-hidden="true" class="pi-tab-icon" fill="currentColor" width="18" height="24" viewBox="0 0 18 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.32035 23.1998H14.6792C16.3032 23.1998 17.6284 21.8745 17.6284 20.2504V3.74911C17.6284 2.12512 16.3032 0.799805 14.6792 0.799805H3.32035C1.69635 0.799805 0.371094 2.12512 0.371094 3.74911V20.2504C0.371094 21.8745 1.69635 23.1998 3.32035 23.1998ZM2.23776 3.74911C2.23776 3.15182 2.72311 2.66647 3.32035 2.66647H14.6792C15.2764 2.66647 15.7618 3.15182 15.7618 3.74911V17.2731C15.7618 17.8705 15.2764 18.3558 14.6792 18.3558H3.32035C2.72311 18.3558 2.23776 17.8705 2.23776 17.2731V3.74911Z"></path><path d="M7.1612 10.9967C7.2266 11.034 7.26397 11.118 7.24528 11.2114L6.76928 14.0114C6.72256 14.3287 6.80642 14.646 7.02107 14.8794C7.2266 15.122 7.5251 15.262 7.85186 15.262H10.1385C10.8147 15.262 11.3178 14.6591 11.2211 14.002L10.7453 11.2114C10.7359 11.1367 10.7544 11.0434 10.8291 10.9967C11.7344 10.39 12.2759 9.37267 12.2759 8.27134C12.2759 4.28938 6.38891 3.7728 5.7612 7.73934C5.5559 9.02734 6.08773 10.2687 7.1612 10.9967Z"></path></svg><span>ভর্তির বিস্তারিত</span></button><button type="button" class="pi-tab" role="tab" id="tab-program" aria-controls="panel-program" aria-selected="false" tabindex="-1" data-tab="program"><svg aria-hidden="true" class="pi-tab-icon" width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.4404 19.6857H10.4958C9.76908 19.6857 9.17976 19.0964 9.17976 18.3697V13.7151L11.0759 14.0804C11.7321 14.0804 12.0629 13.289 11.5996 12.8231L10.2788 11.5023L7.73208 8.95557C7.58551 8.81163 7.39826 8.73682 7.20839 8.73682C7.02114 8.73682 6.83433 8.81163 6.68776 8.95557L4.14108 11.5023L2.8207 12.8231C2.35739 13.289 2.68814 14.0804 3.34439 14.0804L5.24051 13.7151V19.9381C5.24051 21.9743 6.8912 23.6254 8.92776 23.6254H9.17976H15.5226C16.6304 23.6254 17.5246 22.7106 17.4914 21.5954C17.459 20.5169 16.5188 19.6857 15.4404 19.6857Z" fill="currentColor"></path><path d="M12.5597 8.31425H17.5043C18.231 8.31425 18.8203 8.90356 18.8203 9.63025V14.2848L16.9242 13.9195C16.268 13.9195 15.9372 14.7109 16.4005 15.1769L17.7213 16.4977L20.268 19.0444C20.4146 19.1883 20.6018 19.2631 20.7917 19.2631C20.979 19.2631 21.1658 19.1883 21.3123 19.0444L23.859 16.4977L25.1798 15.1769C25.6432 14.7109 25.3124 13.9195 24.6561 13.9195L22.76 14.2848V8.06225C22.76 6.02613 21.1093 4.375 19.0728 4.375H18.8208H12.4775C11.3697 4.375 10.4755 5.28981 10.5087 6.405C10.5411 7.483 11.4813 8.31425 12.5597 8.31425Z" fill="currentColor"></path></svg><span>প্রোগ্রাম পরিবর্তন</span></button></div>
+        <button type="button" class="pi-more" aria-label="আরও ট্যাব" aria-haspopup="menu" aria-expanded="false" aria-controls="pi-more-menu" hidden>
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>
+        </button>
+        <ul class="bk-menu align-right pi-more-menu" id="pi-more-menu" role="menu" aria-label="আরও ট্যাব" hidden></ul>
+      </div>
+      <section class="pi-panel" role="tabpanel" id="panel-info" aria-labelledby="tab-info" data-panel="info" hidden></section><section class="pi-panel" role="tabpanel" id="panel-syllabus" aria-labelledby="tab-syllabus" data-panel="syllabus" hidden></section><section class="pi-panel" role="tabpanel" id="panel-admission" aria-labelledby="tab-admission" data-panel="admission" hidden></section><section class="pi-panel" role="tabpanel" id="panel-program" aria-labelledby="tab-program" data-panel="program" hidden></section>
+    </main>
+  </div>
+<div id="proto-toast" class="proto-toast" role="status" aria-live="polite"></div>
+
+  <script src="data/videos.js"></script>
+  <script src="main.js"></script>
+  <script src="sheet.js"></script>
+  <script src="profile-info.js"></script>
+</body>
+</html>

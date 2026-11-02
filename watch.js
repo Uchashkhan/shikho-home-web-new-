@@ -4,7 +4,7 @@
   const main = document.querySelector('[data-watch]');
   const V = window.SHIKHO_VIDEOS;
   if (!main || !V) return;
-  const { esc } = window.ShikhoSheet;
+  const { esc, bn } = window.ShikhoSheet;
   const toast = (m) => window.ShikhoToast?.(m);
 
   const ICON = {
@@ -29,9 +29,13 @@
   const key = q.get('list') in V ? q.get('list') : 'important';
   const L = V[key];
   const clampId = (n) => Math.max(0, Math.min(L.videos.length - 1, Number(n) || 0));
+  // mode=class: a recorded class from the routine (Figma "Shikho App Showcase" 106:51975, Video Player):
+  // class details and resources instead of the related list. &date=YYYY-MM-DD&start=<minutes> say when it ran.
+  const CLASS = q.get('mode') === 'class';
   const player = { id: clampId(q.get('v')), tab: q.get('subject') || 'সব', t: 0, total: 0, playing: false, muted: false, autoplay: true, timer: 0 };
+  if (CLASS) player.tab = L.videos[player.id].subject || 'সব'; // next/previous stay in the class's subject
 
-  document.querySelector('.appbar-title').textContent = L.title;
+  document.querySelector('.appbar-title').textContent = CLASS ? 'রেকর্ডেড ক্লাস' : L.title;
 
   const ids = () => L.videos.map((v, i) => i)
     .filter((i) => player.tab === 'সব' || normSubject(L.videos[i].subject) === normSubject(player.tab));
@@ -68,7 +72,7 @@
           <button type="button" data-pl="full" aria-label="ফুলস্ক্রিন">${icon('full', 22)}</button>
         </div>
       </div>
-      <div class="watch-info">
+      ${CLASS ? classView(c) : `<div class="watch-info">
         <h2>${esc(c.title)}</h2>
         <div class="teacher"><img class="av" src="${c.avatar}" alt="" width="36" height="36"><div><b>${esc(c.teacher)}</b><small>${esc(c.subject || L.title)}</small></div></div>
       </div>
@@ -76,10 +80,60 @@
         <h3 id="rel-h">${L.related}</h3>
         ${chips}
         <div class="rel-list" data-rel></div>
-      </section>`;
-    renderRelated();
+      </section>`}`;
+    if (!CLASS) renderRelated(); // the live recorded-class page has no related list
     const chip = main.querySelector('.watch-chips .is-active');
     if (chip) chip.parentElement.scrollLeft = Math.max(0, chip.offsetLeft - chip.parentElement.offsetLeft - 16);
+  }
+
+  // ---------- Recorded class (mode=class) ----------
+  const MONTHS = ['জানুয়ারি', 'ফেব্রুয়ারি', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'];
+  const SUBJECT_ALIAS = { 'গণিত': 'সাধারণ গণিত' };
+  // The class's chapter in the SSC syllabus (data/syllabus.js), from its title: "বল পর্ব-৫" → বল
+  const chapterOf = (c) => {
+    const s = (window.SHIKHO_SYLLABUS || []).find((x) => x.name === (SUBJECT_ALIAS[c.subject] || c.subject));
+    const name = c.title.replace(/\s*(পর্ব|\().*$/, '').trim();
+    const ch = s?.chapters.find(([n]) => n === name || name.startsWith(n));
+    return ch ? { subject: s, name: ch[0], topics: ch[1], no: s.chapters.indexOf(ch) + 1 } : null;
+  };
+  const when = () => {
+    const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(q.get('date') || '');
+    const d = m ? new Date(+m[1], m[2] - 1, +m[3]) : new Date();
+    const start = Number(q.get('start'));
+    if (!q.has('start') || Number.isNaN(start)) return '';
+    const h = Math.floor(start / 60), min = start % 60;
+    return `${bn(d.getDate())} ${MONTHS[d.getMonth()]} ${bn(d.getFullYear())}<i aria-hidden="true"></i>${bn(String(h % 12 || 12).padStart(2, '0'))}:${bn(String(min).padStart(2, '0'))} ${h < 12 ? 'am' : 'pm'}`;
+  };
+  // Content from live app.shikho.dev/student/video-archive (date, the class's topics, lecture file,
+  // mentor), laid out in the bKash language of the player page: flat white page, Slate-bordered cards.
+  const STAR = '<svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16"><path fill="currentColor" d="M15.94 12.29 14.02 9.98a8.4 8.4 0 0 1-1.8-6.71l.51-2.96a.27.27 0 0 0-.44-.25L9.98 1.98a8.4 8.4 0 0 1-6.71 1.8L.31 3.27a.27.27 0 0 0-.25.44l1.92 2.3a8.4 8.4 0 0 1 1.8 6.72l-.51 2.95a.27.27 0 0 0 .44.25l2.3-1.92a8.4 8.4 0 0 1 6.72-1.8l2.95.51a.27.27 0 0 0 .25-.44Z"/></svg>';
+  const FILE = '<svg aria-hidden="true" width="16" height="20" viewBox="0 0 16 20"><path fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" d="M0.01 2C0.01 0.9 0.9 0 2 0H9.17C9.7 0 10.21 0.21 10.58 0.59L15.41 5.42C15.79 5.79 16 6.3 16 6.83V18C16 19.1 15.1 20 14 20H1.99C0.89 20 0 19.1 0 18L0.01 2ZM9 1.5V6C9 6.55 9.45 7 10 7H14.5L9 1.5Z"/></svg>';
+  const ROW_END = '<svg class="profile-row-end" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg>';
+  function classView(c) {
+    const ch = chapterOf(c);
+    const at = player.id === clampId(q.get('v')) ? when() : ''; // the time belongs to the class opened from the routine
+    const today = !q.get('date') || q.get('date') === new Date().toISOString().slice(0, 10);
+    return `
+      <div class="watch-info rc-info">
+        <p class="rc-meta"><img src="assets/class/live-radio.svg" alt="" width="28" height="28"><span class="rc-when">${at || `রেকর্ডেড ক্লাস<i aria-hidden="true"></i>${c.duration}`}</span></p>
+        <h2>${esc(c.title)}</h2>
+      </div>
+      <div class="rc-sections">
+        ${ch ? `<section aria-labelledby="rc-topics-h">
+          <h3 class="rc-h" id="rc-topics-h">${today && at ? 'আজকের ক্লাসের টপিকসমূহ' : 'ক্লাসের টপিকসমূহ'}</h3>
+          <ul class="rc-box rc-topics">${ch.topics.map((t) => `<li>${STAR}${esc(t)}</li>`).join('')}</ul>
+        </section>` : ''}
+        <section aria-labelledby="rc-file-h">
+          <h3 class="rc-h" id="rc-file-h">ক্লাসের লেকচার ফাইল</h3>
+          <nav class="rc-box profile-list" aria-labelledby="rc-file-h">
+            <a href="#" class="profile-row" data-route="lectureSlide"><span class="profile-row-icon rc-file-icon">${FILE}</span><span class="profile-row-label">লেকচার স্লাইড ১</span>${ROW_END}</a>
+          </nav>
+        </section>
+        <section aria-labelledby="rc-mentor-h">
+          <h3 class="rc-h" id="rc-mentor-h">মেন্টর সম্পর্কে কিছু তথ্য</h3>
+          <div class="rc-box rc-mentor"><img src="${c.avatar}" alt="" width="56" height="56"><div><b>${esc(c.teacher)}</b><small>${esc(c.subject)}</small></div></div>
+        </section>
+      </div>`;
   }
 
   function renderRelated() {
@@ -98,7 +152,8 @@
     }).join('') || '<p class="rel-empty">এখানে আর কিছু নেই।</p>';
   }
 
-  const href = (i) => `watch.html?list=${key}&v=${i}${player.tab !== 'সব' ? `&subject=${encodeURIComponent(player.tab)}` : ''}`;
+  const href = (i) => (CLASS ? `watch.html?list=${key}&v=${i}&mode=class`
+    : `watch.html?list=${key}&v=${i}${player.tab !== 'সব' ? `&subject=${encodeURIComponent(player.tab)}` : ''}`);
   const go = (i, push = true) => {
     player.id = clampId(i);
     if (push) history.pushState({ v: player.id }, '', href(player.id));

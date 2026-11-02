@@ -18,7 +18,7 @@ frag = lambda n: open(os.path.join(SRC, n + ".html"), encoding="utf-8").read()
 # (the animated-lessons and standalone Shikho AI cards are replaced by "features")
 PLANS = {
     # paid (enrolled) student: Figma 130:3454 in the new layout
-    "paid": ["p01_routine", "s02_important", "s03_guideline", "features"],
+    "paid": ["p01_routine", "p02_program", "s02_important", "s03_guideline", "features"],
     # free student: original web homepage order
     "free": ["s02_important", "s03_guideline", "features", "s05_freetrial", "s07_courses"],
 }
@@ -67,15 +67,12 @@ sections += [section(n) for n in SHARED]
 
 HOME = f"""    <main class="page-main">
 {chr(10).join(sections)}
-    </main>
-    <footer>
-{lazy(frag("s11_footer"))}
-    </footer>"""
+    </main>"""  # no site footer: the bKash mini-app ends at the last section
 
 
 def page(title, active, body, greeting=False, bar="Shikho", back="index.html", nav_on=True, scripts=()):
     # Same header and bottom navigation on every page; only the active tab differs.
-    # nav=False: full-screen journeys (video, quiz) hide the tab bar but keep its toast.
+    # nav_on=False: every page below the four tabs hides the tab bar but keeps its toast.
     nav = frag("bottom-nav").replace(
         f'class="bottom-nav-item" data-route="{active}"',
         f'class="bottom-nav-item is-active" aria-current="page" data-route="{active}"')
@@ -130,11 +127,14 @@ def page(title, active, body, greeting=False, bar="Shikho", back="index.html", n
     }});
   </script>
   <script>
-    // Paid (enrolled) or free homepage, decided before first paint. ?paid / ?free preview either.
+    // Paid (enrolled) or free student, decided before first paint. ?paid / ?free preview either;
+    // the homepage ফ্রি/পেইড switch is remembered for this visit so every screen follows it.
     (function () {{
       var q = new URLSearchParams(location.search);
       var user = q.has('guest') ? null : window.SHIKHO_USER;
-      var paid = q.has('paid') || (!q.has('free') && !!(user && user.enrolled));
+      var saved = null;
+      try {{ saved = sessionStorage.getItem('shikho-plan'); }} catch (e) {{ /* storage blocked */ }}
+      var paid = q.has('paid') || (!q.has('free') && (saved ? saved === 'paid' : !!(user && user.enrolled)));
       document.documentElement.dataset.plan = paid ? 'paid' : 'free';
     }})();
   </script>
@@ -171,17 +171,31 @@ open(os.path.join(ROOT, "data", "videos.js"), "w", encoding="utf-8").write(
 for name, html in [
     ("index.html", page("Shikho | ঘরে বসে SSC/HSC'র A+ প্রস্তুতির বিশ্বস্ত প্রতিষ্ঠান", "home", HOME, greeting=True, bar="হোম")),
     ("profile.html", page("প্রোফাইল | Shikho", "profile", frag("profile"), bar="প্রোফাইল")),
+    ("routine.html", page("ক্লাস রুটিন | Shikho", "home", pages.routine_page(), bar="ক্লাস রুটিন",
+                          nav_on=False, scripts=("routine.js",))),
+    ("calendar.html", page("রুটিন ক্যালেন্ডার | Shikho", "home", pages.calendar_page(), bar="রুটিন ক্যালেন্ডার",
+                           back="routine.html", nav_on=False, scripts=("routine.js",))),
+    ("profile-info.html", page("তোমার তথ্য | Shikho", "profile", pages.profile_info_page(), bar="তোমার তথ্য",
+                               back="profile.html", nav_on=False, scripts=("profile-info.js",))),
     # Pages behind the homepage links, with content from the live app
     ("important-classes.html", page("মোস্ট ইমপর্ট্যান্ট ক্লাস | Shikho", "home",
-                                    pages.video_list("videos-important.json"), bar="মোস্ট ইমপর্ট্যান্ট ক্লাস")),
+                                    pages.video_list("videos-important.json"), bar="মোস্ট ইমপর্ট্যান্ট ক্লাস",
+                                    nav_on=False)),
     ("guidelines.html", page("এক্সক্লুসিভ গাইডলাইন | Shikho", "home",
-                             pages.video_list("videos-guideline.json"), bar="এক্সক্লুসিভ গাইডলাইন")),
+                             pages.video_list("videos-guideline.json"), bar="এক্সক্লুসিভ গাইডলাইন",
+                             nav_on=False)),
     ("courses.html", page("কোর্স | Shikho", "courses", pages.courses_page(), bar="কোর্স")),
+    ("program.html", page("তোমার প্রোগ্রাম | Shikho", "home", pages.program_page(), bar="তোমার প্রোগ্রাম",
+                          nav_on=False)),
     ("course.html", page("Animated General Math | Shikho", "courses", pages.course_detail_page(),
-                         bar="কোর্সের বিস্তারিত", back="courses.html")),
+                         bar="কোর্সের বিস্তারিত", back="courses.html", nav_on=False)),
     # Journeys (layout and copy follow the shikho-bkash reference prototype)
     ("watch.html", page("ক্লাস | Shikho", "home", pages.watch_page(), bar="মোস্ট ইমপর্ট্যান্ট ক্লাস",
-                        nav_on=False, scripts=("watch.js",))),
+                        nav_on=False, scripts=("data/syllabus.js", "watch.js"))),
+    ("quiz.html", page("কুইজ তৈরি করো | Shikho", "home", pages.quiz_page(), bar="কুইজ তৈরি করো",
+                       nav_on=False, scripts=("data/syllabus.js", "quiz.js"))),
+    ("live.html", page("লাইভ ক্লাস | Shikho", "home", pages.live_page(), bar="লাইভ ক্লাস",
+                       nav_on=False, scripts=("live.js",))),
     ("exam.html", page("প্র্যাকটিস কুইজ | Shikho", "home", pages.exam_page(), bar="প্র্যাকটিস কুইজ",
                        nav_on=False, scripts=("exam.js",))),
     ("signup.html", page("রেজিস্ট্রেশন | Shikho", "home", pages.signup_page(), bar="রেজিস্ট্রেশন",

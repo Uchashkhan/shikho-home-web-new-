@@ -45,11 +45,14 @@
     });
   </script>
   <script>
-    // Paid (enrolled) or free homepage, decided before first paint. ?paid / ?free preview either.
+    // Paid (enrolled) or free student, decided before first paint. ?paid / ?free preview either;
+    // the homepage ফ্রি/পেইড switch is remembered for this visit so every screen follows it.
     (function () {
       var q = new URLSearchParams(location.search);
       var user = q.has('guest') ? null : window.SHIKHO_USER;
-      var paid = q.has('paid') || (!q.has('free') && !!(user && user.enrolled));
+      var saved = null;
+      try { saved = sessionStorage.getItem('shikho-plan'); } catch (e) { /* storage blocked */ }
+      var paid = q.has('paid') || (!q.has('free') && (saved ? saved === 'paid' : !!(user && user.enrolled)));
       document.documentElement.dataset.plan = paid ? 'paid' : 'free';
     })();
   </script>
@@ -83,6 +86,7 @@
   <script src="data/videos.js"></script>
   <script src="main.js"></script>
   <script src="sheet.js"></script>
+  <script src="data/syllabus.js"></script>
   <script src="watch.js"></script>
 </body>
 </html>

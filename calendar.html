@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>রুটিন ক্যালেন্ডার | Shikho</title>
+  <meta name="theme-color" content="#FFFFFF">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Noto+Sans+Bengali:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="data/user.js"></script>
+  <script>
+    // Prototype: opening or refreshing any screen starts at registration (back/forward and in-app links don't)
+    (function () {
+      if (/signup\.html$/.test(location.pathname)) return;
+      var nav = performance.getEntriesByType('navigation')[0];
+      var fromApp = document.referrer && new URL(document.referrer).origin === location.origin;
+      if (nav && (nav.type === 'reload' || (nav.type === 'navigate' && !fromApp))) location.replace('signup.html');
+    })();
+  </script>
+  <script>
+    // App-like page transitions: tab ↔ tab crossfades, opening a page pushes it in, back slides it out
+    window.addEventListener('pagereveal', function (e) {
+      var a = window.navigation && navigation.activation;
+      if (!e.viewTransition || !a || !a.from) return;
+      if (a.navigationType === 'reload') return e.viewTransition.skipTransition();
+      var TABS = ['index.html', 'courses.html', 'ai-chat.html', 'profile.html'];
+      var page = function (u) { var p = new URL(u).pathname.split('/').pop(); return p || 'index.html'; };
+      var from = page(a.from.url), to = page(a.entry.url);
+      var type = TABS.indexOf(from) > -1 && TABS.indexOf(to) > -1 ? 'tab'
+        : a.navigationType === 'traverse' && a.entry.index < a.from.index ? 'back'
+        : TABS.indexOf(to) > -1 ? 'back' : 'forward';
+      e.viewTransition.types.add(type);
+      document.documentElement.dataset.navTransition = type; // which animation ran
+      // clip the slide to the page column's real edges (scrollbar-safe)
+      var col = document.querySelector('.page');
+      if (col) {
+        var r = col.getBoundingClientRect();
+        document.documentElement.style.setProperty('--vt-l', r.left + 'px');
+        document.documentElement.style.setProperty('--vt-w', r.width + 'px');
+      }
+    });
+  </script>
+  <script>
+    // Paid (enrolled) or free student, decided before first paint. ?paid / ?free preview either;
+    // the homepage ফ্রি/পেইড switch is remembered for this visit so every screen follows it.
+    (function () {
+      var q = new URLSearchParams(location.search);
+      var user = q.has('guest') ? null : window.SHIKHO_USER;
+      var saved = null;
+      try { saved = sessionStorage.getItem('shikho-plan'); } catch (e) { /* storage blocked */ }
+      var paid = q.has('paid') || (!q.has('free') && (saved ? saved === 'paid' : !!(user && user.enrolled)));
+      document.documentElement.dataset.plan = paid ? 'paid' : 'free';
+    })();
+  </script>
+</head>
+<body class="no-nav">
+  <a class="skip-link" href="#main">মূল কন্টেন্টে যাও</a>
+  <div class="page">
+
+    <header class="page-nav">
+<div class="appbar">
+      <a href="routine.html" class="appbar-back" data-back aria-label="ফিরে যাও">
+        <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 5-7 7 7 7"/></svg>
+      </a>
+      <h1 class="appbar-title">রুটিন ক্যালেন্ডার</h1>
+      <div class="appbar-pill">
+        <button type="button" class="appbar-pill-btn" data-appbar-more aria-label="আরও অপশন" aria-haspopup="dialog">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>
+        </button>
+        <span class="appbar-pill-sep" aria-hidden="true"></span>
+        <button type="button" class="appbar-pill-btn" data-appbar-close aria-label="বন্ধ করো">
+          <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="m9 9 6 6m0-6-6 6"/></svg>
+        </button>
+      </div>
+    </div>
+    </header>
+
+<main id="main" tabindex="-1" class="subpage-main cal-main" data-calendar>
+      <div class="cal-bar">
+        <button type="button" class="cal-arrow" data-month-step="-1" aria-label="আগের মাস"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 6-6 6 6 6"/></svg></button>
+        <h2 class="cal-month" data-month aria-live="polite"></h2>
+        <button type="button" class="cal-arrow" data-month-step="1" aria-label="পরের মাস"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></svg></button>
+      </div>
+      <div class="cal-source" role="radiogroup" aria-label="কোন রুটিন" data-source>
+        <button type="button" class="cal-radio" role="radio" aria-checked="true" value="program">একাডেমিক প্রোগ্রাম</button>
+        <button type="button" class="cal-radio" role="radio" aria-checked="false" tabindex="-1" value="other">অন্যান্য কোর্স</button>
+      </div>
+      <div data-grid></div>
+    </main>
+  </div>
+<div id="proto-toast" class="proto-toast" role="status" aria-live="polite"></div>
+
+  <script src="data/videos.js"></script>
+  <script src="main.js"></script>
+  <script src="sheet.js"></script>
+  <script src="routine.js"></script>
+</body>
+</html>

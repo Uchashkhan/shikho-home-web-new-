@@ -18,12 +18,12 @@ UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML,
 FONTS_CSS = 'https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Noto+Sans+Bengali:wght@400;500;600&display=swap'
 KEEP_FONTS = {('Inter Tight', 'latin'), ('Inter Tight', 'latin-ext'), ('Noto Sans Bengali', 'bengali')}
 TAILWIND = 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11'
-PAGES = ['signup.html', 'index.html', 'courses.html', 'course.html', 'ai-chat.html', 'profile.html',
-         'important-classes.html', 'guidelines.html', 'watch.html', 'exam.html']
-FILES = ['styles.css', 'main.js', 'sheet.js', 'watch.js', 'exam.js', 'ai-chat.js', 'signup.js',
-         'data/user.js', 'data/videos.js']
-MIME = {'webp': 'image/webp', 'png': 'image/png', 'jpg': 'image/jpeg', 'jpeg': 'image/jpeg', 'svg': 'image/svg+xml'}
-ASSET_RE = re.compile(r'assets/[A-Za-z0-9_./-]+\.(?:webp|png|jpg|jpeg|svg)')
+PAGES = ['signup.html', 'index.html', 'courses.html', 'course.html', 'ai-chat.html', 'profile.html', 'profile-info.html',
+         'important-classes.html', 'guidelines.html', 'watch.html', 'exam.html', 'routine.html', 'calendar.html', 'quiz.html', 'live.html', 'program.html']
+FILES = ['styles.css', 'main.js', 'sheet.js', 'watch.js', 'exam.js', 'ai-chat.js', 'signup.js', 'profile-info.js', 'routine.js', 'quiz.js', 'live.js',
+         'data/user.js', 'data/videos.js', 'data/syllabus.js']
+MIME = {'webp': 'image/webp', 'png': 'image/png', 'jpg': 'image/jpeg', 'jpeg': 'image/jpeg', 'svg': 'image/svg+xml', 'webm': 'video/webm'}
+ASSET_RE = re.compile(r'assets/[A-Za-z0-9_./-]+\.(?:webp|png|jpg|jpeg|svg|webm)')
 
 
 def fetch(url, name):
@@ -126,7 +126,7 @@ SHELL = r'''<!doctype html>
   };
   var ASSET = {};
   Object.keys(B.assets).forEach(function (p) { ASSET[p] = b64(B.assets[p][1], B.assets[p][0]); });
-  var withAssets = function (t) { return t.replace(/assets\/[A-Za-z0-9_.\/-]+\.(?:webp|png|jpg|jpeg|svg)/g, function (p) { return ASSET[p] || p; }); };
+  var withAssets = function (t) { return t.replace(/assets\/[A-Za-z0-9_.\/-]+\.(?:webp|png|jpg|jpeg|svg|webm)/g, function (p) { return ASSET[p] || p; }); };
   var FILE = {};
   Object.keys(B.files).forEach(function (n) {
     var type = /\.css$/.test(n) ? 'text/css' : 'text/javascript';
