@@ -1324,3 +1324,152 @@ html[data-plan="free"] .mc-section--mine { display: none; } /* a free student ha
 .qp-tile img { width: 37px; height: 37px; }
 .qp-ic img { max-width: 40px; max-height: 40px; width: auto; }
 .qp-list:last-child .qp-row { font-size: 14px; line-height: 20px; }
+
+/* ---------- Small phones (360px): fluid widths instead of the 412px Figma pixels ---------- */
+/* Full-width card carousels (free trial, courses): one card fills the content width; its buttons share the row */
+[data-section="s05_freetrial"] [data-name="Container:transform"] > div,
+[data-section="s07_courses"] [data-name="Container:transform"] > div { width: min(380px, 100vw - 32px); }
+:is([data-section="s05_freetrial"], [data-section="s07_courses"]) [data-name="Container:transform"] .bk-btn:is([class*="w-[169px]"], [class*="w-[170px]"]) { flex: 1 1 auto; min-width: 0; width: auto; white-space: nowrap; }
+/* Video card rows: the 360 Figma's 248px card with a 140px thumbnail (the 412 card scaled; type sizes unchanged) */
+@media (max-width: 400px) {
+  :is([data-section="s02_important"], [data-section="s03_guideline"], [data-section="p05_important"], [data-section="p06_guideline"]) {
+    & [data-name="Container:transform"] > div { width: 260px; }
+    & :is([class*="w-[296px]"], [class*="w-[276px]"], [class*="w-[264px]"], [class*="w-[244px]"]) { width: 100%; }
+    & :is([class*="h-[167px]"], [class*="h-[155px]"]) { height: 140px; }
+    & [class*="size-[48px]"][class*="top-[-"] { left: calc(50% - 24px); top: -94px; } /* play button, centred on the thumbnail */
+    & [class*="h-[65px]"][class*="w-[106px]"] { left: auto; right: 0; } /* corner shade behind the duration */
+    & :is([class*="left-[246.83px]"], [class*="left-[236.96px]"]) { left: auto; right: 8px; } /* duration */
+    /* author row: the name takes the free space, the subject chip hugs its label */
+    & [class*="h-[41px]"] > [data-name="Container:margin"] { flex: 1 1 0; min-width: 0; width: auto; }
+    & [class*="h-[41px]"] > [data-name="Container:margin"] > [data-name="Container"] { width: calc(100% + 8px); }
+    & [class*="h-[41px]"] > [data-name="Container"]:last-child { width: auto; }
+    & [class*="h-[41px]"] > [data-name="Container"]:last-child > [data-name="Text"] { width: auto; }
+    /* carousel window and track: the 412 height less the 27px the thumbnail lost */
+    & [class*="h-[258px]"]:is([data-name="Container"], [data-name="Container:transform"]) { height: 231px; }
+    & [class*="h-[250px]"]:is([data-name="Container"], [data-name="Container:transform"]) { height: 223px; }
+  }
+}
+
+/* ---------- Program details (program-detail.html): live app.shikho.com/student/academic-program/[id]
+   phone layout, kept as is (sections, banners, Shikho colours, text sizes). bKash changes only the
+   font (var(--font-fold), weights 400-600) and the buttons (Cerise, 6px radius). */
+.pd-page { --pd-ink: var(--fold-charcoal); --pd-ink-2: var(--fold-charcoal); --pd-ink-3: var(--fold-charcoal); --pd-muted: var(--fold-dark); --pd-line: var(--fold-slate); gap: 32px; padding-top: 0; }
+.pd-title-band { margin: 0 -16px; padding: 20px 16px; background: #F4F8FF url("assets/program-detail/title-bg.jpg") center / cover; }
+.pd-title { margin: 0; color: var(--fold-cerise); font: 600 24px/36px var(--font-fold); text-align: center; text-wrap: balance; }
+.pd-video { position: relative; display: block; overflow: hidden; width: min(100%, 380px); margin: 0 auto; border-radius: 12px; aspect-ratio: 16 / 9; background: var(--pd-line); }
+.pd-video img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.pd-stats { display: grid; grid-template-columns: 1fr 1fr; margin: 0; padding: 4px 12px; border: 1px solid var(--pd-line); border-radius: 12px; }
+.pd-stat { display: flex; flex-direction: column; gap: 2px; min-width: 0; padding: 10px 0; }
+.pd-stat:nth-child(even) { align-items: flex-end; text-align: right; padding-left: 12px; border-left: 1px solid var(--pd-line); }
+.pd-stat:nth-child(odd) { padding-right: 12px; }
+.pd-stat:nth-child(n+3) { border-top: 1px solid var(--pd-line); }
+.pd-stat dt { display: inline-flex; align-items: center; gap: 4px; color: var(--pd-muted); font: 500 12px/18px var(--font-fold); }
+.pd-stat dd { margin: 0; color: var(--pd-ink); font: 600 14px/20px var(--font-fold); }
+.pd-about { padding-top: 20px; border-top: 1px solid var(--pd-line); color: var(--fold-charcoal); }
+.pd-q, .pd-preview, .pd-why { color: var(--fold-dark); }
+.pd-about summary { display: flex; flex-direction: column; cursor: pointer; list-style: none; }
+.pd-about summary::-webkit-details-marker { display: none; }
+.pd-about summary:focus-visible { outline: 2px solid var(--fold-cerise); outline-offset: 4px; border-radius: 4px; }
+.pd-about-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.pd-about h2 { margin: 0; font: 600 16px/24px var(--font-fold); }
+.pd-about h3 { margin: 8px 0 0; font: 600 14px/20px var(--font-fold); }
+.pd-more-open, .pd-more-close { flex: none; color: var(--fold-cerise); font: 500 14px/20px var(--font-fold); }
+.pd-more-close, .pd-about[open] .pd-more-open { display: none; }
+.pd-about[open] .pd-more-close { display: inline; }
+.pd-q { margin-top: 20px; font: 500 14px/20px var(--font-fold); }
+.pd-preview { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font: 400 14px/20px var(--font-fold); }
+.pd-about[open] .pd-preview { white-space: normal; }
+.pd-about > h3 { margin-top: 16px; }
+.pd-why { display: flex; flex-direction: column; gap: 6px; margin: 6px 0 0; padding: 0; list-style: none; font: 400 14px/20px var(--font-fold); }
+/* Price band: live's dark band and medal card; button is bKash light (white, Cerise text, 6px) */
+.pd-price { display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 0 -16px; padding: 32px 16px; background: #1F2D4F url("assets/program-detail/price-bg.jpg") center / cover; color: #fff; text-align: center; }
+.pd-price h2 { margin: 0; font: 600 18px/28px var(--font-fold); }
+.pd-price > p { margin: 0; font: 500 14px/20px var(--font-fold); }
+.pd-plan { display: flex; flex-direction: column; gap: 20px; width: min(100%, 280px); margin-top: 28px; padding: 24px 20px; border: 1px solid rgba(255,255,255,0.6); border-radius: 12px; text-align: left; color: #F0F6F8; }
+.pd-plan-top { display: flex; align-items: center; justify-content: center; gap: 16px; }
+.pd-medal { flex: none; width: 72px; height: 72px; }
+.pd-plan p { margin: 0; }
+.pd-plan-name { font: 600 18px/28px var(--font-fold); }
+.pd-plan-period { font: 500 14px/20px var(--font-fold); white-space: nowrap; }
+.pd-plan-price { margin-top: 8px !important; font: 600 18px/28px var(--font-fold); }
+.pd-plan-btn { width: 100%; height: 48px; font: 600 14px/20px var(--font-fold); }
+/* Live's centred section headings */
+.pd-block { display: flex; flex-direction: column; gap: 16px; }
+.pd-h { margin: 0; color: var(--pd-ink-2); font: 600 18px/28px var(--font-fold); text-align: center; text-wrap: balance; }
+/* কী কী পাচ্ছো: 4 per view, swipe by page */
+.pd-feats { display: grid; grid-auto-flow: column; grid-auto-columns: 25%; width: 100%; margin: 8px 0 0; padding: 0; list-style: none; scroll-snap-type: x mandatory; scroll-padding-inline: 0; }
+.pd-feats > li { scroll-snap-align: none; }
+.pd-feats > li:nth-child(4n+1) { scroll-snap-align: start; }
+.pd-feat { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 0 4px; text-align: center; color: var(--pd-ink-2); font: 500 12px/18px var(--font-fold); }
+.pd-feat img { width: 30px; height: 30px; object-fit: contain; }
+.pd-dots { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.pd-dots button { width: 16px; height: 10px; border-radius: 999px; background: #D0DEEF; transition: width 200ms ease, background-color 200ms ease; }
+.pd-dots button[aria-current="true"] { width: 32px; background: #FFA8AB; }
+.pd-dots button:focus-visible { outline: 2px solid var(--fold-cerise); outline-offset: 2px; }
+.pd-dots--many { flex-wrap: nowrap; gap: 4px; }
+.pd-dots--many button { width: 6px; height: 6px; }
+.pd-dots--many button[aria-current="true"] { width: 16px; }
+/* Syllabus: one box per subject; the open one has live's magenta header */
+.pd-subjects { display: flex; flex-direction: column; gap: 8px; }
+.pd-subject { border: 1px solid transparent; border-radius: 15px; background: #fff; }
+.pd-subject[open] { border-color: var(--fold-cerise); overflow: hidden; }
+.pd-subject summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; color: var(--pd-ink-3); font: 600 16px/24px var(--font-fold); cursor: pointer; list-style: none; }
+.pd-subject summary::-webkit-details-marker { display: none; }
+.pd-subject summary:focus-visible { outline: 2px solid var(--fold-cerise); outline-offset: -2px; border-radius: 15px; }
+.pd-subject[open] summary { padding: 12px 16px; background: var(--fold-cerise); color: #fff; }
+.pd-chev { display: grid; place-items: center; flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--fold-slate); color: var(--fold-dark); font-style: normal; transition: transform 150ms ease; }
+.pd-subject[open] .pd-chev { background: #fff; color: var(--fold-cerise); transform: rotate(180deg); }
+.pd-chapters { max-height: 530px; overflow-y: auto; margin: 0; padding: 4px 8px 0 20px; list-style: none; }
+.pd-chapters li { padding: 14px 0; border-bottom: 1px solid var(--pd-line); color: var(--fold-charcoal); font: 400 14px/20px var(--font-fold); }
+.pd-nodata { margin: 0; padding: 0 20px 16px; color: var(--fold-dark); font: 500 14px/20px var(--font-fold); }
+.pd-routine-img { display: block; width: 100%; height: auto; border-radius: 12px; }
+.pd-routine-btn { height: 48px; }
+/* Teachers: live's carousel cards (one centred, neighbours peeking), subject-coloured photo tiles */
+.pd-teacher-row { display: flex; gap: 16px; margin: 0 -16px; padding: 0 calc(50% - 125px) 4px; list-style: none; scroll-snap-type: x mandatory; scroll-padding-inline: 0; }
+.pd-teacher-row > li { scroll-snap-align: center; }
+.pd-teacher { flex: none; width: 251px; padding: 12px 12px 16px; border: 1px solid #D0DEEF; border-radius: 15px; background: #fff; text-align: center; }
+.pd-teacher-pic { display: block; overflow: hidden; border-radius: 8px 8px 0 0; }
+.pd-teacher-pic img { display: block; width: 100%; height: 200px; object-fit: contain; object-position: bottom; }
+.pd-teacher p { margin: 0; }
+.pd-teacher-name { margin-top: 20px !important; color: var(--pd-ink-3); font: 600 18px/28px var(--font-fold); }
+.pd-teacher-sub { margin-top: 4px !important; color: var(--fold-dark); font: 400 14px/20px var(--font-fold); }
+.pd-teacher-sub + .pd-teacher-sub { margin-top: 0 !important; }
+.pd-call { margin: 0 -16px; } /* homepage call section brings its own 16px inset */
+@media (prefers-reduced-motion: reduce) { .pd-dots button, .pd-chev { transition: none; } }
+/* ভর্তি হও flow: full-height enrolment drawer (slides in from the right). Live Shikho design as is
+   (layout, order, sizes); only the colours (Fold), font and buttons (bKash: Cerise, 6px, 14/20 600) differ. */
+.pd-drawer { position: fixed; inset: 0; z-index: 300; display: flex; justify-content: center; background: var(--fold-overlay-black); } /* panel sits on the phone-width page column */
+.pd-drawer[hidden] { display: none; }
+.pd-drawer-panel { display: flex; flex-direction: column; width: min(100%, var(--page-width)); height: 100%; background: var(--fold-ash); }
+.pd-drawer-head { flex: none; padding: calc(16px + env(safe-area-inset-top)) 16px 8px; }
+.pd-drawer-head h2 { margin: 0; color: var(--fold-charcoal); font: 600 18px/28px var(--font-fold); text-wrap: balance; }
+.pd-drawer-back { margin-bottom: 16px; border-radius: 6px; font-weight: 600; } /* live desktop's back button, bKash light style */
+.pd-drawer-body { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; padding: 8px 16px 24px; }
+.pd-dh { margin: 8px 0 0; color: var(--fold-charcoal); font: 600 16px/24px var(--font-fold); }
+.pd-term { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 20px; border: 2px solid var(--fold-cerise); border-radius: 10px; background: #fff; }
+.pd-term p { margin: 0; }
+.pd-term-tag { display: inline-block; padding: 2px 6px; border-radius: 4px; background: var(--fold-bloom); color: var(--fold-cerise); font: 500 12px/18px var(--font-fold); }
+.pd-term-period { margin-top: 4px !important; color: var(--fold-charcoal); font: 600 16px/24px var(--font-fold); }
+.pd-term-price { color: var(--fold-charcoal); font: 600 18px/28px var(--font-fold); }
+.pd-promo { display: flex; flex-direction: column; gap: 12px; padding: 16px; border: 1px solid var(--fold-slate); border-radius: 12px; background: #fff; }
+.pd-promo-h { display: flex; align-items: center; gap: 12px; margin: 0; color: var(--fold-charcoal); font: 500 14px/20px var(--font-fold); }
+.pd-promo-ic { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 6px; background: var(--fold-ash); color: var(--fold-graphite); }
+.pd-promo-row { display: flex; gap: 10px; }
+.pd-promo-row input { flex: 1; min-width: 0; height: 44px; padding: 0 12px; border: 1px solid var(--fold-grey); border-radius: 6px; background: #fff; color: var(--fold-charcoal); font: 400 14px/20px var(--font-fold); }
+.pd-promo-row input::placeholder { color: var(--fold-graphite); }
+.pd-promo-row input:focus { outline: none; border-color: var(--fold-cerise); box-shadow: inset 0 0 0 1px var(--fold-cerise); }
+.pd-promo-btn { flex: none; height: 44px; }
+.pd-promo-btn:disabled, .pd-enroll-btn:disabled { background: var(--fold-grey); color: var(--fold-graphite); cursor: not-allowed; }
+.pd-promo-msg { margin: 0; color: var(--fold-crimson); font: 400 12px/18px var(--font-fold); }
+.pd-summary { margin: 0; padding: 4px 20px; border: 1px solid var(--fold-slate); border-radius: 12px; background: #fff; }
+.pd-summary div { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; }
+.pd-summary div + div { border-top: 1px solid var(--fold-slate); }
+.pd-summary dt { color: var(--fold-dark); font: 400 14px/20px var(--font-fold); }
+.pd-summary dd { margin: 0; color: var(--fold-charcoal); font: 500 14px/20px var(--font-fold); text-align: right; }
+.pd-agree { display: flex; align-items: center; gap: 12px; color: var(--fold-charcoal); font: 400 14px/20px var(--font-fold); }
+.pd-agree input { flex: none; width: 18px; height: 18px; margin: 0; accent-color: var(--fold-cerise); }
+.pd-agree a { color: var(--fold-cerise); font-weight: 500; text-decoration: none; }
+.pd-agree span { min-width: 0; }
+.pd-drawer-foot { flex: none; display: flex; flex-direction: column; gap: 16px; padding: 20px 16px calc(16px + env(safe-area-inset-bottom)); border-top: 1px solid var(--fold-slate); background: #fff; }
+.pd-total { display: flex; justify-content: space-between; margin: 0; color: var(--fold-charcoal); font: 600 16px/24px var(--font-fold); }
+.pd-enroll-btn { height: 44px; }

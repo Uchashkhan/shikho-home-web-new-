@@ -104,16 +104,17 @@
       </div>
       ${cta}`;
   window.ShikhoSheet.successView = successView; // also used by the profile edit (profile-info.js)
-
   // ---------- Views ----------
-  // Course page: one course, one price
+  // Course / program page: one course, one price. Optional data-sub (subtitle) and
+  // data-points ("a|b|c" check list) let the program details page describe itself.
   function enroll(el) {
     const d = el.dataset, price = en(d.price);
+    const points = d.points ? d.points.split('|') : ['অ্যানিমেটেড ক্লাস', 'সাধারণ গণিত · ১৭টি অধ্যায়', 'জীববিজ্ঞান ও English', 'অভিজ্ঞ মেন্টর'];
     open('কোর্সে ভর্তি', `
       ${thumb(d.thumb, d.title)}
       <h3 class="sheet-h">${esc(d.title)}</h3>
-      <p class="sheet-sub">কোর্সের মেয়াদ ${esc(d.days)} দিন</p>
-      ${checks(['অ্যানিমেটেড ক্লাস', 'সাধারণ গণিত · ১৭টি অধ্যায়', 'জীববিজ্ঞান ও English', 'অভিজ্ঞ মেন্টর'])}
+      <p class="sheet-sub">${d.sub ? esc(d.sub) : `কোর্সের মেয়াদ ${esc(d.days)} দিন`}</p>
+      ${checks(points)}
       <div class="sheet-total"><span>মোট মূল্য</span><span>${d.old ? `<s>${taka(en(d.old))}</s>` : ''}<b>${taka(price)}</b></span></div>
       ${payFor()}
       <div class="note">${PROTO_NOTE}</div>

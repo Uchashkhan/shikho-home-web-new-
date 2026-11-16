@@ -17,6 +17,11 @@
     quarterSyllabus: { path: '/student/my-courses/[id]?type=academic&phaseId=[id]&showSyllabus=yes', local: null },
     supportGroup: { path: 'facebook.com/groups/1295699510805542', local: null },
     courseOther: { path: '/student/courses/[id]', local: null }, // only one course detail is built
+    programDetail: { path: '/student/academic-program/[id]?wp=yes&purchase=1', local: 'program-detail.html' }, // কোর্স tab বিস্তারিত দেখো
+    programVideo: { path: null, local: null }, // the program's intro video
+    routineDownload: { path: null, local: null }, // live: routine not published yet ("রুটিন শীঘ্রই আসছে")
+    terms: { path: '/terms-and-conditions', local: null }, // enrolment drawer agreement links
+    refund: { path: '/refund-policy', local: null },
     video: { path: '/student/watch', local: 'watch.html' },
     paymentVideo: { path: null, local: null },
     helpCall: { path: 'tel:', local: null }, // homepage কল করো; the prototype doesn't dial
@@ -137,6 +142,39 @@
     if (start) apply(start);
   });
 
+  /* Simple swipe slider ([data-slider]: [data-slides] scroller + [data-dots]), like the live program
+     page's carousels: one dot per snap point (the items whose CSS scroll-snap-align isn't none) */
+  document.querySelectorAll('[data-slider]').forEach((root) => {
+    const track = root.querySelector('[data-slides]');
+    const dotsBox = root.querySelector('[data-dots]');
+    if (!track || !dotsBox) return;
+    const stops = () => [...track.children].filter((li) => getComputedStyle(li).scrollSnapAlign.trim() !== 'none');
+    const offset = (li) => {
+      const align = getComputedStyle(li).scrollSnapAlign.trim();
+      const left = li.offsetLeft - track.offsetLeft;
+      return align.endsWith('center') ? left - (track.clientWidth - li.offsetWidth) / 2 : left;
+    };
+    const current = (list) => {
+      let best = 0, bd = Infinity;
+      list.forEach((li, i) => { const d = Math.abs(offset(li) - track.scrollLeft); if (d < bd) { bd = d; best = i; } });
+      return best;
+    };
+    const render = () => {
+      const list = stops();
+      if (dotsBox.children.length !== list.length) {
+        dotsBox.innerHTML = list.map((_, i) => `<button type="button" aria-label="${i + 1} নম্বর"></button>`).join('');
+        [...dotsBox.children].forEach((b, i) => b.addEventListener('click', () => track.scrollTo({ left: offset(stops()[i]), behavior: 'smooth' })));
+        dotsBox.classList.toggle('pd-dots--many', list.length > 8);
+      }
+      dotsBox.hidden = list.length < 2;
+      const at = current(list);
+      [...dotsBox.children].forEach((b, i) => b.setAttribute('aria-current', String(i === at)));
+    };
+    track.addEventListener('scroll', () => requestAnimationFrame(render), { passive: true });
+    addEventListener('resize', render);
+    render();
+  });
+
   /* Course detail: section tabs follow the scroll position */
   const tabs = [...document.querySelectorAll('.course-tabs a')];
   if (tabs.length && 'IntersectionObserver' in window) {
@@ -231,9 +269,22 @@
   // Figma slots; the slide that wraps around jumps off-screen without animating.
   tracks.forEach((track) => {
     const all = [...track.children].filter((c) => leftOf(c) !== null).sort((a, b) => leftOf(a) - leftOf(b));
-    const slots = all.map(leftOf);
-    const own = new Map(all.map((s) => [s, leftOf(s)]));
-    const step = slots[1] - slots[0];
+    const design = all.map(leftOf);
+    const designStep = design[1] - design[0];
+    let slots = design, own = new Map(all.map((s) => [s, leftOf(s)])), step = designStep;
+    // Slides may be narrower than the 412px Figma on small phones (styles.css):
+    // space the slots by the slide's rendered width instead of the Figma offsets
+    const fit = () => {
+      const w = all[0].offsetWidth;
+      if (!w) return;
+      const k = w / designStep;
+      const o = design.find((x) => x + designStep > 0) ?? 0; // first on-screen slot keeps its Figma offset
+      slots = design.map((x) => o + (x - o) * k);
+      own = new Map(all.map((s, i) => [s, slots[i]]));
+      step = w;
+      all.forEach((s, i) => { s.style.left = `${slots[i]}px`; });
+    };
+    fit();
     const viewport = track.parentElement;
     // First slot that shows on screen; slots before it sit off-screen to the left
     // (from the Figma offsets: layout may not be styled yet when this runs)
@@ -366,6 +417,8 @@
     viewport.addEventListener('click', (e) => { if (Math.abs(dx) > 5) e.preventDefault(); }, true);
     viewport.querySelectorAll('img').forEach((img) => (img.draggable = false));
     render();
+    // Tailwind styles arrive after this runs, and the width changes with the screen
+    new ResizeObserver(() => { fit(); render(index, true); }).observe(all[0]);
   });
 
   /* Subject filter chips: scrollable row with a single active chip that filters the cards */

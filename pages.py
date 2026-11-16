@@ -114,6 +114,10 @@ def course_card(c, compact=False):
         </article>'''
 
 
+# অন্যান্য কোর্স whose বিস্তারিত দেখো opens a built details page (the rest go to the live route)
+DETAIL_PAGES = {"লক্ষ্য জিপিএ-৫ SSC ’27 বিজ্ঞান - রিভিশন + মডেল টেস্ট": "program-detail.html"}
+
+
 def courses_page():
     """কোর্স tab, content from app.shikho.com/student/my-courses: আমার কোর্স (enrolled; paid view only),
     অন্যান্য কোর্স (3-day trial), ফ্রি কোর্স. Same order as the live page."""
@@ -132,7 +136,9 @@ def courses_page():
     other = "\n        ".join(card(
         c, [("trial", "৩ দিন সবকিছু ফ্রি!")] if c["trial"] else [],
         ('<button type="button" class="btn-primary bk-chev mc-cta" data-sheet="trial">৩ দিন ফ্রিতে শিখো</button>' if c["trial"] else "")
-        + '<button type="button" class="btn-secondary mc-cta" data-sheet="program">বিস্তারিত দেখো</button>') for c in d["other"])
+        + (f'<a href="{DETAIL_PAGES[c["title"]]}" class="btn-secondary mc-cta" data-route="programDetail">বিস্তারিত দেখো</a>'
+           if c["title"] in DETAIL_PAGES else
+           '<a href="#" class="btn-secondary mc-cta" data-route="courseOther">বিস্তারিত দেখো</a>')) for c in d["other"])
     free = "\n        ".join(card(
         c, [("free", "সম্পুর্ন ফ্রি")],
         '<a href="#" class="btn-primary bk-chev mc-cta" data-route="courseOther">সম্পূর্ণ ফ্রি’তে শুরু করো</a>'
@@ -313,6 +319,166 @@ def course_detail_page():
         <button type="button" class="btn-enroll bk-chev" data-sheet="enroll" data-title="{e(c["title"])}" data-thumb="{c["thumb"]}" data-price="{e(c["price"])}" data-old="{e(c["old"] or "")}" data-days="{e(c["days"])}">কোর্সে ভর্তি হও</button>
       </div>
     </main>'''
+
+
+# ---------- Academic program details (কোর্স tab → অন্যান্য কোর্স → বিস্তারিত দেখো) ----------
+
+# Teacher photo tiles: live colours per subject
+TEACHER_TILE = {"বাংলাদেশ ও বিশ্ব পরিচয়": "#FCF2E3", "ইংরেজী": "#E1F8FA", "বাংলা": "#FFEBEE",
+                "পদার্থবিজ্ঞান": "#E9ECF5", "রসায়ন": "#E4F5FA", "গণিত": "#EBE5F1", "জীববিজ্ঞান": "#E4F2EB",
+                "তথ্য ও যোগাযোগ প্রযুক্তি": "#DEF3F0"}
+INFO_IC = ('<svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" '
+           'stroke-width="1.4"><circle cx="8" cy="8" r="6.3"/><path d="M8 7.2v3.6M8 5.2v.1" stroke-linecap="round"/></svg>')
+DOWN_IC = ('<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+           'stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>')
+
+
+
+
+TICKET_IC = ('<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+             'stroke-width="1.8" stroke-linejoin="round"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4Z"/>'
+             '<path d="M9 7v10" stroke-dasharray="2 2"/></svg>')
+
+BACK_ARROW_IC = ('<svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+                 'stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5m6-6-6 6 6 6"/></svg>')
+
+
+def program_detail_page():
+    """Program page from app.shikho.com/student/academic-program/[id] (phone layout, read 2026-11-16).
+    Same as live: sections, order, banners, Shikho colours and text sizes. Changed for bKash: the
+    font (Inter Tight + Noto Sans Bengali, weights 400-600) and every button (Cerise, 6px radius)."""
+    d = data("program-gpa5-ssc27.json")
+    plan = d["plan"]
+    stats = "".join(
+        f'<div class="pd-stat"><dt>{e(k)}{INFO_IC if i == 3 else ""}</dt><dd>{e(v)}</dd></div>'
+        for i, (k, v) in enumerate(d["stats"]))
+    why = "".join(f"<li>{e(x)}</li>" for x in d["why"])
+    feats = "".join(
+        f'<li class="pd-feat"><img src="assets/program-detail/{f}" alt="" width="30" height="30" loading="lazy"><span>{e(n)}</span></li>'
+        for n, f in d["features"])
+
+    def subject(i, s):
+        name, _icon, chapters = s
+        body = ('<ul class="pd-chapters">' + "".join(f"<li>{e(t)}</li>" for t in chapters) + "</ul>"
+                if chapters else '<p class="pd-nodata">No data</p>')
+        return f'''<details class="pd-subject"{" open" if i == 0 else ""}>
+          <summary><span>{e(name)}</span><i class="pd-chev">{DOWN_IC}</i></summary>
+          {body}
+        </details>'''
+
+    teachers = "\n          ".join(
+        f'''<li class="pd-teacher"><span class="pd-teacher-pic" style="background:{TEACHER_TILE.get(s, "#F4F4F6")}"><img src="{img}" alt="" width="227" height="200" loading="lazy"></span>
+            <p class="pd-teacher-name">{e(n)}</p><p class="pd-teacher-sub">{e(s)}</p><p class="pd-teacher-sub">{e(u)}</p></li>'''
+        for n, s, u, img in d["teachers"])
+    call = open(os.path.join(ROOT, "src", "s09_call.html"), encoding="utf-8").read()
+    return f'''<main class="subpage-main pd-page">
+      <div class="pd-title-band"><h2 class="pd-title">{e(d["title"])}</h2></div>
+      <a href="#" class="pd-video" data-route="programVideo" aria-label="প্রোগ্রামের ভিডিও দেখো">
+        <img src="{d["video"]}" alt="" width="1080" height="608">
+        <span class="video-play">{PLAY}</span>
+      </a>
+      <dl class="pd-stats">{stats}</dl>
+
+      <details class="pd-about">
+        <summary>
+          <span class="pd-about-head"><h2>কোর্সটি সম্পর্কে</h2><span class="pd-more-open">বিস্তারিত দেখো</span><span class="pd-more-close">সংক্ষেপ করো</span></span>
+          <h3>প্রোগ্রাম সম্পর্কে বিস্তারিত</h3>
+          <span class="pd-q">এই প্রোগ্রামটি কাদের জন্য?</span>
+          <span class="pd-preview">{e(d["for_whom"])}</span>
+        </summary>
+        <h3>কোর্সটি তোমার কেন প্রয়োজন?</h3>
+        <ul class="pd-why">{why}</ul>
+      </details>
+
+      <section class="pd-price" aria-labelledby="pd-price-h">
+        <h2 id="pd-price-h">Shikho একাডেমিক প্রোগ্রাম</h2>
+        <p>পছন্দ অনুযায়ী প্রোগ্রামের মেয়াদ সিলেক্ট করে ভর্তি হয়ে যাও</p>
+        <div class="pd-plan">
+          <div class="pd-plan-top">
+            <svg class="pd-medal" aria-hidden="true" width="80" height="80" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#D4956A"/><circle cx="32" cy="32" r="26" fill="#C27C5F"/><circle cx="32" cy="32" r="22" fill="#F9E46A"/><path d="m32 19 3.9 8.3 9.1 1.1-6.7 6.2 1.8 9L32 39.1l-8.1 4.5 1.8-9-6.7-6.2 9.1-1.1Z" fill="#F2A93B"/></svg>
+            <div>
+              <p class="pd-plan-name">{e(plan["name"])}</p>
+              <p class="pd-plan-period">{e(plan["period"])}</p>
+              <p class="pd-plan-price">৳ {e(plan["price"])}</p>
+            </div>
+          </div>
+          <button type="button" class="btn-light pd-plan-btn" data-enroll-open aria-haspopup="dialog">ভর্তি হও</button>
+        </div>
+      </section>
+
+      <section class="pd-block" aria-labelledby="pd-features-h" data-slider>
+        <h2 class="pd-h" id="pd-features-h">Shikho একাডেমিক প্রোগ্রামে কী কী পাচ্ছো?</h2>
+        <ul class="pd-feats h-scroll" data-slides>{feats}</ul>
+        <div class="pd-dots" data-dots></div>
+      </section>
+
+      <section class="pd-block" aria-labelledby="pd-syllabus-h">
+        <h2 class="pd-h" id="pd-syllabus-h">প্রোগ্রামের সিলেবাস</h2>
+        <div class="pd-subjects">
+        {"".join(subject(i, s) for i, s in enumerate(d["subjects"]))}
+        </div>
+      </section>
+
+      <section class="pd-block" aria-labelledby="pd-routine-h">
+        <h2 class="pd-h" id="pd-routine-h">ক্লাস রুটিন ও সিলেবাস</h2>
+        <img class="pd-routine-img" src="{d["routine"]}" alt="রুটিন শীঘ্রই আসছে" width="1080" height="462" loading="lazy">
+        <a href="#" class="btn-primary btn-block pd-routine-btn" data-route="routineDownload">রুটিন ডাউনলোড করো</a>
+      </section>
+
+      <section class="pd-block" aria-labelledby="pd-teachers-h" data-slider>
+        <h2 class="pd-h" id="pd-teachers-h">আমাদের সেরা শিক্ষকেরা</h2>
+        <ul class="pd-teacher-row h-scroll" data-slides>
+          {teachers}
+        </ul>
+        <div class="pd-dots" data-dots></div>
+      </section>
+
+      <div class="pd-call">
+{call}
+      </div>
+    </main>
+
+    <!-- ভর্তি হও → enrolment drawer: live Shikho design as is (layout, order, copy); only the
+         colours, font and buttons are bKash. Live's batch-check popup is left out (user's request). -->
+    <div class="pd-drawer" data-enroll-drawer hidden>
+      <div class="pd-drawer-panel" role="dialog" aria-modal="true" aria-labelledby="pd-drawer-title">
+        <div class="pd-drawer-head">
+          <button type="button" class="btn-soft pd-drawer-back" data-close>{BACK_ARROW_IC}আগের পেজে ফিরে যাও</button>
+          <h2 id="pd-drawer-title">{e(d["title"])}</h2>
+        </div>
+        <div class="pd-drawer-body">
+          <h3 class="pd-dh">ভর্তির মেয়াদ</h3>
+          <div class="pd-term" aria-current="true">
+            <div><span class="pd-term-tag">রিভিশন + মডেল টেস্ট</span><p class="pd-term-period">{e(plan["period"])}</p></div>
+            <p class="pd-term-price">৳{e(plan["price"])}</p>
+          </div>
+
+          <div class="pd-promo">
+            <p class="pd-promo-h"><span class="pd-promo-ic">{TICKET_IC}</span>প্রোমো কোড অ্যাপ্লাই করো</p>
+            <div class="pd-promo-row">
+              <label class="sr-only" for="pd-promo-input">প্রোমো কোড</label>
+              <input id="pd-promo-input" type="text" placeholder="তোমার প্রোমো কোডটি লেখো" autocomplete="off" data-promo>
+              <button type="button" class="btn-primary pd-promo-btn" data-promo-apply disabled>যোগ করো</button>
+            </div>
+            <p class="pd-promo-msg" data-promo-msg hidden></p>
+          </div>
+
+          <h3 class="pd-dh">ভর্তির বিস্তারিত</h3>
+          <dl class="pd-summary">
+            <div><dt>কোর্স শুরুর তারিখ</dt><dd>01-08-2026</dd></div>
+            <div><dt>ভর্তির মেয়াদ</dt><dd>{e(plan["period"])}</dd></div>
+            <div><dt>ভর্তি ফি</dt><dd>৳{e(plan["price"])}</dd></div>
+          </dl>
+
+          <label class="pd-agree"><input type="checkbox" checked data-agree><span>আমি <a href="#" data-route="terms">টার্মস এবং কন্ডিশনস</a> এর সাথে একমত</span></label>
+          <label class="pd-agree"><input type="checkbox" checked data-agree><span>আমি <a href="#" data-route="refund">রিফান্ড পলিসি</a> এর সাথে একমত</span></label>
+        </div>
+        <div class="pd-drawer-foot">
+          <p class="pd-total"><span>সর্বমোট</span><b>৳{e(plan["price"])}</b></p>
+          <button type="button" class="btn-primary btn-block pd-enroll-btn" data-enroll-pay>পেমেন্ট করো এখনই</button>
+        </div>
+      </div>
+    </div>'''
 
 
 # ---------- Prototype switch: ফ্রি / পেইড student ----------
